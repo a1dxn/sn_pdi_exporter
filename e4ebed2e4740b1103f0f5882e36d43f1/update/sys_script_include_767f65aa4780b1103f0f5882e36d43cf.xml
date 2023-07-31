@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.PDIExporterUtils</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>PDIExporterUtils</name>
+        <script><![CDATA[var PDIExporterUtils = Class.create();
+//@constants
+PDIExporterUtils.SCHEDULED_JOB_TEMPLATE_ID = "88f67e0d47d8b1103f0f5882e36d43e4";
+
+PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, {
+	
+    initialize: function (exportConfig) {
+		if(exportConfig) {
+			this.exportGr = this.getConfigFromId(exportConfig, "export", true);
+			if (!this.exportGr) throw "Invalid exportConfig parameter provided";
+			this.parent_table = this.exportGr.getTableName();
+			this.sys_id = this.exportGr.getUniqueValue();
+			this.querySets = [];
+		}
+    },
+
+    getConfigFromId: function (id, recordType, forceNew) {
+        var tableName;
+        switch (recordType) {
+            case "u_pdi_export_m2m_filters":
+            case "export_filter": tableName = "u_pdi_export_m2m_filters";
+                break;
+            case "u_pdi_export_filter":
+            case "filter": tableName = "u_pdi_export_filter";
+                break;
+            case "u_pdi_export":
+            case "export": tableName = "u_pdi_export";
+                break;
+        }
+        if (tableName) {
+            var conf = this._getCache("config_gr_store", tableName + "/" + id);
+            if (forceNew || !conf) {
+                conf = new GlideRecord(tableName);
+                if (conf.get(id)) {
+                    this._setCache("config_gr_store", tableName + "/" + id, conf);
+                }
+            }
+            return conf;
+        }
+        return undefined;
+    },
+	
+	createPushJob: function() {
+		var job = new GlideRecord("u_pdi_export_run");
+		job.newRecord();
+		job.u_direction = "push";
+		job.u_export = this.sys_id;
+		return job.insert();
+	},
+	
+	createPullJob: function() {
+		var job = new GlideRecord("u_pdi_export_run");
+		job.newRecord();
+		job.u_direction = "pull";
+		job.u_export = this.sys_id;
+		return job.insert();
+	},
+
+    /**
+     * Add a query definition to define a collection of records to export
+     * @param String table
+     * @param String query - encoded query string
+     */
+    addQuerySet: function (table, query, configRecord) {
+        var conf = configRecord || this.exportGr;
+        this.querySets.push({
+            table: table,
+            query: query,
+            conf: {
+                type: conf.getTableName(),
+                id: conf.getUniqueValue()
+            }
+        });
+    },
+
+    runXMLExport: function () {
+        var relatedIds = this.getFilterIds();
+        if (relatedIds) {
+            this.addQuerySet("u_pdi_export_m2m_filters", "sys_idIN" + relatedIds.m2mIds.join());
+            for (var i in relatedIds.filterIds) {
+                this._addFilterQueries(relatedIds.filterIds[i]);
+            }
+        }
+        this.setConfigOptions(this.exportGr);
+        this.addRecord(this.exportGr);
+        this._exportQuerySets();
+        return this.getOutput();
+    },
+
+    /**
+     * Process query sets and export results
+     */
+    _exportQuerySets: function () {
+        for (var i = 0; i < this.querySets.length; i++) {
+            var set = this.querySets[i];
+            this.setConfigOptions(this.getConfigFromId(set.conf.id, set.conf.type));
+            var gr = new GlideRecord(set.table);
+            gr.addEncodedQuery(set.query);
+            gr._query();
+            while (gr._next())
+                this.addRecord(gr);
+        }
+    },
+
+    _addFilterQueries: function (filterId, parent) {
+        var filter = new GlideRecord("u_pdi_export_filter");
+        if (filter.get(filterId)) {
+            this.addQuerySet(filter.getTableName(), filter.getEncodedQuery(), this.exportGr);
+            this.addQuerySet(filter.getValue("u_table"), filter.getValue("u_condition"), filter);
+        }
+    },
+
+    getFilterIds: function () {
+        var filter = new GlideAggregate("u_pdi_export_m2m_filters");
+        filter.addQuery("u_pdi_export", this.exportGr.getUniqueValue());
+        filter.orderBy("u_order");
+        filter.setGroup(false);
+        filter.addAggregate("GROUP_CONCAT_DISTINCT", "sys_id");
+        filter.addAggregate("GROUP_CONCAT_DISTINCT", "u_pdi_export_filter");
+        filter._query();
+        if (filter._next()) {
+            return {
+                m2mIds: filter.getAggregate("GROUP_CONCAT_DISTINCT", "sys_id").split(","),
+                filterIds: filter.getAggregate("GROUP_CONCAT_DISTINCT", "u_pdi_export_filter").split(","),
+            };
+        }
+        return null;
+    },
+	
+	getFileName: function() {
+		return "" + this.parent_table + "_" + this.exportGr.getValue("u_number").trim() + ".xml";
+	},
+	
+	encode: function(data) {
+		return GlideStringUtil.base64Encode(data.toString());
+	},
+	
+	decode: function(encodedData) {
+		return GlideStringUtil.base64Decode(encodedData.toString());
+	},
+	
+	validateEncoding: function(encodedContent) { //hashing wasnt working so we'll compare encodings instead!
+		var decoded = this.decode(encodedContent);
+		var recoded = this.encode(decoded);
+		return encodedContent == recoded;
+	},
+	
+	findOrCreateScheduledJob: function() {
+		var job = new GlideRecord("sysauto_script");
+		job.addQuery("script", "CONTAINS", this.sys_id);
+		job.query();
+		if(job.next()) {
+			return job.getRowCount() === 1 ? job.getLink(true) : ("/" + job.getTableName() + "_list.do?sysparm_query=" + job.getEncodedQuery());
+		} else {
+			job.newRecord();
+			GlideTemplate.get(PDIExporterUtils.SCHEDULED_JOB_TEMPLATE_ID).apply(job);
+			job.setValue("name", job.getValue("name").replaceAll("<number>", this.exportGr.getValue("u_number")));
+			job.setValue("script", job.getValue("script").replaceAll("<sys_id>", this.sys_id));
+			job.insert();
+			return job;
+		}
+	},
+
+    type: 'PDIExporterUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-18 11:33:39</sys_created_on>
+        <sys_id>767f65aa4780b1103f0f5882e36d43cf</sys_id>
+        <sys_mod_count>34</sys_mod_count>
+        <sys_name>PDIExporterUtils</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_script_include_767f65aa4780b1103f0f5882e36d43cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-26 21:23:41</sys_updated_on>
+    </sys_script_include>
+</record_update>

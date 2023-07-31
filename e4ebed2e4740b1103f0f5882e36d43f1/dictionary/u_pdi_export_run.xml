@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="a2e90778479c31103f0f5882e36d4391" label="PDI Export Run" max_length="40" name="u_pdi_export_run" type="collection">
+        <element choice="1" label="Direction" max_length="40" name="u_direction" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Push" sequence="1" value="push"/>
+                <element inactive_on_update="false" label="Pull" sequence="2" value="pull"/>
+            </choice>
+        </element>
+        <element label="Export" max_length="32" name="u_export" reference="u_pdi_export" type="reference"/>
+        <element label="Message" max_length="500000" name="u_message" type="string_full_utf8"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" read_only="true" type="string"/>
+        <element choice="3" default="0" label="State" max_length="40" name="u_state" type="integer">
+            <choice>
+                <element inactive_on_update="false" label="Queued" sequence="100" value="0"/>
+                <element inactive_on_update="false" label="Generating Data" sequence="200" value="1"/>
+                <element inactive_on_update="false" label="Sending Data" sequence="300" value="2"/>
+                <element inactive_on_update="false" label="Retrieving Data" sequence="400" value="3"/>
+                <element inactive_on_update="false" label="Complete" sequence="500" value="4"/>
+                <element inactive_on_update="false" label="Error" sequence="600" value="5"/>
+            </choice>
+        </element>
+        <index name="index">
+            <element name="u_export"/>
+        </index>
+    </element>
+</database>

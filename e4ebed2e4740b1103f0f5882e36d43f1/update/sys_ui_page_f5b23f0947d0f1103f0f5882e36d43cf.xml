@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[// Get the buttons and progress bar elements
+var AJAX_UTILS = "global.PDIExporterUtilsAjax";
+
+var H_TITLE = document.getElementById('title');
+var DIV_STARTER = document.getElementById('starter');
+var BTN_UPLOAD = document.getElementById('upload-btn');
+var BTN_DOWNLOAD = document.getElementById('download-btn');
+
+var DIV_PROGRESS = document.getElementById('progress');
+var H_PROGRESS_SUBTITLE = document.getElementById('progress-subtitle');
+var C_PROGRESS_VALUE = document.getElementById('progress-value');
+var DIV_MESSAGE = document.getElementById('progress-message');
+
+var DIV_LOADXML = document.getElementById('loadxml');
+var P_INSTRUCTION = document.getElementById('instruction-tagline');
+var IF_CONTENT = document.getElementById('content');
+
+var BTN_CLOSE = document.getElementById('close-btn');
+var BTN_NEXT = document.getElementById('next-btn');
+var BTN_FINISH = document.getElementById('finish-btn');
+
+var recordWatcher = RecordWatcher(window.top.g_ambClient);
+
+var jobDetails;
+BTN_CLOSE.disabled = false;
+
+// Function to handle button clicks
+function handleJob(action) {
+    // Hide the buttons and show the progress bar and messages section
+    try {
+        BTN_UPLOAD.disabled = true;
+        BTN_DOWNLOAD.disabled = true;
+        _ajax(AJAX_UTILS, "createJob", {
+            "export_id": export_id,
+            "direction": action
+        }, function(job) {
+            if (!job.job_id) {
+                throw _error("Could not create Job for an unknown reason.");
+
+            }
+            jobDetails = job;
+            H_TITLE.innerHTML = "Running " + job.direction_title + " Job...";
+            DIV_STARTER.style.display = "none";
+            BTN_UPLOAD.style.display = "none";
+            BTN_DOWNLOAD.style.display = "none";
+            DIV_PROGRESS.style.display = "";
+            //Watch record for updates
+            recordWatcher.initRecord(job.table, job.job_id, _progressUpdate);
+        });
+    } catch (e) {
+        _error(e);
+    }
+}
+
+function moveToXMLLoad() {
+    H_TITLE.innerHTML = "Upload Latest Repository Files";
+    DIV_PROGRESS.style.display = "none";
+    DIV_LOADXML.style.display = "";
+    BTN_NEXT.innerHTML = "Add Another File";
+    _makeBtnPrimary(BTN_NEXT, false);
+    BTN_FINISH.style.display = "";
+    _makeBtnPrimary(BTN_FINISH, true);
+    IF_CONTENT.src = window.location.origin + "/upload.do";
+
+    var contentWindow = IF_CONTENT.contentWindow;
+    contentWindow.addEventListener('load', function() {
+        var head = contentWindow.document.querySelector('head');
+        // Create a new style element with your CSS rules
+        var style = contentWindow.document.createElement('style');
+        style.textContent = '.navbar-header { display: none; }';
+        head.appendChild(style);
+    });
+}
+
+function closePage() {
+	try {
+		GlideDialogWindow.get().destroy(); //Close the dialog window
+	} catch(e) {}
+	try {
+		GlideModal.get().destroy(); //Close the dialog window
+	} catch(e) {}
+	try {
+		var referer = document.referrer;
+		if (referer) {
+			window.location.href = referer;
+		} else {
+			window.close();
+		}
+	} catch(e) {}
+}
+
+function _getAttachments() {
+    _ajax(AJAX_UTILS, "getJobAttachments", jobDetails, function(att) {
+        console.log(att);
+        var urls = att.attachments;
+        var count = urls.length;
+        var increaseAmount = (100 - Math.min(C_PROGRESS_VALUE.value, 100)) / count;
+
+        for (var i = 0; i < urls.length; i++) {
+            _downloadAttachment(urls[i].api_url, urls[i].name, function() {
+                console.log("increased by " + increaseAmount);
+                C_PROGRESS_VALUE.value += increaseAmount;
+                if (C_PROGRESS_VALUE.value >= 100) {
+                    BTN_NEXT.style.display = "";
+                    _makeBtnPrimary(BTN_NEXT, true);
+                    H_PROGRESS_SUBTITLE.innerHTML = "Complete";
+                }
+            });
+        }
+    });
+}
+
+function _downloadAttachment(url, name, finishCallback) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+
+    xhr.onload = function() {
+        var status = xhr.status;
+        if (status == 200) {
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(xhr.response);
+            link.download = name;
+            link.onclick = function() {
+                console.log("File downloaded!");
+                finishCallback();
+                //                 document.body.removeChild(link);
+            };
+            document.body.appendChild(link);
+            link.click(); // Trigger a click event on the anchor element
+        } else {
+            C_PROGRESS_VALUE.value = 0;
+            H_PROGRESS_SUBTITLE.innerHTML = "Error";
+        }
+    };
+
+    // Send the request to the server
+    xhr.open('GET', url);
+    xhr.setRequestHeader("X-UserToken", g_ck);
+    console.log(g_ck);
+    xhr.send();
+}
+
+
+function _error(e) {
+    if (e) {
+        console.log(e);
+        alert(e);
+    }
+    BTN_UPLOAD.disabled = false;
+    BTN_DOWNLOAD.disabled = false;
+    return e;
+}
+
+function _progressUpdate(msg) {
+    console.log(msg);
+    if (msg.data.record.u_message) {
+        var newMessage = msg.data.record.u_message.value;
+        var newMessageLines = newMessage.split("\n");
+        DIV_MESSAGE.innerHTML = "<p>" + newMessageLines.join("</p><p>") + "</p>";
+    }
+    if (msg.data.record.u_state) {
+        //0 queued, 1 gen, 2 send, 3 retrieve, 4 done, 5 err
+        var max = 3;
+        var increaseAmount = 100 / max;
+        var state = parseInt(msg.data.record.u_state.value);
+        var displayVal = msg.data.record.u_state.display_value;
+        if (state == 5) {
+            state = 0;
+        } else if (jobDetails.direction == "push") {
+            if (state == 4) state--;
+        } else {
+            if (state == 3) state = 1;
+            else if (state == 4) {
+                state = 2;
+                displayVal = "Downloading..."
+            }
+        }
+
+        C_PROGRESS_VALUE.value = state * increaseAmount;
+        H_PROGRESS_SUBTITLE.innerHTML = displayVal;
+
+        if (jobDetails.direction == "pull" && state == 2) {
+            //BTN_NEXT.style.display = "";
+            _getAttachments();
+        } else if (jobDetails.direction == "push" && state == max) {
+            BTN_FINISH.style.display = "";
+            _makeBtnPrimary(BTN_FINISH, true);
+        }
+    }
+}
+
+function _makeBtnPrimary(element, bool) {
+    var elementClass = element.getAttribute("class") || "";
+    if (bool) elementClass += " btn btn-primary";
+    else elementClass = elementClass.replaceAll("btn btn-primary", "");
+    element.setAttribute("class", elementClass.trim());
+}
+
+function _ajax(scriptInclude, functionName, paramObj, callback) {
+    var ga = new GlideAjax(scriptInclude);
+    ga.addParam("sysparm_name", functionName);
+    for (var i in paramObj) {
+        if (paramObj.hasOwnProperty(i)) {
+            ga.addParam(i, typeof paramObj[i] == "object" ? JSON.stringify(paramObj[i]) : paramObj[i]);
+        }
+    }
+    ga.getXMLAnswer(function(response) {
+        var responseObj = JSON.parse(response);
+        callback(responseObj);
+    });
+}
+
+function RecordWatcher(amb) {
+
+    var watcherChannel;
+    var connected = false;
+
+    function getFilterString(filter) {
+        filter = filter
+            .replace(/\^EQ/g, '')
+            .replace(/\^ORDERBY(?:DESC)?[^^]*/g, '')
+            .replace(/^GOTO/, '');
+        return btoa(filter).replace(/=/g, '-');
+    }
+
+    function getChannelRW(table, filter) {
+        var t = '/rw/default/' + table + '/' + getFilterString(filter);
+        return amb.getChannel(t);
+    }
+
+    function initWatcher(table, sys_id, query, callback) {
+        if (!table) return;
+        if (sys_id) var filter = "sys_id=" + sys_id;
+        else filter = query;
+        if (!filter) return;
+        return initChannel(table, filter, callback);
+    }
+
+    function initChannel(table, filter, callback) {
+        if (isautoedTable(table)) {
+            return null;
+        }
+        watcherChannel = getChannelRW(table, filter);
+        watcherChannel.subscribe(callback);
+        amb.connect();
+        return watcherChannel;
+    }
+
+    function isautoedTable(table) {
+        return table == 'sys_amb_message' || table.startsWith('sys_rw');
+    }
+
+    return {
+        initRecord: function(table, sysId, callback) {
+            initWatcher(table, sysId, null, callback);
+        }
+    };
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint/>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+    <head>
+        <style>
+            body {
+                margin: 0;
+                padding: 0 calc(10vw);
+                display: flex;
+                flex-direction: column;
+                min-height: 500px;
+            }
+
+            header {
+                padding: 1rem;
+                background-color: #f1f1f1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            div.job-page {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+				width: 100%;
+            }
+
+            footer {
+                padding: 1rem;
+                background-color: #f1f1f1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            button {
+			  padding: 0.5rem 1.5rem;
+			  font-size: 1.4rem;
+			}
+
+
+            #close-btn {
+                margin-right: auto;
+            }
+			
+			progress {
+				width: 100%;
+				margin: calc(10vh);
+			}
+
+        </style>
+    </head>
+
+    <body class="modal-body">
+        <header>
+            <h1 id="title">Perform a Job</h1>
+        </header>
+
+        <div class="job-page" id="starter" style="display:">
+            <p>Click a button ]]>😄<![CDATA[</p>
+        </div>
+
+        <div class="job-page" id="progress" style="display: none">
+            <progress id="progress-value" value="1" max="100"></progress>
+            <h3 id="progress-subtitle">Queued</h3>
+            <div id="progress-message">Waiting...</div>
+        </div>
+
+        <div class="job-page" id="loadxml" style="display: none">
+            <p id="instruction-tagline">Upload each file that was downloaded.</p>
+            <iframe id="content" height="90%" width="100%"></iframe>
+        </div>
+
+        <footer>
+            <button name="close-btn" id="close-btn" style="display:" onclick="closePage()">Close</button>
+            <button name="upload-btn" id="upload-btn" class="" style="display:" onclick="handleJob('push')">
+                Push to Repository
+            </button>
+            <button name="download-btn" id="download-btn" class="" style="display:" onclick="handleJob('pull')">
+                Pull from Repository
+            </button>
+            <button name="next-btn" id="next-btn" style="display: none" onclick="moveToXMLLoad()">
+                Next Step
+            </button>
+            <button name="finish-btn" id="finish-btn" style="display: none" onclick="closePage()">
+                Finish
+            </button>
+		</footer>
+		
+		<script>
+			var export_id = "${jvar_export_id}";
+			if (!export_id) export_id = new URLSearchParams(window.location.search).get("export_id");
+			console.log(export_id);
+			if (!export_id) {
+				alert("No Export ID was provided as a parameter. Cannot proceed.");
+				document.querySelectorAll('button').forEach(button => {
+					button.disabled = true;
+				});
+			}
+		</script>
+    </body>
+</j:jelly>]]></html>
+        <name>pdi_export_job</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-26 15:02:48</sys_created_on>
+        <sys_id>f5b23f0947d0f1103f0f5882e36d43cf</sys_id>
+        <sys_mod_count>93</sys_mod_count>
+        <sys_name>pdi_export_job</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_ui_page_f5b23f0947d0f1103f0f5882e36d43cf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-27 13:25:20</sys_updated_on>
+    </sys_ui_page>
+</record_update>

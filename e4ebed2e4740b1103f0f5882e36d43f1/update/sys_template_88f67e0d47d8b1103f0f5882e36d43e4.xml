@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_template">
+    <sys_template action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <global>false</global>
+        <group/>
+        <groups/>
+        <link_element/>
+        <name>PDI Exporter Scheduled Push</name>
+        <next/>
+        <next_child/>
+        <roles/>
+        <short_description>PDI Exporter Scheduled Push</short_description>
+        <show_on_template_bar>true</show_on_template_bar>
+        <stand_alone>false</stand_alone>
+        <sys_class_name>sys_template</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-26 10:26:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>88f67e0d47d8b1103f0f5882e36d43e4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PDI Exporter Scheduled Push</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_template_88f67e0d47d8b1103f0f5882e36d43e4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-26 10:26:23</sys_updated_on>
+        <table>sysauto_script</table>
+        <template>active=false^conditional=false^name=PDI Exporter: &lt;number&gt;^run_period=javascript:gs.getDurationDate('0 6:0:0')^run_start=2023-01-01 00:00:00^run_type=periodically^script=new global.PDIExporterUtils("&lt;sys_id&gt;").createPushJob();^EQ</template>
+        <user display_value="System Administrator">6816f79cc0a8016401c5a33be04be441</user>
+        <view/>
+    </sys_template>
+</record_update>

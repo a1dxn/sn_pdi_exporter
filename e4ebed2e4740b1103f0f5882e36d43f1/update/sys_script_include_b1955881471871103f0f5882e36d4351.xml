@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.PDIExporterUtilsAjax</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>PDIExporterUtilsAjax</name>
+        <script><![CDATA[var PDIExporterUtilsAjax = Class.create();
+PDIExporterUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+    getRepoBranches: function() {
+        var repoOwner = this.getParameter("repo_owner");
+        var repoName = this.getParameter("repo_name");
+
+        try {
+            var result = sn_fd.FlowAPI
+                .getRunner()
+                .action('global.github__get_repo_branches')
+                .inForeground()
+                .withInputs({
+                    repository_owner: repoOwner,
+                    repository_name: repoName,
+                })
+                .run();
+
+            var outputs = result.getOutputs();
+            return JSON.stringify(outputs, null, 2);
+        } catch (ex) {
+            var message = ex.getMessage();
+            gs.error(message);
+            return JSON.stringify({
+                error: message
+            });
+        }
+    },
+
+    createJob: function() {
+        var exportConfig = this.getParameter("export_id");
+        var direction = this.getParameter("direction");
+        gs.info("EXPORTID=" + exportConfig + " direction=" + direction);
+        var jobId;
+        if(direction == "push") {
+			jobId = new global.PDIExporterUtils(exportConfig).createPushJob();
+        } else {
+			jobId = new global.PDIExporterUtils(exportConfig).createPullJob();
+		}
+        return JSON.stringify({
+            table: "u_pdi_export_run",
+            job_id: jobId,
+            direction_title: (direction == "push" ? "Push" : "Pull"),
+            direction: direction
+        });
+    },
+
+    getJobAttachments: function() {
+        var jobId = this.getParameter("job_id");
+		gs.info("aidan job="+jobId);
+        var attList = [];
+		var agr = new GlideRecord("sys_attachment");
+		agr.addQuery("table_name", 'u_pdi_export_run');
+		agr.addQuery("table_sys_id", jobId);
+		agr.query();
+        while (agr.next()) {
+            var attachment = {
+                name: agr.getValue('file_name'),
+                id: agr.getUniqueValue() + "",
+                api_url: "/api/now/attachment/" + agr.getUniqueValue() + "/file"
+            }
+            attList.push(attachment);
+        }
+        return JSON.stringify({
+            attachments: attList,
+            job_id: jobId
+        });
+    },
+
+    type: 'PDIExporterUtilsAjax'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-25 22:44:24</sys_created_on>
+        <sys_id>b1955881471871103f0f5882e36d4351</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>PDIExporterUtilsAjax</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_script_include_b1955881471871103f0f5882e36d4351</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-26 21:27:07</sys_updated_on>
+    </sys_script_include>
+</record_update>

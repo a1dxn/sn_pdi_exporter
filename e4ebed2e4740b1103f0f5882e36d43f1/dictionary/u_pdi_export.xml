@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="1dacad664780b1103f0f5882e36d4341" label="PDI Export" max_length="40" name="u_pdi_export" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Branch Name" max_length="100" name="u_branch_name" read_only="true" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Branch Selector" mandatory="true" max_length="40" name="u_branch_selector" type="string">
+            <choice/>
+        </element>
+        <element label="Github Endpoint" max_length="1024" name="u_endpoint" read_only="true" type="url"/>
+        <element attributes="edge_encryption_enabled=true" label="Latest Commit Date" max_length="40" name="u_latest_commit_date" read_only="true" type="glide_date_time"/>
+        <element attributes="edge_encryption_enabled=true" label="Latest Commit URL" max_length="1024" name="u_latest_commit_url" read_only="true" type="url"/>
+        <element attributes="encode_utf8=false" label="Latest Run" max_length="32" name="u_latest_run" read_only="true" reference="u_pdi_export_run" type="reference"/>
+        <element attributes="encode_utf8=false" label="Latest Pull Run" max_length="32" name="u_latest_run_pull" read_only="true" reference="u_pdi_export_run" type="reference"/>
+        <element attributes="encode_utf8=false" label="Latest Push Run" max_length="32" name="u_latest_run_push" read_only="true" reference="u_pdi_export_run" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Name" max_length="100" name="u_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Unique Identifier" max_length="40" name="u_number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Repository Name" mandatory="true" max_length="200" name="u_repo_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Repository Owner" mandatory="true" max_length="100" name="u_repo_owner" type="string"/>
+        <element label="Scheduled Push" max_length="32" name="u_scheduled_push" read_only="true" reference="sysauto_script" type="reference"/>
+        <index name="index">
+            <element name="u_latest_run"/>
+        </index>
+        <index name="index2">
+            <element name="u_latest_run_pull"/>
+        </index>
+        <index name="index3">
+            <element name="u_latest_run_push"/>
+        </index>
+        <index name="index4">
+            <element name="u_scheduled_push"/>
+        </index>
+    </element>
+</database>

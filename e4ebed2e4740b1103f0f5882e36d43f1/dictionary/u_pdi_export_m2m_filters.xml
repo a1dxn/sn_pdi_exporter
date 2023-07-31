@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="a48171ae4780b1103f0f5882e36d43e5" label="PDI Export M2M Filters" max_length="40" name="u_pdi_export_m2m_filters" type="collection">
+        <element attributes="encode_utf8=false" label="Export" max_length="32" name="u_pdi_export" reference="u_pdi_export" type="reference"/>
+        <element attributes="encode_utf8=false" label="Filter" max_length="32" name="u_pdi_export_filter" reference="u_pdi_export_filter" type="reference"/>
+        <index name="index">
+            <element name="u_pdi_export"/>
+        </index>
+        <index name="index2">
+            <element name="u_pdi_export_filter"/>
+        </index>
+    </element>
+</database>

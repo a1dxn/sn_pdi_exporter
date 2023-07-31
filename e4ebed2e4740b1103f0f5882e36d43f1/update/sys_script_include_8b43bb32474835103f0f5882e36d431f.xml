@@ -1,0 +1,3977 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>global.PDIExporterRecordBase</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>PDIExporterRecordBase</name>
+        <script><![CDATA[var PDIExporterRecordBase = Class.create();
+PDIExporterRecordBase.prototype = {
+
+    _arrayUtil: new global.ArrayUtil(),
+    recordXMLs: [],
+
+    initialize: function() {},
+
+    setConfigOptions: function(configRecord) {
+        this.includeUsersWithGroups = configRecord.u_include_group_members == true ? true : false;
+        this.includeAttachments = configRecord.u_include_attachments == true ? true : false;
+        this.suppressPhotoAttachments = configRecord.u_exclude_photo_attachments == true ? true : false;
+        this.includeReferenceFieldRecords = configRecord.u_include_ref_fields == true ? true : false;
+    },
+
+    addRecord: function(tableRec) {
+        var tableName = this._getTableName(tableRec);
+        var continueProcessing = true;
+        var processParentTable = false;
+
+        switch (tableName) {
+            /********************* Common Tables *************************************/
+            case "sys_attachment":
+                this._addAttachment(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_user":
+                this._addUser(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_user_group":
+                this._addGroup(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "asmt_metric_type":
+                this._addAssessment(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_db_object":
+                this._addDbObject(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_db_view":
+                this._addDbView(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_dictionary":
+                this._addField(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "item_option_new_set":
+                this._addVariableSet(tableRec, tableName);
+                break;
+            case "sys_ui_form":
+                this._addFormDependencies(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_security_acl":
+                this._addACLDependencies(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_ui_policy":
+                this._addUIPolicyDependencies(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_data_policy2":
+                this._addDataPolicyDependencies(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_app_application":
+                this._addAppModuleDependencies(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "dms_document":
+                this._addManagedDoc(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_atf_test":
+                this._addATF(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "cmn_schedule":
+                this._addSchedule(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_embedded_tour_guide":
+                this._addGuidedTour(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* Workflow & Integration Tables *********************/
+            case "wf_workflow":
+                this._addWorkflow(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_cs_topic":
+                this._addVirtualAgent(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_cb_topic":
+                this._addVirtualAgent(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_nlu_model":
+                this._addNLUModel(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_rest_message":
+                this._addRestMessage(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_rest_message_fn":
+                this._addRestFunction(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_ws_definition":
+                this._addScriptedRestService(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_ws_operation":
+                this._addScriptedRestResource(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_web_service":
+                this._addScriptedSoapService(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_soap_message":
+                this._addSoapMessage(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_soap_message_function":
+                this._addSoapFunction(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_hub_flow":
+                this._addFlow(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_hub_action_type_definition":
+                this._addFlowAction(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_transform_map":
+                this._addTransformMap(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* Service Portal Tables *****************************/
+            case "sp_portal":
+                this._addSPPortal(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sp_page":
+                this._addSPPage(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sp_widget":
+                this._addSPWidget(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sp_ng_template":
+                this._addNgTemplate(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sp_angular_provider":
+                this._addAngularProvider(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* Reporting & PA Tables *****************************/
+            case "sys_portal_page":
+                this._addPortalPage(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_dashboards":
+                this._addPADashboard(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_ui_hp_publisher":
+                this._addInteractiveFilter(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "sys_report":
+                this._addReport(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_widgets":
+                this._addPAWidget(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_cubes":
+                this._addPAIndicatorSource(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_indicators":
+                this._addPAIndicator(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_dimensions":
+                this._addPABreakdownSource(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "pa_breakdowns":
+                this._addPABreakdown(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* Event Management Tables *****************************/
+            case "em_match_rule":
+                this._addEMRule(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* Discovery Tables *****************************/
+            case "discovery_schedule":
+                this._addDiscoverySchedule(tableRec, tableName);
+                continueProcessing = false;
+                break;
+            case "discovery_range":
+                this._addDiscoveryRangeSet(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+                /********************* ETL Tables *****************************/
+            case "cmdb_inst_application_feed":
+                this._addETL(tableRec, tableName);
+                continueProcessing = false;
+                break;
+
+            default:
+                processParentTable = true;
+                break;
+        }
+		
+		if (tableName.startsWith("u_pdi_export")) {
+			this._PDIExportRecord(tableRec, tableName);
+			continueProcessing = false;
+			processParentTable = false;
+		}
+
+        if (processParentTable) {
+            // Check for table needs at parent table level
+            var tableBase = this._getTableBase(tableName);
+            switch (tableBase) {
+                case "sc_cat_item":
+                    this._addCatItem(tableRec, tableName);
+                    continueProcessing = false;
+                    break;
+                case "kb_knowledge":
+                    this._addKnowledge(tableRec, tableName);
+                    continueProcessing = false;
+                    break;
+            }
+        }
+
+        //Since a table hasn't been found
+        if (continueProcessing) {
+            this._exportRecordRaw(tableRec);
+        }
+    },
+
+    getOutput: function() {
+        var res = "<unload unload_date=\"" + new GlideDateTime().getValue() + "\">\n";
+        res += this.recordXMLs.join("\n");
+        res += "\n</unload>";
+        return res;
+    },
+
+    _exportRecordRaw: function(record, validRecordCheck) {
+        try {
+            var tableName = this._getTableName(record);
+            var capturedIndex = this._getCache("captured_record_index_store", tableName + "/" + record.getUniqueValue());
+            if (capturedIndex > -1) {
+                return this.recordXMLs[capturedIndex];
+            }
+            if (gs.nil(validRecordCheck) || validRecordCheck === true) {
+                if (!record.isValidRecord()) {
+                    return;
+                }
+            }
+
+            var recordRaw = new GlideScriptRecordUtil.get(record).getRealRecord();
+            var recordSerializer = new GlideRecordXMLSerializer();
+            var recordDoc = new XMLDocument2();
+            recordDoc.parseXML(recordSerializer.serialize(recordRaw));
+
+            //Add action to all base nodes
+            var iterator = recordDoc.getNode("/").getChildNodeIterator();
+            while (iterator.hasNext()) {
+                var c = iterator.next();
+                c.setAttribute("action", "INSERT_OR_UPDATE");
+                c.setAttribute("record_date", record.getValue("sys_updated_on"));
+            }
+
+            var xmlString = recordDoc.getDocumentElement().toString();
+            this.recordXMLs.push(xmlString);
+            this._setCache("captured_record_index_store", tableName + "/" + record.getUniqueValue(), this.recordXMLs.length - 1);
+
+            if (!tableName.startsWith("sys_attachment")) {
+                //Check for and add any translations to the update set if applicable
+                this._addTranslations(record);
+
+                //Check for and add any attachments to the update set if applicable
+                if (this.includeAttachments) {
+                    this._addAttachments(record);
+                }
+
+                //Check for and add application restricted caller acccess to the update set if applicable
+                if (new GlidePluginManager().isActive("com.glide.scope.access.restricted_caller")) {
+                    this._addRestrictedCallerAccess(record);
+                }
+
+                //Add records in reference fields
+                if (this.includeReferenceFieldRecords) {
+                    try {
+                        this._addReferenceFieldRecords(record);
+                    } catch (e) {}
+
+                }
+            }
+
+            return xmlString;
+        } catch (e) {
+            gs.warn("Failed to capture record/related record " + tableName + "/" + record.getUniqueValue() + ":\n" + e);
+        }
+    },
+
+    _getTableName: function(tableRec) {
+        var tableName;
+        try {
+            tableName = tableRec.getRecordClassName();
+            if (!tableName) throw 'misisng';
+        } catch (e) {
+            tableName = tableRec.getTableName();
+        }
+        return tableName;
+    },
+
+    _getTableBase: function(tableName) {
+        return new global.TableUtils(tableName).getAbsoluteBase() + "";
+    },
+
+    _getTableHierarchy: function(tableName) {
+        var res = new global.TableUtils(tableName).getHierarchy() + "";
+        res = res.replace("[", "").replace("]", "").replace(" ", "");
+        return res;
+    },
+
+    _addReferenceFieldRecords: function(tableRec) {
+        var tableNames = this._getTableHierarchy(tableRec.getTableName());
+        var fields = this._getCache("table_reference_fields", tableRec.getTableName());
+        if (!fields) {
+            fields = {};
+            var dict = new GlideAggregate("sys_dictionary");
+            dict.addQuery("name", "IN", tableNames);
+            dict.addQuery("internal_type", "IN", "reference,glide_list");
+            dict.addQuery("reference.name", "!=", "");
+            dict.addAggregate("GROUP_CONCAT_DISTINCT", "element");
+            dict.groupBy("reference");
+            dict._query();
+            while (dict._next()) {
+                var refTable = dict.getValue("reference");
+                var elements = dict.getAggregate("GROUP_CONCAT_DISTINCT", "element").split(",");
+                fields[refTable] = this._arrayUtil.union(fields[refTable] ? fields[refTable] : [], elements);
+            }
+            this._setCache("table_reference_fields", tableRec.getTableName(), fields);
+        }
+
+        for (var t in fields) {
+            for (var f in fields[t]) {
+                var el = tableRec.getElement(fields[t][f]);
+                if (el.hasValue()) {
+                    var records = new GlideRecord(t);
+                    records.addQuery("sys_id", "IN", el.toString());
+                    records._query();
+                    while (records._next()) {
+                        this.addRecord(records, true);
+                    }
+                }
+            }
+        }
+    },
+
+    _setCache: function(store, key, value) {
+        if (!this._cache) this._cache = {};
+        if (!this._cache.hasOwnProperty(store)) this._cache[store] = {};
+        this._cache[store][key] = value;
+    },
+
+    _hasCache: function(store, key) {
+        return (this._getCache(store, key) !== undefined);
+    },
+
+    _getCache: function(store, key) {
+        try {
+            return this._cache[store][key];
+        } catch (e) {}
+        return undefined;
+    },
+
+    _getConfigOptions: function() {
+        return {
+            u_include_group_members: this.includeUsersWithGroups,
+            u_include_attachments: this.includeAttachments,
+            u_exclude_photo_attachments: this.suppressPhotoAttachments,
+            u_include_ref_fields: this.includeReferenceFieldRecords,
+			
+			includeUsersWithGroups: this.includeUsersWithGroups,
+            includeAttachments: this.includeAttachments,
+            suppressPhotoAttachments: this.suppressPhotoAttachments,
+            includeReferenceFieldRecords: this.includeReferenceFieldRecords
+        };
+    },
+	
+	_deleteDocElements: function(xmlDoc, elementsToDelete) {
+  for (var i = 0; i < elementsToDelete.length; i++) {
+    var elementToDelete = elementsToDelete[i];
+    var elements = xmlDoc.getElementsByTagName(elementToDelete);
+    for (var j = 0; j < elements.length; j++) {
+      var element = elements[j];
+      element.parentNode.removeChild(element);
+    }
+  }
+  return xmlDoc;
+},
+
+    /********************* Table Specific Functions *********************/
+
+    /********************* Begin Attachment Functions *********************/
+
+    _PDIExportRecord: function(record, tableName) {
+		tableName = tableName || this._getTableName(record);
+		var oldOpts = this._getConfigOptions();
+		var newOpts = this._getConfigOptions();
+		
+		newOpts.u_include_ref_fields = true;
+		newOpts.u_include_attachments = false;
+		newOpts.u_include_group_members = false;
+		this.setConfigOptions(newOpts);
+		
+        if (tableName.endsWith("run")) {
+            return; //Do not want to capture these!!
+        } else if (tableName.endsWith("export")) {
+			//Remove specific elements from the Export record that would cause unnecessary commit changes.
+			var xmlString = this._exportRecordRaw(record);
+			var capturedIndex = this._getCache("captured_record_index_store", tableName + "/" + record.getUniqueValue());
+			if(capturedIndex) {
+				var recordDoc = new XMLDocument2();
+				recordDoc.parseXML(xmlString);
+				this._deleteDocElements(recordDoc, ['u_latest_commit_date', 'u_latest_commit_url', 'u_latest_run_pull', 'u_latest_run_push']);
+				this.recordXMLs[capturedIndex] = recordDoc.getDocumentElement().toString();
+			}
+        } else {
+			this._exportRecordRaw(record);
+		}
+		this.setConfigOptions(oldOpts);
+    },
+
+    /********************* Begin Attachment Functions *********************/
+    //Add an attachment to the update set
+    _addAttachment: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+        this._addAttachmentDocs(tableRec, tableName);
+    },
+
+    //Add all record attachments to the update set
+    _addAttachments: function(tableRec, tableName) {
+        //If the current record *has* attachments, add those
+        if (gs.nil(tableName)) {
+            tableName = tableRec.getTableName();
+        }
+
+        //Process the main sys_attachment record
+        var attach = new GlideRecord("sys_attachment");
+        attach.addQuery("table_name", "CONTAINS", tableName); //Using contains search since images have a table prefix of ZZ_YY
+        attach.addQuery("table_sys_id", tableRec.sys_id.toString());
+        if (this.suppressPhotoAttachments) {
+            attach.addQuery('content_type', '!=', 'image/png');
+            attach.addQuery('content_type', '!=', 'image/jpeg');
+            attach.addQuery('content_type', '!=', 'image/gif');
+        }
+        attach._query();
+        while (attach._next()) {
+            this._exportRecordRaw(attach);
+
+            //Process each sys_attachment_doc chunk
+            this._addAttachmentDocs(attach, "sys_attachment");
+        }
+    },
+
+    //Add attachment chunks to the update set
+    _addAttachmentDocs: function(tableRec, tableName) {
+        var attach_doc = new GlideRecord("sys_attachment_doc");
+        attach_doc.addQuery("sys_attachment", tableRec.sys_id.toString());
+        attach_doc.orderBy("position");
+        attach_doc._query();
+        while (attach_doc._next()) {
+            this._exportRecordRaw(attach_doc);
+        }
+    },
+    /********************* End Attachment Functions *********************/
+
+    //Add record translations to the update set
+    _addTranslations: function(tableRec) {
+        //If the current record *has* translations, add those
+
+        var tableHierarchy = new global.TableUtils("item_option_new").getTables().toArray();
+        // tableHierarchy isn't a real array so convert to array and remove sys_metadata
+        var tableList = [];
+        for (var i = 0; i < tableHierarchy.length; i++) {
+            var tableName = tableHierarchy[i];
+            if (!tableName.startsWith("sys_")) {
+                tableList.push(tableName);
+            }
+        }
+        var fieldList = [];
+        var translatedField = new GlideAggregate("sys_translated");
+        translatedField.addAggregate("count");
+        translatedField.addAggregate("count(distinct", "element");
+        translatedField.addQuery("name", "IN", tableList);
+        translatedField._query();
+        while (translatedField._next()) {
+            var count = translatedField.getAggregate("count");
+            if (count > 1) {
+                fieldList.push(translatedField.element.toString());
+            }
+        }
+
+        var translationList = [];
+        for (var f = 0; f < fieldList.length; f++) {
+            var fieldName = fieldList[f];
+            translationList.push(tableRec.getValue(fieldName));
+        }
+
+        translatedField = new GlideRecord("sys_translated");
+        translatedField.addQuery("name", "IN", tableList.toString());
+        translatedField.addQuery("element", "IN", fieldList.toString());
+        translatedField.addQuery("value", "IN", translationList.toString()).addOrCondition("label", "IN", translationList.toString());
+        translatedField._query();
+        while (translatedField._next()) {
+            this._exportRecordRaw(translatedField);
+        }
+    },
+
+    _addRestrictedCallerAccess: function(tableRec) {
+        var recID = tableRec.getValue("sys_id");
+        var restrictedCallerAccess = new GlideRecord("sys_restricted_caller_access");
+        restrictedCallerAccess.addQuery("status", 2); //Allowed
+        restrictedCallerAccess.addQuery("source", recID).addOrCondition("target", recID);
+        restrictedCallerAccess._query();
+        while (restrictedCallerAccess._next()) {
+            this._exportRecordRaw(restrictedCallerAccess);
+        }
+    },
+
+    /********************* Begin KB Functions *********************/
+    //Add KB Article and all dependencies to the update set
+    _addKnowledge: function(tableRec, tableName) {
+        this._addKnowledgeArticle(tableRec, tableName);
+
+        var canReadList = tableRec.can_read_user_criteria.toString().split(",");
+        var cannotReadList = tableRec.cannot_read_user_criteria.toString().split(",");
+
+        // Check to ensure Knowledge Blocks plugin is active
+        if (new GlidePluginManager().isActive("com.snc.knowledge_blocks")) {
+            var knowledgeBlockM2M = new GlideRecord("m2m_kb_to_block_history");
+            knowledgeBlockM2M.addQuery("knowledge", tableRec.sys_id.toString());
+            knowledgeBlockM2M._query();
+            while (knowledgeBlockM2M._next()) {
+                this._exportRecordRaw(knowledgeBlockM2M);
+
+                var knowledgeBlock = knowledgeBlockM2M.knowledge_block.getRefRecord();
+                this._addKnowledgeArticle(knowledgeBlock, knowledgeBlock.getTableName());
+
+                var userCriteriaID;
+                var blockCanReadList = knowledgeBlock.can_read_user_criteria.toString().split(",");
+                for (var c = 0; c < blockCanReadList.length; c++) {
+                    userCriteriaID = blockCanReadList[c].toString();
+                    if (canReadList.toString().indexOf(userCriteriaID) == -1) {
+                        canReadList.push(userCriteriaID);
+                    }
+                }
+
+                var blockCannotReadList = knowledgeBlock.cannot_read_user_criteria.toString().split(",");
+                for (var n = 0; n < blockCannotReadList.length; n++) {
+                    userCriteriaID = blockCannotReadList[n].toString();
+                    if (cannotReadList.toString().indexOf(userCriteriaID) == -1) {
+                        cannotReadList.push(userCriteriaID);
+                    }
+                }
+            }
+        }
+
+        this._addUserCriteria(canReadList, cannotReadList);
+    },
+
+    _addKnowledgeArticle: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+
+        var kbCategory = tableRec.kb_category.getRefRecord();
+        this._exportRecordRaw(kbCategory);
+
+        this._addAttachments(tableRec, tableName);
+
+        // Check to ensure Knowledge Management Advanced plugin is active
+        if (new GlidePluginManager().isActive("com.snc.knowledge_advanced")) {
+            var kbVersion = tableRec.version.getRefRecord();
+            this._exportRecordRaw(kbVersion);
+
+            var kbSummary = tableRec.summary.getRefRecord();
+            this._exportRecordRaw(kbSummary);
+        }
+
+        return tableRec;
+    },
+    /********************* End KB Functions *********************/
+
+    //Add user record and dependencies to the update set
+    _addUser: function(tableRec, tableName) {
+        var userID;
+        if (typeof tableRec == "string") {
+            userID = tableRec;
+            tableRec = new GlideRecord("sys_user");
+            tableRec.get(userID);
+        }
+        this._exportRecordRaw(tableRec);
+        userID = tableRec.getValue("sys_id");
+
+        var userRole = new GlideRecord("sys_user_has_role");
+        userRole.addQuery("user", userID);
+        userRole.addQuery("inherited", false);
+        userRole._query();
+        while (userRole._next()) {
+            this._exportRecordRaw(userRole);
+        }
+
+        var userGroup = new GlideRecord("sys_user_grmember");
+        userGroup.addQuery("user", userID);
+        userGroup._query();
+        while (userGroup._next()) {
+            this._exportRecordRaw(userGroup);
+        }
+
+        var userDelegate = new GlideRecord("sys_user_delegate");
+        userDelegate.addQuery("user", userID);
+        userDelegate._query();
+        while (userDelegate._next()) {
+            this._exportRecordRaw(userDelegate);
+        }
+
+        if (new GlidePluginManager().isActive("com.snc.skills_management")) {
+            var userSkill = new GlideRecord("sys_user_has_skill");
+            userSkill.addQuery("user", userID);
+            userSkill._query();
+            while (userSkill._next()) {
+                this._exportRecordRaw(userSkill);
+            }
+        }
+
+        var liveProfile = new GlideRecord("live_profile");
+        liveProfile.addQuery("document", userID);
+        liveProfile._query();
+        if (liveProfile._next()) {
+            this._exportRecordRaw(liveProfile);
+
+            try {
+                //Add community profile
+                new sn_communities.addToUpdateSetUtils()._addCommunityProfile(liveProfile.getValue("sys_id"));
+            } catch (err) {
+
+            }
+        }
+
+        // Add HR Profile but check to ensure Human Resources Scoped App: Core plugin is active first
+        if (new GlidePluginManager().isActive("com.sn_hr_core")) {
+            try {
+                new sn_hr_core.addToUpdateSetUtils()._addHRProfile(userID);
+            } catch (err) {
+
+            }
+        }
+
+        var bookmark = new GlideRecord("sys_ui_bookmark");
+        bookmark.addQuery("user", userID);
+        bookmark._query();
+        while (bookmark._next()) {
+            this._exportRecordRaw(bookmark);
+        }
+    },
+
+    //Add group record and dependencies to the update set
+    _addGroup: function(tableRec, tableName) {
+        var groupID;
+        if (typeof tableRec == "string") {
+            groupID = tableRec;
+            tableRec = new GlideRecord("sys_user_group");
+            tableRec.get(groupID);
+        }
+        this._exportRecordRaw(tableRec);
+        groupID = tableRec.getValue("sys_id");
+
+        var groupTypes = tableRec.getValue("type");
+        if (!gs.nil(groupTypes)) {
+            var groupTypeList = groupTypes.toString().split(",");
+            for (var i = 0; i < groupTypeList.length; i++) {
+                var groupType = new GlideRecord("sys_user_group_type");
+                if (groupType.get(groupTypeList[i])) {
+                    this._exportRecordRaw(groupType);
+                }
+            }
+        }
+
+        var groupRole = new GlideRecord("sys_group_has_role");
+        groupRole.addQuery("group", groupID);
+        groupRole._query();
+        while (groupRole._next()) {
+            this._exportRecordRaw(groupRole);
+        }
+
+        if (this.includeUsersWithGroups && !gs.nil(tableRec.getValue("manager"))) {
+            this._addUser(tableRec.getValue("manager"));
+        }
+
+        var groupMember = new GlideRecord("sys_user_grmember");
+        groupMember.addQuery("group", groupID);
+        groupMember._query();
+        while (groupMember._next()) {
+            this._exportRecordRaw(groupMember);
+            if (this.includeUsersWithGroups) {
+                this._addUser(groupMember.getValue("user"));
+            }
+        }
+
+        if (new GlidePluginManager().isActive("com.snc.skills_management")) {
+            var groupSkill = new GlideRecord("sys_group_has_skill");
+            groupSkill.addQuery("group", groupID);
+            groupSkill._query();
+            while (groupSkill._next()) {
+                this._exportRecordRaw(groupSkill);
+            }
+        }
+
+        //Check for child groups and recursively gather them
+        var childGroup = new GlideRecord("sys_user_group");
+        childGroup.addQuery("parent", groupID);
+        childGroup._query();
+        while (childGroup._next()) {
+            this._addGroup(childGroup);
+        }
+    },
+
+    //Add schedule record and dependencies to the update set
+    _addSchedule: function(tableRec, tableName) {
+        var scheduleID;
+        if (typeof tableRec == "string") {
+            scheduleID = tableRec;
+            tableRec = new GlideRecord("cmn_schedule");
+            tableRec.get(scheduleID);
+        }
+        this._exportRecordRaw(tableRec);
+        scheduleID = tableRec.getValue("sys_id");
+
+        //Add schedule entries
+        var scheduleEntry = new GlideRecord("cmn_schedule_span");
+        scheduleEntry.addQuery("schedule", scheduleID);
+        scheduleEntry._query();
+        while (scheduleEntry._next()) {
+            this._exportRecordRaw(scheduleEntry);
+        }
+
+        //Add child schedules
+        var childSchedule = new GlideRecord("cmn_other_schedule");
+        childSchedule.addQuery("schedule", scheduleID);
+        childSchedule._query();
+        while (childSchedule._next()) {
+            this._addSchedule(childSchedule.child_schedule.toString());
+            this._exportRecordRaw(childSchedule);
+        }
+    },
+
+    /********************* Begin Catalog & Workflow Functions *********************/
+    //Add Catalog Item and all dependencies to the update set
+    _addCatItem: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+
+        var catItemID = tableRec.sys_id.toString();
+
+        var variableSetList = [];
+        var variableSetM2M = new GlideRecord("io_set_item");
+        variableSetM2M.addQuery("sc_cat_item", catItemID);
+        variableSetM2M._query();
+        while (variableSetM2M._next()) {
+            this._exportRecordRaw(variableSetM2M);
+            var variableSet = variableSetM2M.variable_set.getRefRecord();
+            this._exportRecordRaw(variableSet);
+            variableSetList.push(variableSet.sys_id.toString());
+        }
+
+        var variableQuery = "cat_item=" + catItemID;
+        if (variableSetList.length > 0) {
+            variableQuery = variableQuery + "^ORvariable_setIN" + variableSetList.toString();
+        }
+
+        this._addCatItemConfigDependencies(variableQuery);
+
+        var availableForList = [];
+        var availableForM2M = new GlideRecord("sc_cat_item_user_criteria_mtom");
+        availableForM2M.addQuery("sc_cat_item", catItemID);
+        availableForM2M._query();
+        while (availableForM2M._next()) {
+            this._exportRecordRaw(availableForM2M);
+            availableForList.push(availableForM2M.getValue("user_criteria"));
+        }
+
+        var notAvailableForList = [];
+        var notAvailableForM2M = new GlideRecord("sc_cat_item_user_criteria_no_mtom");
+        notAvailableForM2M.addQuery("sc_cat_item", catItemID);
+        notAvailableForM2M._query();
+        while (notAvailableForM2M._next()) {
+            this._exportRecordRaw(notAvailableForM2M);
+            notAvailableForList.push(notAvailableForM2M.getValue("user_criteria"));
+        }
+
+        this._addUserCriteria(availableForList, notAvailableForList);
+
+        var itemCategory = new GlideRecord("sc_cat_item_category");
+        itemCategory.addQuery("sc_cat_item", catItemID);
+        itemCategory._query();
+        while (itemCategory._next()) {
+            this._exportRecordRaw(itemCategory);
+            var scCategory = itemCategory.sc_category.getRefRecord();
+            this._exportRecordRaw(scCategory);
+        }
+
+        var itemCatalog = new GlideRecord("sc_cat_item_catalog");
+        itemCatalog.addQuery("sc_cat_item", catItemID);
+        itemCatalog._query();
+        while (itemCatalog._next()) {
+            this._exportRecordRaw(itemCatalog);
+            var scCatalog = itemCatalog.sc_catalog.getRefRecord();
+            this._exportRecordRaw(scCatalog);
+        }
+
+        if (!gs.nil(tableRec.workflow.toString())) {
+            var itemWorkflow = tableRec.workflow.getRefRecord();
+            this._addWorkflow(itemWorkflow);
+        }
+
+        if (tableRec.isValidField("flow_designer_flow") && !gs.nil(tableRec.flow_designer_flow.toString())) {
+            this._addFlow(tableRec.flow_designer_flow.toString());
+        }
+
+        this._addServiceFulfillment(catItemID);
+
+        if (!gs.nil(tableRec.template.toString())) {
+            this._addTemplate(tableRec.template.toString());
+        }
+
+        if (tableName == "sc_cat_item_guide") {
+            var orderGuideRule = new GlideRecord("sc_cat_item_guide_items");
+            orderGuideRule.addQuery("guide", catItemID);
+            orderGuideRule._query();
+            while (orderGuideRule._next()) {
+                this._exportRecordRaw(orderGuideRule);
+
+                // TODO recursively get cat items and child records
+                var orderGuideRuleItem = orderGuideRule.item.getRefRecord();
+                this._exportRecordRaw(orderGuideRuleItem);
+
+                var varAssignment = new GlideRecord("sc_item_variable_assignment");
+                varAssignment.addQuery("rule", orderGuideRule.getValue("sys_id"));
+                varAssignment._query();
+                while (varAssignment._next()) {
+                    this._exportRecordRaw(varAssignment);
+                }
+            }
+        }
+
+        if (tableName == "pc_software_cat_item" || tableName == "pc_hardware_cat_item") {
+            var vendorCatItem = new GlideRecord("pc_vendor_cat_item");
+            vendorCatItem.addQuery("product_catalog_item", catItemID);
+            vendorCatItem._query();
+            while (vendorCatItem._next()) {
+                this._exportRecordRaw(vendorCatItem);
+            }
+        }
+    },
+
+    //Add workflow to the update set
+    _addWorkflow: function(record, tableName) {
+        this._gatherChildWorkflows(record);
+        this._exportRecordRaw(record);
+    },
+
+    //Recursively gather all child workflows
+    _gatherChildWorkflows: function(workflow) {
+        //Get published workflow version
+        var workflowVersion = new GlideRecord("wf_workflow_version");
+        workflowVersion.addQuery("workflow", workflow.sys_id.toString());
+        workflowVersion.addQuery("published", true);
+        workflowVersion._query();
+        while (workflowVersion._next()) {
+            //Get sub-workflow instances
+            var subWorkflowInstance = new GlideRecord("wf_workflow_instance");
+            subWorkflowInstance.addQuery("workflow_version", workflowVersion.sys_id.toString());
+            subWorkflowInstance._query();
+            while (subWorkflowInstance._next()) {
+                //Get subWorkflows
+                var subWorkflow = new GlideRecord("wf_workflow");
+                subWorkflow.addQuery("sys_id", subWorkflowInstance.workflow.toString());
+                subWorkflow._query();
+                if (subWorkflow._next()) {
+                    this._gatherChildWorkflows(subWorkflow);
+                    this._exportRecordRaw(subWorkflow);
+                }
+            }
+        }
+    },
+
+    _addFlow: function(tableRec, tableName) {
+        var recID;
+        if (typeof tableRec == "string") {
+            recID = tableRec;
+            tableRec = new GlideRecord("sys_hub_flow");
+            tableRec.get(recID);
+        }
+        recID = tableRec.getValue("sys_id");
+
+        // The NY release flattens flows into a single sys_update_xml like workflows but prior releases have multiple components.
+        // Only allow flows to be added to the update set if instance is on NY or later
+        var instanceBuild = gs.getProperty("glide.buildname");
+        if (instanceBuild >= "Newyork") {
+            this._exportRecordRaw(tableRec);
+
+            // The composite flow sys_update_xml doesn't include a necessary record when inputs are "complex" such as Object
+            // Check to see if there are any complex inputs and add those since sys_complex_object records are not automatically added
+            var stringMatch = "co_type_name=";
+            var objectIDs = [];
+            var flowInput = new GlideRecord("sys_hub_flow_input");
+            flowInput.addQuery("model", recID);
+            flowInput.addQuery("attributes", "CONTAINS", "uiType=object");
+            flowInput.addQuery("attributes", "CONTAINS", stringMatch);
+            flowInput._query();
+            while (flowInput._next()) {
+                var attributeList = flowInput.getValue("attributes").toString().split(",");
+                for (var i = 0; i < attributeList.length; i++) {
+                    var attribute = attributeList[i];
+                    if (attribute.startsWith(stringMatch)) {
+                        var attributeValue = attribute.replace(stringMatch, "");
+                        objectIDs.push(attributeValue);
+                    }
+                }
+            }
+            if (objectIDs.length > 0) {
+                var complexObject = new GlideRecord("sys_complex_object");
+                complexObject.addQuery("name", "IN", objectIDs.toString());
+                complexObject._query();
+                while (complexObject._next()) {
+                    this._exportRecordRaw(complexObject);
+                }
+            }
+        } else {
+            var warningMessages = this.clientSession.getClientData("warningMessages") + "";
+            // split adding an extra comma so checking length
+            if (warningMessages.length == 0) {
+                warningMessages = [];
+            } else {
+                warningMessages = warningMessages.split(",");
+            }
+            var warningMessage = '<a href="' + tableRec.getLink() + '" target="_blank">' + tableRec.getDisplayValue() + '</a> ' + tableRec.getClassDisplayValue();
+            warningMessage = warningMessage + " could not be added to the update set because this instance isn't on NY or higher.";
+            if (warningMessages.indexOf(warningMessage) == -1) {
+                warningMessages.push(warningMessage);
+            }
+            this.clientSession.putClientData("warningMessages", warningMessages.toString());
+        }
+    },
+
+    _addFlowAction: function(tableRec, tableName) {
+        var recID;
+        if (typeof tableRec == "string") {
+            recID = tableRec;
+            tableRec = new GlideRecord("sys_hub_action_type_definition");
+            tableRec.get(recID);
+        }
+        recID = tableRec.getValue("sys_id");
+        this._exportRecordRaw(tableRec);
+
+        // The action sys_update_xml doesn't include a necessary record when inputs are "complex" such as Object
+        // Check to see if there are any complex inputs and add those since sys_complex_object records are not automatically added
+        var stringMatch = "co_type_name=";
+        var objectIDs = [];
+        var actionInput = new GlideRecord("sys_hub_action_input");
+        actionInput.addQuery("model", recID);
+        actionInput.addQuery("attributes", "CONTAINS", "uiType=object");
+        actionInput.addQuery("attributes", "CONTAINS", stringMatch);
+        actionInput._query();
+        while (actionInput._next()) {
+            var attributeList = actionInput.getValue("attributes").toString().split(",");
+            for (var i = 0; i < attributeList.length; i++) {
+                var attribute = attributeList[i];
+                if (attribute.startsWith(stringMatch)) {
+                    var attributeValue = attribute.replace(stringMatch, "");
+                    objectIDs.push(attributeValue);
+                }
+            }
+        }
+        if (objectIDs.length > 0) {
+            var complexObject = new GlideRecord("sys_complex_object");
+            complexObject.addQuery("name", "IN", objectIDs.toString());
+            complexObject._query();
+            while (complexObject._next()) {
+                this._exportRecordRaw(complexObject);
+            }
+        }
+    },
+
+    //Add Service Fulfillment Stages & Steps
+    _addServiceFulfillment: function(catItemID) {
+        var serviceFulfillmentStage = new GlideRecord('sc_service_fulfillment_stage');
+        serviceFulfillmentStage.addQuery('cat_item', catItemID);
+        serviceFulfillmentStage._query();
+        while (serviceFulfillmentStage._next()) {
+            this._exportRecordRaw(serviceFulfillmentStage);
+            var serviceFulfillmentStep = new GlideRecord('sc_service_fulfillment_step');
+            serviceFulfillmentStep.addQuery('service_fulfillment_stage', serviceFulfillmentStage.sys_id.toString());
+            serviceFulfillmentStep._query();
+            while (serviceFulfillmentStep._next()) {
+                this._exportRecordRaw(serviceFulfillmentStep);
+            }
+        }
+    },
+
+    //Add variable set to the update set
+    _addVariableSet: function(tableRec, tableName) {
+        var variableQuery = "variable_set=" + tableRec.sys_id.toString();
+        this._addCatItemConfigDependencies(variableQuery);
+        this._exportRecordRaw(tableRec);
+    },
+
+    //Add variables, client scripts, and UI policies to the update set
+    _addCatItemConfigDependencies: function(itemQuery) {
+        var warningMessages = this.clientSession.getClientData("warningMessages") + "";
+        // split adding an extra comma so checking length
+        if (warningMessages.length == 0) {
+            warningMessages = [];
+        } else {
+            warningMessages = warningMessages.split(",");
+        }
+
+        var variableList = [];
+        var variables = new GlideRecord("item_option_new");
+        variables.addEncodedQuery(itemQuery);
+        variables._query();
+        while (variables._next()) {
+            this._exportRecordRaw(variables);
+
+            if ((variables.getValue("map_to_field") == true && variables.field.toString().startsWith("u_")) || variables.name.toString().startsWith("u_")) {
+                var catItem = variables.cat_item.getRefRecord();
+                var warningMessage = '<a href="' + catItem.getLink() + '" target="_blank">' + catItem.getDisplayValue() + ' ' + catItem.getClassDisplayValue() + '</a>';
+                warningMessage = warningMessage + " contains variables mapped to custom fields that may need to be added to your update set.";
+                if (warningMessages.indexOf(warningMessage) == -1) {
+                    warningMessages.push(warningMessage);
+                }
+            }
+            variableList.push(variables.getValue("sys_id"));
+        }
+        this.clientSession.putClientData("warningMessages", warningMessages.toString());
+
+        var questionChoice = new GlideRecord("question_choice");
+        questionChoice.addQuery("question", "IN", variableList.toString());
+        questionChoice._query();
+        while (questionChoice._next()) {
+            this._exportRecordRaw(questionChoice);
+        }
+
+        var clientScript = new GlideRecord("catalog_script_client");
+        clientScript.addEncodedQuery(itemQuery);
+        clientScript._query();
+        while (clientScript._next()) {
+            this._exportRecordRaw(clientScript);
+        }
+
+        var uiPolicyList = [];
+        var uiPolicyQuery = itemQuery.replace("cat_item=", "catalog_item=");
+        var uiPolicy = new GlideRecord("catalog_ui_policy");
+        uiPolicy.addEncodedQuery(uiPolicyQuery);
+        uiPolicy._query();
+        while (uiPolicy._next()) {
+            this._exportRecordRaw(uiPolicy);
+            uiPolicyList.push(uiPolicy.sys_id.toString());
+        }
+
+        var uiPolicyAction = new GlideRecord("catalog_ui_policy_action");
+        uiPolicyAction.addQuery("ui_policy", "IN", uiPolicyList.toString());
+        uiPolicyAction._query();
+        while (uiPolicyAction._next()) {
+            this._exportRecordRaw(uiPolicyAction);
+        }
+    },
+
+    _addUserCriteria: function(availableForList, notAvailableForList) {
+        var userCriteriaList = this._arrayUtil.concat(availableForList, notAvailableForList);
+        var userCriteria = new GlideRecord("user_criteria");
+        userCriteria.addQuery("sys_id", "IN", userCriteriaList.toString());
+        userCriteria._query();
+        while (userCriteria._next()) {
+            this._exportRecordRaw(userCriteria);
+        }
+
+        try {
+            // Check for linked HR Criteria
+            new sn_hr_core.addToUpdateSetUtils()._addHRCriteria("related_user_criteria", userCriteriaList.toString());
+        } catch (err) {
+
+        }
+    },
+
+    _addTemplate: function(templateID) {
+        var template = new GlideRecord("sys_template");
+        if (template.get(templateID)) {
+            this._exportRecordRaw(template);
+        }
+    },
+
+    /********************* End Catalog & Workflow Functions *********************/
+
+    /********************* Begin Reporting and PA Functions *********************/
+    //Add PA Dashboard and all contents to the update set
+    _addPADashboard: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+        var dashboardID = tableRec.getValue("sys_id");
+
+        var groupID = tableRec.getValue("group");
+        if (!gs.nil(groupID)) {
+            var dashboardGroup = tableRec.group.getRefRecord();
+            this._exportRecordRaw(dashboardGroup);
+        }
+
+        var breakdownSourceM2M = new GlideRecord("pa_m2m_dashboard_sources");
+        breakdownSourceM2M.addQuery("dashboard", dashboardID);
+        breakdownSourceM2M._query();
+        while (breakdownSourceM2M._next()) {
+            this._exportRecordRaw(breakdownSourceM2M);
+
+            // Add Filter
+            var actAsFilter = breakdownSourceM2M.getValue("publisher");
+            if (!gs.nil(actAsFilter)) {
+                this._addInteractiveFilter(actAsFilter);
+            }
+
+            //Add report source
+            var breakdownSource = breakdownSourceM2M.getValue("breakdown_source");
+            if (!gs.nil(breakdownSource)) {
+                this._addPABreakdownSource(breakdownSource);
+            }
+
+        }
+
+        var dashboardPermission = new GlideRecord("pa_dashboards_permissions");
+        dashboardPermission.addQuery("dashboard", dashboardID);
+        dashboardPermission._query();
+        while (dashboardPermission._next()) {
+            this._exportRecordRaw(dashboardPermission);
+        }
+
+        var portalPageList = [];
+        var dashboardTabM2M = new GlideRecord("pa_m2m_dashboard_tabs");
+        dashboardTabM2M.addQuery("dashboard", dashboardID);
+        dashboardTabM2M._query();
+        while (dashboardTabM2M._next()) {
+            this._exportRecordRaw(dashboardTabM2M);
+
+            var dashboardTab = dashboardTabM2M.tab.getRefRecord();
+            this._exportRecordRaw(dashboardTab);
+
+            var portalPageID = dashboardTab.getValue("page");
+            if (!gs.nil(portalPageID)) {
+                portalPageList.push(dashboardTab.getValue("page"));
+            }
+
+            var canvasPageID = dashboardTab.getValue("canvas_page");
+            if (!gs.nil(canvasPageID)) {
+                var canvasPage = dashboardTab.canvas_page.getRefRecord();
+                this._exportRecordRaw(canvasPage);
+
+                if (!gs.nil(canvasPage.getValue("legacy_page"))) {
+                    portalPageList.push(canvasPage.getValue("legacy_page"));
+                }
+
+                var canvasPane = new GlideRecord("sys_grid_canvas_pane");
+                canvasPane.addQuery("grid_canvas", canvasPageID);
+                canvasPane._query();
+                while (canvasPane._next()) {
+                    this._exportRecordRaw(canvasPane);
+                    var pageID;
+                    if (!gs.nil(canvasPane.getValue("portal_widget"))) {
+                        pageID = canvasPane.portal_widget.page.toString();
+                        if (!gs.nil(pageID)) {
+                            portalPageList.push(pageID);
+                        }
+                    }
+                }
+            }
+        }
+
+        var portalPage = new GlideRecord("sys_portal_page");
+        portalPage.addQuery("sys_id", "IN", portalPageList.toString());
+        portalPage._query();
+        while (portalPage._next()) {
+            this._addPortalPage(portalPage);
+        }
+    },
+
+    //Add Homepage and all contents to the update set
+    _addPortalPage: function(portalPage, tableName) {
+        // Since unloader drops a bunch of files, check the update set scope before calling unloader
+        this._checkSetScope(portalPage);
+        GlideappHome.unloader(portalPage);
+
+        //Gather dropzones and contents for a homepage
+        this._addSysPortal(portalPage.getValue("sys_id"));
+    },
+
+    //Gather dropzones and contents for a homepage
+    _addSysPortal: function(portalID) {
+        var sysPortal = new GlideRecord("sys_portal");
+        sysPortal.addQuery("page", portalID);
+        sysPortal._query();
+        while (sysPortal._next()) {
+            var recID = sysPortal.getValue("sys_id");
+            // Because of cross references track the sys_portal records added and return if it has already been added
+            if (gs.nil(this.PAData)) {
+                this.PAData = {};
+                this.PAData.sysPortalIDs = [];
+                this.PAData.indicatorIDs = [];
+                this.PAData.breakdownIDs = [];
+            }
+
+            if (this.PAData.sysPortalIDs.indexOf(recID) == -1) {
+                this.PAData.sysPortalIDs.push(recID);
+            } else {
+                return;
+            }
+
+            this._exportRecordRaw(sysPortal);
+            var portalPreferenceObject = {};
+
+            var portalPreference = new GlideRecord("sys_portal_preferences");
+            portalPreference.addQuery("portal_section", recID);
+            portalPreference._query();
+            while (portalPreference._next()) {
+                //this._exportRecordRaw(portalPreference); //automatically added by GlideappHome.unloader(portalPage);
+                portalPreferenceObject[portalPreference.getValue("name")] = portalPreference.getValue("value");
+            }
+
+            // Add renderer components, other renderers can also be added
+            if (!gs.nil(portalPreferenceObject.renderer) && !gs.nil(portalPreferenceObject.sys_id)) {
+                switch (portalPreferenceObject.renderer.toString()) {
+                    case "com.glide.ui.portal.RenderReport":
+                        this._addReport(portalPreferenceObject.sys_id);
+                        break;
+                    case "com.snc.pa.ui.RenderPerformanceAnalytics":
+                        this._addPAWidget(portalPreferenceObject.sys_id);
+                        break;
+                    case "com.glide.ui.portal.RenderDashboard":
+                        this._addHPGauge(portalPreferenceObject.sys_id);
+                        break;
+                    case "com.glide.cms.RenderBlock":
+                        this._addHPStaticContent(portalPreferenceObject.sys_id);
+                        break;
+                }
+            }
+        }
+    },
+
+    //Add Report and contents to the update set
+    _addReport: function(sysReport, tableName) {
+        var recID;
+        if (typeof sysReport == "string") {
+            recID = sysReport;
+            tableName = gs.nil(tableName) ? "sys_report" : tableName;
+            sysReport = new GlideRecord(tableName);
+            sysReport.get(recID);
+        }
+        recID = sysReport.getValue("sys_id");
+        //Out of the box there are some orphaned report maps, validate it and if it is not valid, blank it out
+        var reportMap = new GlideRecord("sys_report_map");
+        if (!reportMap.get(sysReport.getValue("map"))) {
+            sysReport.map = "";
+        } else {
+            //Add map source
+            var mapSource = new GlideRecord("sys_report_map_source");
+            if (mapSource.get(sysReport.getValue("map_source"))) {
+                this._exportRecordRaw(mapSource);
+            }
+        }
+
+        this._exportRecordRaw(sysReport);
+
+        //Add report colors
+        this._addReportColors(sysReport);
+
+        //Add report color scheme
+        var reportColorScheme = new GlideRecord("pa_chart_color_schemes");
+        if (reportColorScheme.get(sysReport.getValue("color_pallete"))) {
+            this._exportRecordRaw(reportColorScheme);
+        }
+
+        //Add report chart colors
+        this._addReportChartColors(sysReport);
+
+        //Add report source
+        var reportSourceIDs = [];
+        var reportSourceID = sysReport.getValue("report_source");
+        if (!gs.nil(reportSourceID)) {
+            reportSourceIDs.push(reportSourceID);
+        }
+
+        //Add report layers / datasets
+        var reportLayer = new GlideRecord("sys_report_layer");
+        reportLayer.addQuery("report", recID);
+        reportLayer._query();
+        while (reportLayer._next()) {
+            this._exportRecordRaw(reportLayer);
+
+            reportSourceID = reportLayer.getValue("report_source");
+            if (!gs.nil(reportSourceID)) {
+                reportSourceIDs.push(reportSourceID);
+            }
+        }
+
+        //Add report source
+        var reportSource = new GlideRecord("sys_report_source");
+        reportSource.addQuery("sys_id", "IN", reportSourceIDs.toString());
+        reportSource._query();
+        while (reportSource._next()) {
+            this._exportRecordRaw(reportSource);
+        }
+
+        //Add report header footer template
+        var reportHeaderFooter = new GlideRecord("sys_report_page_hdrftr");
+        if (reportHeaderFooter.get(sysReport.getValue("page_hdrftr"))) {
+            this._exportRecordRaw(reportHeaderFooter);
+        }
+
+        //Add report drilldown
+        var reportDrillID = sysReport.getValue("report_drilldown");
+        if (!gs.nil(reportDrillID)) {
+            this._addReport(reportDrillID, "sys_report_drill");
+        }
+
+        //Add report users/groups
+        var reportUsersGroups = new GlideRecord("sys_report_users_groups");
+        reportUsersGroups.addQuery("report_id", recID);
+        reportUsersGroups._query();
+        while (reportUsersGroups._next()) {
+            this._exportRecordRaw(reportUsersGroups);
+        }
+
+        //Add email report schedules
+        var sysautoReport = new GlideRecord("sysauto_report");
+        sysautoReport.addQuery("report", recID);
+        sysautoReport._query();
+        while (sysautoReport._next()) {
+            this._exportRecordRaw(sysautoReport);
+        }
+
+        //Add multilevel pivot rules
+        var multilevelPivotRule = new GlideRecord("sys_report_mpivot_rule");
+        multilevelPivotRule.addQuery("report_id", recID);
+        multilevelPivotRule._query();
+        while (multilevelPivotRule._next()) {
+            this._exportRecordRaw(multilevelPivotRule);
+        }
+    },
+
+    _addPAWidget: function(paWidget, tableName) {
+        var recID;
+        if (typeof paWidget == "string") {
+            recID = paWidget;
+            paWidget = new GlideRecord("pa_widgets");
+            paWidget.get(recID);
+        }
+        recID = paWidget.getValue("sys_id");
+        this._exportRecordRaw(paWidget);
+
+        var fieldName;
+
+        //Add Indicators
+        var indicatorID = paWidget.getValue("indicator");
+        if (!gs.nil(indicatorID)) {
+            this._addPAIndicator(indicatorID);
+        }
+
+        var indicatorGroupID = paWidget.getValue("tag");
+        if (!gs.nil(indicatorGroupID)) {
+            this._addPAIndicatorGroup(indicatorGroupID);
+        }
+
+        //Add Breakdowns
+        var breakdownFieldList = ["breakdown", "breakdown_level2", "followed_breakdown", "pivot_breakdown"];
+        for (var b = 0; b < breakdownFieldList.length; b++) {
+            fieldName = breakdownFieldList[b];
+            if (paWidget.isValidField(fieldName) && !gs.nil(paWidget.getValue(fieldName))) {
+                this._addPABreakdown(paWidget.getValue(fieldName));
+            }
+        }
+
+        //Add report colors
+        this._addReportColors(paWidget);
+
+        //Add element filter
+        var filterFieldList = ["elements_filter", "pivot_elements_filter"];
+        for (var f = 0; f < filterFieldList.length; f++) {
+            fieldName = filterFieldList[f];
+            if (paWidget.isValidField(fieldName) && !gs.nil(paWidget.getValue(fieldName))) {
+                this._addPAFilter(paWidget.getValue(fieldName));
+            }
+        }
+
+        var widgetIndicator = new GlideRecord("pa_widget_indicators");
+        widgetIndicator.addQuery("widget", recID);
+        widgetIndicator._query();
+        while (widgetIndicator._next()) {
+            this._exportRecordRaw(widgetIndicator);
+
+            indicatorID = widgetIndicator.getValue("indicator");
+            if (!gs.nil(indicatorID)) {
+                this._addPAIndicator(indicatorID);
+            }
+
+            //Add Breakdowns
+            breakdownFieldList = ["breakdown", "breakdown_level2", "followed_breakdown"];
+            for (var bI = 0; bI < breakdownFieldList.length; bI++) {
+                fieldName = breakdownFieldList[bI];
+                if (widgetIndicator.isValidField(fieldName) && !gs.nil(widgetIndicator.getValue(fieldName))) {
+                    this._addPABreakdown(widgetIndicator.getValue(fieldName));
+                }
+            }
+
+            if (widgetIndicator.isValidField("color") && !gs.nil(widgetIndicator.getValue("color"))) {
+                reportColor = new GlideRecord("sys_report_color");
+                if (reportColor.get(widgetIndicator.getValue("color"))) {
+                    this._exportRecordRaw(reportColor);
+                }
+            }
+
+            if (widgetIndicator.isValidField("elements_filter") && !gs.nil(widgetIndicator.getValue("elements_filter"))) {
+                this._addPAFilter(widgetIndicator.getValue("elements_filter"));
+            }
+        }
+
+        var onClickBehavior = new GlideRecord("widget_navigation");
+        onClickBehavior.addQuery("widget", recID);
+        onClickBehavior._query();
+        while (onClickBehavior._next()) {
+            this._exportRecordRaw(onClickBehavior);
+        }
+    },
+
+    _addPAIndicatorGroup: function(indicatorGroup, tableName) {
+        var recID;
+        if (typeof indicatorGroup == "string") {
+            recID = indicatorGroup;
+            indicatorGroup = new GlideRecord("pa_tags");
+            indicatorGroup.get(recID);
+        }
+        recID = indicatorGroup.getValue("sys_id");
+        this._exportRecordRaw(indicatorGroup);
+
+        var indicatorGroupM2M = new GlideRecord("pa_m2m_indicator_tags");
+        indicatorGroupM2M.addQuery("tag", recID);
+        indicatorGroupM2M._query();
+        while (indicatorGroupM2M._next()) {
+            this._exportRecordRaw(indicatorGroupM2M);
+            this._addPAIndicator(indicatorGroupM2M.getValue("indicator"));
+        }
+    },
+
+    _addPAIndicatorSource: function(indicatorSource, tableName) {
+        var recID;
+        if (typeof indicatorSource == "string") {
+            recID = indicatorSource;
+            indicatorSource = new GlideRecord("pa_cubes");
+            indicatorSource.get(recID);
+        }
+        recID = indicatorSource.getValue("sys_id");
+        this._exportRecordRaw(indicatorSource);
+
+        var reportSource = new GlideRecord("sys_report_source");
+        if (reportSource.get(indicatorSource.getValue("report_source"))) {
+            this._exportRecordRaw(reportSource);
+        }
+
+        var indicator = new GlideRecord("pa_indicators");
+        indicator.addQuery("cube", recID);
+        indicator._query();
+        while (indicator._next()) {
+            this._addPAIndicator(indicator);
+        }
+
+        var textIndexConfig = new GlideRecord("pa_text_index_configurations");
+        textIndexConfig.addQuery("cube", recID);
+        textIndexConfig._query();
+        while (textIndexConfig._next()) {
+            this._exportRecordRaw(textIndexConfig);
+        }
+    },
+
+    _addPAIndicator: function(indicator, tableName) {
+        var recID;
+        if (typeof indicator == "string") {
+            recID = indicator;
+            indicator = new GlideRecord("pa_indicators");
+            indicator.get(recID);
+        }
+
+        if (!indicator.isValidRecord()) {
+            return;
+        }
+
+        recID = indicator.getValue("sys_id");
+
+        // Because of cross references track the pa_indicators records added and return if it has already been added
+        if (gs.nil(this.PAData)) {
+            this.PAData = {};
+            this.PAData.sysPortalIDs = [];
+            this.PAData.indicatorIDs = [];
+            this.PAData.breakdownIDs = [];
+        }
+
+        if (this.PAData.indicatorIDs.indexOf(recID) == -1) {
+            this.PAData.indicatorIDs.push(recID);
+        } else {
+            return;
+        }
+
+        this._exportRecordRaw(indicator);
+
+        var indicatorSourceID = indicator.getValue("cube");
+        if (!gs.nil(indicatorSourceID)) {
+            var indicatorSource = new GlideRecord("pa_cubes");
+            if (indicatorSource.get(indicatorSourceID)) {
+                this._exportRecordRaw(indicatorSource);
+            }
+        }
+
+        var unitID = indicator.getValue("unit");
+        if (!gs.nil(unitID)) {
+            var unit = new GlideRecord("pa_units");
+            if (unit.get(unitID)) {
+                this._exportRecordRaw(unit);
+            }
+        }
+
+        var linkedIndicatorID = indicator.getValue("linked_indicator");
+        if (!gs.nil(linkedIndicatorID)) {
+            this._addPAIndicator(linkedIndicator);
+        }
+
+        var managingIndicatorID = indicator.getValue("managing_indicator");
+        if (!gs.nil(managingIndicatorID)) {
+            this._addPAIndicator(managingIndicator);
+        }
+
+        var paScriptID = indicator.getValue("script");
+        if (!gs.nil(paScriptID)) {
+            this._addPAScript(paScriptID);
+        }
+
+        var paIndicatorBreakdown = new GlideRecord("pa_indicator_breakdowns");
+        paIndicatorBreakdown.addQuery("indicator", recID);
+        paIndicatorBreakdown._query();
+        while (paIndicatorBreakdown._next()) {
+            this._exportRecordRaw(paIndicatorBreakdown);
+            this._addPABreakdown(paIndicatorBreakdown.getValue("breakdown"));
+        }
+
+        this._addPATarget("indicator=" + recID);
+        this._addPAThreshold("indicator=" + recID);
+
+        var jobIndicator = new GlideRecord("pa_job_indicators");
+        jobIndicator.addQuery("indicator", recID);
+        jobIndicator._query();
+        while (jobIndicator._next()) {
+            this._exportRecordRaw(jobIndicator);
+            var paJob = new GlideRecord("sysauto_pa");
+            if (paJob.get(jobIndicator.getValue("job"))) {
+                this._exportRecordRaw(paJob);
+            }
+
+            var jobIndicatorBreakdownExclusion = new GlideRecord("pa_job_indicator_breakdown_ex");
+            jobIndicatorBreakdownExclusion.addQuery("job_indicator", jobIndicator.getValue("sys_id"));
+            jobIndicatorBreakdownExclusion._query();
+            while (jobIndicatorBreakdownExclusion._next()) {
+                this._exportRecordRaw(jobIndicatorBreakdownExclusion);
+            }
+        }
+
+        var textIndexConfigM2M = new GlideRecord("pa_m2m_indicator_text_indexes");
+        textIndexConfigM2M.addQuery("indicator", recID);
+        textIndexConfigM2M._query();
+        while (textIndexConfigM2M._next()) {
+            this._exportRecordRaw(textIndexConfigM2M);
+
+            var textIndexConfig = new GlideRecord("pa_text_index_configurations");
+            if (textIndexConfig.get(textIndexConfigM2M.getValue("text_index_configuration"))) {
+                this._exportRecordRaw(textIndexConfig);
+            }
+        }
+    },
+
+    _addPABreakdownSource: function(breakdownSource, tableName) {
+        var recID;
+        if (typeof breakdownSource == "string") {
+            recID = breakdownSource;
+            breakdownSource = new GlideRecord("pa_dimensions");
+            breakdownSource.get(recID);
+        }
+        recID = breakdownSource.getValue("sys_id");
+        this._exportRecordRaw(breakdownSource);
+
+        //Check of facts table is Bucket (pa_buckets) and add those records if so
+        if (breakdownSource.getValue("facts_table") == "pa_buckets") {
+            var templateObject = this.parseTemplateString(breakdownSource.conditions.toString());
+            var bucketGroupID = templateObject.bucket_group;
+            if (!gs.nil(bucketGroupID)) {
+                var bucketGroup = new GlideRecord("pa_bucket_groups");
+                if (bucketGroup.get(bucketGroupID)) {
+                    this._exportRecordRaw(bucketGroup);
+
+                    var bucket = new GlideRecord("pa_buckets");
+                    bucket.addQuery("bucket_group", bucketGroupID);
+                    bucket._query();
+                    while (bucket._next()) {
+                        this._exportRecordRaw(bucket);
+                    }
+                }
+            }
+        }
+
+        var paBreakdown = new GlideRecord("pa_breakdowns");
+        paBreakdown.addQuery("dimension", recID);
+        paBreakdown._query();
+        while (paBreakdown._next()) {
+            this._addPABreakdown(paBreakdown);
+        }
+    },
+
+    _addPABreakdown: function(paBreakdown, tableName) {
+        var recID;
+        if (typeof paBreakdown == "string") {
+            recID = paBreakdown;
+            paBreakdown = new GlideRecord("pa_breakdowns");
+            paBreakdown.get(recID);
+        }
+        recID = paBreakdown.getValue("sys_id");
+
+        // Because of cross references track the pa_breakdowns records added and return if it has already been added
+        if (gs.nil(this.PAData)) {
+            this.PAData = {};
+            this.PAData.sysPortalIDs = [];
+            this.PAData.indicatorIDs = [];
+            this.PAData.breakdownIDs = [];
+        }
+
+        if (this.PAData.breakdownIDs.indexOf(recID) == -1) {
+            this.PAData.breakdownIDs.push(recID);
+        } else {
+            return;
+        }
+
+        this._exportRecordRaw(paBreakdown);
+
+        var breakdownSourceID = paBreakdown.getValue("dimension");
+        if (!gs.nil(breakdownSourceID)) {
+            var breakdownSource = new GlideRecord("pa_dimensions");
+            if (breakdownSource.get(breakdownSourceID)) {
+                this._exportRecordRaw(breakdownSource);
+            }
+        }
+
+        var elementsFilterID = paBreakdown.getValue("default_filter");
+        if (!gs.nil(elementsFilterID)) {
+            this._addPAFilter(elementsFilterID);
+        }
+
+        var paScriptID = paBreakdown.getValue("script");
+        if (!gs.nil(paScriptID)) {
+            this._addPAScript(paScriptID);
+        }
+
+        var manualBreakdowns = new GlideRecord("pa_manual_breakdowns");
+        manualBreakdowns.addQuery("breakdown", recID);
+        manualBreakdowns._query();
+        while (manualBreakdowns._next()) {
+            this._exportRecordRaw(manualBreakdowns);
+        }
+
+        this._addPATarget("breakdown=" + recID + "^ORbreakdown_level2=" + recID);
+        this._addPAThreshold("breakdown=" + recID + "^ORbreakdown_level2=" + recID);
+
+        var breakdownMapping = new GlideRecord("pa_breakdown_mappings");
+        breakdownMapping.addQuery("breakdown", recID);
+        breakdownMapping._query();
+        while (breakdownMapping._next()) {
+            this._exportRecordRaw(breakdownMapping);
+
+            paScriptID = breakdownMapping.getValue("script");
+            if (!gs.nil(paScriptID)) {
+                this._addPAScript(paScriptID);
+            }
+        }
+
+        var breakdownRelation = new GlideRecord("pa_breakdown_relations");
+        breakdownRelation.addQuery("breakdown", recID);
+        breakdownRelation._query();
+        while (breakdownRelation._next()) {
+            this._exportRecordRaw(breakdownRelation);
+
+            var relatedBreakdownID = breakdownRelation.getValue("related_breakdown");
+            if (!gs.nil(relatedBreakdownID)) {
+                this._addPABreakdown(relatedBreakdownID);
+            }
+        }
+    },
+
+    _addPATarget: function(targetQuery) {
+        var paTarget = new GlideRecord("pa_targets");
+        paTarget.addEncodedQuery(targetQuery);
+        paTarget._query();
+        while (paTarget._next()) {
+            this._exportRecordRaw(paTarget);
+
+            if (targetQuery.startsWith("indicator")) {
+                if (!gs.nil(paTarget.getValue("breakdown"))) {
+                    this._addPABreakdown(paTarget.getValue("breakdown"));
+                }
+                if (!gs.nil(paTarget.getValue("breakdown_level2"))) {
+                    this._addPABreakdown(paTarget.getValue("breakdown_level2"));
+                }
+            } else if (!gs.nil(paTarget.getValue("indicator"))) {
+                this._addPAIndicator(paTarget.getValue("indicator"));
+            }
+
+            var targetValue = new GlideRecord("pa_target_values");
+            targetValue.addQuery("target", paTarget.getValue("sys_id"));
+            targetValue._query();
+            while (targetValue._next()) {
+                this._exportRecordRaw(targetValue);
+            }
+        }
+    },
+
+    _addPAThreshold: function(thresholdQuery) {
+        var paThreshold = new GlideRecord("pa_thresholds");
+        paThreshold.addEncodedQuery(thresholdQuery);
+        paThreshold._query();
+        while (paThreshold._next()) {
+            this._exportRecordRaw(paThreshold);
+
+            if (thresholdQuery.startsWith("indicator")) {
+                if (!gs.nil(paThreshold.getValue("breakdown"))) {
+                    this._addPABreakdown(paThreshold.getValue("breakdown"));
+                }
+                if (!gs.nil(paThreshold.getValue("breakdown_level2"))) {
+                    this._addPABreakdown(paThreshold.getValue("breakdown_level2"));
+                }
+            } else if (!gs.nil(paThreshold.getValue("indicator"))) {
+                this._addPAIndicator(paThreshold.getValue("indicator"));
+            }
+        }
+    },
+
+    _addPAScript: function(paScriptID) {
+        var paScript = new GlideRecord("pa_scripts");
+        if (paScript.get(paScriptID)) {
+            this._exportRecordRaw(paScript);
+        }
+    },
+
+    _addPAFilter: function(paFilterID) {
+        var elementsFilter = new GlideRecord("pa_filters");
+        if (elementsFilter.get(paFilterID)) {
+            this._exportRecordRaw(elementsFilter);
+        }
+    },
+
+    //Add report colors
+    _addReportColors: function(record) {
+        var colorList = [];
+        var exclusionFields = [];
+        var recordUtil = new GlideRecordUtil();
+        var fieldList = recordUtil.getFields(record);
+
+        for (var i = 0; i < fieldList.length; i++) {
+            var fieldName = fieldList[i];
+            var fieldType = record.getElement(fieldName).getED().getInternalType();
+            if (fieldType != "reference" || exclusionFields.indexOf(fieldName) > -1 || record[fieldName].getReferenceTable() != "sys_report_color") {
+                continue;
+            }
+
+            var fieldValue = record.getValue(fieldName);
+            if (!gs.nil(fieldValue) && colorList.indexOf(colorList) == -1) {
+                colorList.push(fieldValue);
+            }
+        }
+
+        var reportColor = new GlideRecord("sys_report_color");
+        reportColor.addQuery("sys_id", "IN", colorList.toString());
+        reportColor._query();
+        while (reportColor._next()) {
+            this._exportRecordRaw(reportColor);
+        }
+    },
+
+    //Add report chart colors
+    _addReportChartColors: function(record) {
+        if (record.getValue('set_color') == 'chart_colors') {
+            var encQuery = "name=" + record.getValue('table') + "^element=" + record.getValue('field');
+            var chartColor = new GlideRecord('sys_report_chart_color');
+            chartColor.addEncodedQuery(encQuery);
+            chartColor._query();
+            while (chartColor._next()) {
+                this._exportRecordRaw(chartColor);
+            }
+        }
+    },
+
+    //Add interactive filter
+    _addInteractiveFilter: function(record, tableName) {
+        var recID;
+        if (typeof record == "string") {
+            recID = record;
+            record = new GlideRecord("sys_ui_hp_publisher");
+            record.get(recID);
+        }
+        recID = record.getValue("sys_id");
+        this._exportRecordRaw(record);
+
+        //Add cascading filter
+        var cascadingFilter = new GlideRecord("sys_ui_hp_cascading_filter");
+        cascadingFilter.addQuery("publisher_reference", recID);
+        cascadingFilter._query();
+        while (cascadingFilter._next()) {
+            this._addCascadingFilter(cascadingFilter);
+        }
+
+        //Add choice lists - may revisit later as the Exclusion and Default value fields point to sys_choice and no ability to add new ones
+
+        //Add filter reference
+        var filterRef = new GlideRecord("sys_ui_hp_reference");
+        filterRef.addQuery("publisher_reference", recID);
+        filterRef._query();
+        while (filterRef._next()) {
+            this._exportRecordRaw(filterRef);
+        }
+
+        //Add filter date
+        var filterDate = new GlideRecord("sys_ui_hp_date");
+        filterDate.addQuery("publisher_reference", recID);
+        filterDate._query();
+        while (filterDate._next()) {
+            this._exportRecordRaw(filterDate);
+        }
+
+        //Add group & child filters
+        var filterGroup = new GlideRecord("sys_ui_hp_group");
+        filterGroup.addQuery("group_publisher", recID);
+        filterGroup._query();
+        while (filterGroup._next()) {
+            this._exportRecordRaw(filterGroup);
+
+            var childFilter = new GlideRecord("sys_ui_hp_publisher");
+            if (childFilter.get(filterGroup.child_publisher.toString())) {
+                this._addInteractiveFilter(childFilter, childFilter.getTableName());
+            }
+        }
+    },
+
+    _addCascadingFilter: function(record, tableName) {
+        var recID;
+        if (typeof record == "string") {
+            recID = record;
+            record = new GlideRecord("sys_ui_hp_cascading_filter");
+            record.get(recID);
+        }
+        recID = record.getValue("sys_id");
+        this._exportRecordRaw(record);
+
+        //Add cascading filter
+        var cascadingFilter = new GlideRecord("sys_ui_hp_cascading_filter");
+        cascadingFilter.addQuery("parent", recID);
+        cascadingFilter._query();
+        while (cascadingFilter._next()) {
+            this._addCascadingFilter(cascadingFilter);
+        }
+    },
+
+    //Add Home Page Static Content to the update set
+    _addHPStaticContent: function(staticContentID) {
+        var staticContent = new GlideRecord("content_block_static");
+        if (staticContent.get(staticContentID)) {
+            this._exportRecordRaw(staticContent);
+        }
+    },
+
+    //Add Home Page Gauge and contents to the update set
+    _addHPGauge: function(sysGaugeID) {
+        var sysGauge = new GlideRecord("sys_gauge");
+        if (sysGauge.get(sysGaugeID)) {
+            this._exportRecordRaw(sysGauge);
+
+            if (sysGauge.getValue("type") == "report") {
+                this._addReport(sysGauge.getValue("report"));
+            }
+        }
+    },
+
+    /********************* End Reporting and PA Functions *********************/
+
+    //Add assessment to the update set
+    _addAssessment: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+
+        // Check for auto-generated business rules
+        var businessRuleIDs = [];
+        var businessRuleID = tableRec.getValue("business_rule");
+        if (!gs.nil(businessRuleID)) {
+            businessRuleIDs.push(businessRuleID);
+        }
+        businessRuleID = tableRec.getValue("delete_business_rule");
+        if (!gs.nil(businessRuleID)) {
+            businessRuleIDs.push(businessRuleID);
+        }
+        var businessRule = new GlideRecord("sys_script");
+        businessRule.addQuery("sys_id", "IN", businessRuleIDs.toString());
+        businessRule._query();
+        while (businessRule._next()) {
+            this._exportRecordRaw(businessRule);
+        }
+
+        var assessmentID = tableRec.getValue("sys_id");
+
+        var assessmentCategory = new GlideRecord("asmt_metric_category");
+        assessmentCategory.addQuery("metric_type", assessmentID);
+        assessmentCategory._query();
+        while (assessmentCategory._next()) {
+            this._exportRecordRaw(assessmentCategory);
+
+            var assessmentQuestion = new GlideRecord("asmt_metric");
+            assessmentQuestion.addQuery("category", assessmentCategory.getValue("sys_id"));
+            assessmentQuestion._query();
+            while (assessmentQuestion._next()) {
+                this._exportRecordRaw(assessmentQuestion);
+
+                var assessmentQuestionID = assessmentQuestion.getValue("sys_id");
+
+                var assessmentTemplate = assessmentQuestion.template.getRefRecord();
+                this._exportRecordRaw(assessmentTemplate);
+
+                var assessmentTemplateDefinition = new GlideRecord("asmt_template_definition");
+                assessmentTemplateDefinition.addQuery("template", assessmentQuestionID);
+                assessmentTemplateDefinition._query();
+                while (assessmentTemplateDefinition._next()) {
+                    this._exportRecordRaw(assessmentTemplateDefinition);
+                }
+
+                var assessmentDefinition = new GlideRecord("asmt_metric_definition");
+                assessmentDefinition.addQuery();
+                assessmentDefinition.query("metric", assessmentQuestionID);
+                while (assessmentDefinition._next()) {
+                    this._exportRecordRaw(assessmentDefinition);
+                }
+            }
+        }
+
+        var assessmentCondition = new GlideRecord("asmt_condition");
+        assessmentCondition.addQuery("assessment", assessmentID);
+        assessmentCondition._query();
+        while (assessmentCondition._next()) {
+            this._exportRecordRaw(assessmentCondition);
+
+            businessRule = assessmentCondition.business_rule.getRefRecord();
+            this._exportRecordRaw(businessRule);
+        }
+    },
+
+    //Add Virtual Agent to the update set
+    _addVirtualAgent: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+
+        var otherTable = "";
+        var queryField = "";
+        var queryValue = "";
+        var csTopicID = "";
+        var cbTopicID = "";
+        if (tableName == "sys_cs_topic") {
+            csTopicID = tableRec.getValue("sys_id");
+            cbTopicID = tableRec.getValue("cb_topic_id");
+            otherTable = "sys_cb_topic";
+            queryField = "sys_id";
+            queryValue = cbTopicID;
+        } else {
+            cbTopicID = tableRec.getValue("sys_id");
+            otherTable = "sys_cs_topic";
+            queryField = "cb_topic_id";
+            queryValue = cbTopicID;
+        }
+
+        var agentTopic = new GlideRecord(otherTable);
+        agentTopic.addQuery(queryField, queryValue);
+        agentTopic._query();
+        if (agentTopic._next()) {
+            this._exportRecordRaw(agentTopic);
+        } else {
+            agentTopic.initialize();
+            agentTopic.addQuery("name", tableRec.getValue("name"));
+            agentTopic._query();
+            if (agentTopic._next()) {
+                this._exportRecordRaw(agentTopic);
+            }
+        }
+
+        if (csTopicID == "" && otherTable == "sys_cs_topic") {
+            csTopicID = agentTopic.getValue("sys_id");
+        }
+
+        //Add Design Topic
+        if (!gs.nil(csTopicID) && !gs.nil(cbTopicID)) {
+            var cbDesignTopic = new GlideRecord("sys_cb_design_topic");
+            cbDesignTopic.query("compiled_topic", csTopicID);
+            cbDesignTopic.query("design_topic_id", cbTopicID);
+            cbDesignTopic._query();
+            if (cbDesignTopic._next()) {
+                this._exportRecordRaw(cbDesignTopic);
+            }
+        }
+
+        //Add Topic Variables
+        var topicVariable = new GlideRecord("topic_variable");
+        topicVariable.query("model", cbTopicID);
+        topicVariable._query();
+        while (topicVariable._next()) {
+            this._exportRecordRaw(topicVariable);
+        }
+
+        //Add Field Labal
+        var sysDocumentation = new GlideRecord("sys_documentation");
+        sysDocumentation.addQuery("name", "CONTAINS", cbTopicID);
+        sysDocumentation._query();
+        while (sysDocumentation._next()) {
+            this._exportRecordRaw(sysDocumentation);
+        }
+
+        //Add NLU Model if set
+        var hasNLUModel = false;
+        var nluModelID = "";
+        if (tableRec.isValidField("nlu_model")) {
+            nluModelID = tableRec.getValue("nlu_model");
+            if (!gs.nil(nluModelID)) {
+                hasNLUModel = true;
+            }
+        }
+
+        if (hasNLUModel) {
+            this._addNLUModel(nluModelID);
+        }
+    },
+
+    _addNLUModel: function(NLUModel, tableName) {
+        var recID;
+        if (typeof NLUModel == "string") {
+            recID = NLUModel;
+            NLUModel = new GlideRecord("sys_nlu_model");
+            NLUModel.get("name", recID);
+        }
+
+        // Check if NLU Model has Protection Policy set and if so, abort adding it since that should be part of Plugin or Store App
+        if (this.preventProtectedNLUModels && !gs.nil(NLUModel.getValue("sys_policy"))) {
+            var warningMessages = this.clientSession.getClientData("warningMessages") + "";
+            // split adding an extra comma so checking length
+            if (warningMessages.length == 0) {
+                warningMessages = [];
+            } else {
+                warningMessages = warningMessages.split(",");
+            }
+            var warningMessage = '<a href="' + NLUModel.getLink() + '" target="_blank">' + NLUModel.getDisplayValue() + '</a> ' + NLUModel.getClassDisplayValue();
+            warningMessage = warningMessage + " could not be added to the update set because of its protection policy.";
+            if (warningMessages.indexOf(warningMessage) == -1) {
+                warningMessages.push(warningMessage);
+            }
+            this.clientSession.putClientData("warningMessages", warningMessages.toString());
+
+            return;
+        }
+
+        this._exportRecordRaw(NLUModel);
+        recID = NLUModel.getValue("sys_id");
+
+        var intentList = [];
+        var NLUIntent = new GlideRecord("sys_nlu_intent");
+        NLUIntent.addQuery("model", recID);
+        NLUIntent._query();
+        while (NLUIntent._next()) {
+            this._exportRecordRaw(NLUIntent);
+            intentList.push(NLUIntent.getValue("sys_id"));
+        }
+
+        var NLUUtterance = new GlideRecord("sys_nlu_utterance");
+        NLUUtterance.addQuery("intent", "IN", intentList.toString());
+        NLUUtterance._query();
+        while (NLUUtterance._next()) {
+            this._exportRecordRaw(NLUUtterance);
+        }
+
+        var entityList = [];
+        var intentEntityM2M = new GlideRecord("m2m_sys_nlu_intent_entity");
+        intentEntityM2M.addQuery("intent", "IN", intentList.toString());
+        intentEntityM2M._query();
+        while (intentEntityM2M._next()) {
+            this._exportRecordRaw(intentEntityM2M);
+            entityList.push(intentEntityM2M.getValue("entity"));
+        }
+
+        var NLUEntity = new GlideRecord("sys_nlu_entity");
+        NLUEntity.addQuery("sys_id", "IN", entityList.toString()).addOrCondition("model", recID);
+        NLUEntity._query();
+        while (NLUEntity._next()) {
+            this._exportRecordRaw(NLUEntity);
+        }
+
+        var NLUVocabulary = new GlideRecord("sys_nlu_vocabulary");
+        NLUVocabulary.addQuery("model", recID);
+        NLUVocabulary._query();
+        while (NLUVocabulary._next()) {
+            this._exportRecordRaw(NLUVocabulary);
+        }
+
+        var systemEntityM2M = new GlideRecord("m2m_sys_nlu_model_sys_entity");
+        systemEntityM2M.addQuery("model", recID);
+        systemEntityM2M._query();
+        while (systemEntityM2M._next()) {
+            this._exportRecordRaw(systemEntityM2M);
+            var systemEntity = new GlideRecord("sys_nlu_sys_entity");
+            systemEntity.addQuery("sys_id", systemEntityM2M.getValue("sys_entity"));
+            systemEntity._query();
+            while (systemEntity._next()) {
+                this._exportRecordRaw(systemEntity);
+            }
+        }
+
+        /*
+         * When moving NLU models from one instance to another, they are loaded in unpublished even though they may have been published in the source instance.
+         * The below code will check the status of the NLU model in the source instance and if it is published it will add a scheduled job to the update set
+         * to automatically publish the model in the target instance.
+         *
+         * This solution is a two pronged approach because of the fact that when the instance is loading the update set, we cannot control the order in which the
+         * updates are loaded.  This scheduled job will run soon after the update set is loaded but will create another scheduled job that will run 60 seconds
+         * after that to publish the NLU model.  60 seconds should be enough time to load the update set components but feel free to adjust the delaySeconds variable value.
+         */
+
+        if (NLUModel.getValue("state") == "Published") {
+            var delaySeconds = 60;
+            var scheduledJobName = NLUModel.getValue("display_name") + ": Train and Publish";
+
+            var scheduledJobScript = [];
+            scheduledJobScript.push("var scheduledJob = new GlideRecord('sys_trigger')");
+            scheduledJobScript.push("scheduledJob.name = '" + scheduledJobName + "'");
+            scheduledJobScript.push("scheduledJob.trigger_type = 0");
+            scheduledJobScript.push("var nextAction = new GlideDateTime()");
+            scheduledJobScript.push("nextAction.addSeconds(" + delaySeconds + ")");
+            scheduledJobScript.push("scheduledJob.next_action = nextAction");
+            var targetScript = [];
+            targetScript.push("var nluID = '" + recID + "'");
+            targetScript.push("new global.NLUStudioUtil().trainModel(nluID)");
+            targetScript.push("new global.NLUStudioUtil().publishModel(nluID)");
+            targetScript = targetScript.join(";").replace(/'/g, "\\'");
+            scheduledJobScript.push("scheduledJob.script = '" + targetScript + ";'");
+            scheduledJobScript.push("scheduledJob.insert()");
+
+            var scheduleJobFields = {};
+            scheduleJobFields.name = scheduledJobName;
+            var nowDateTime = new GlideDateTime();
+            scheduleJobFields.next_action = nowDateTime.getDisplayValue();
+            scheduleJobFields.trigger_type = "0";
+            scheduleJobFields.script = scheduledJobScript.join(";") + ";";
+            this.addScheduledJob(scheduleJobFields);
+        }
+    },
+
+    _addManagedDoc: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+        var managedDocID = tableRec.getValue("sys_id");
+
+        var docRevision = new GlideRecord("dms_document_revision");
+        docRevision.addQuery("document", managedDocID);
+        docRevision._query();
+        while (docRevision._next()) {
+            this._exportRecordRaw(docRevision);
+
+            // Check to ensure Human Resources Core plugin is active
+            if (new GlidePluginManager().isActive("com.sn_hr_core")) {
+                try {
+                    //Add HR PDF Template
+                    new sn_hr_core.addToUpdateSetUtils()._getHRDocumentTemplates(docRevision.getValue("sys_id"));
+                } catch (err) {
+
+                }
+            }
+        }
+
+        var userPermission = new GlideRecord("dms_document_user_permission");
+        userPermission.addQuery("document", managedDocID);
+        userPermission._query();
+        while (userPermission._next()) {
+            this._exportRecordRaw(userPermission);
+        }
+
+        var groupPermission = new GlideRecord("dms_document_group_permission");
+        groupPermission.addQuery("document", managedDocID);
+        groupPermission._query();
+        while (groupPermission._next()) {
+            this._exportRecordRaw(groupPermission);
+        }
+
+        var knowledgeRecordM2M = new GlideRecord("m2m_document_knowledge");
+        knowledgeRecordM2M.addQuery("document", managedDocID);
+        knowledgeRecordM2M._query();
+        while (knowledgeRecordM2M._next()) {
+            this._exportRecordRaw(knowledgeRecordM2M);
+
+            var kbKnowledge = new GlideRecord("kb_knowledge");
+            if (kbKnowledge.get(knowledgeRecordM2M.getValue("knowledge"))) {
+                this._addKnowledge(kbKnowledge, knowledgeRecordM2M.getValue("knowledge_table_name"));
+            }
+        }
+    },
+
+    _addATF: function(atfTest, tableName) {
+        this._exportRecordRaw(atfTest);
+        var testID = atfTest.getValue("sys_id");
+
+        var stepConfigList = [];
+        var testStep = new GlideRecord("sys_atf_step");
+        testStep.addQuery("test", testID);
+        testStep._query();
+        while (testStep._next()) {
+            this._exportRecordRaw(testStep);
+
+            //Check to see if linked test step config is protected and if not add it
+            if (gs.nil((testStep.step_config.sys_policy.toString()))) {
+                stepConfigList.push(testStep.getValue("step_config"));
+            }
+        }
+
+        if (stepConfigList.length > 0) {
+            var testStepConfig = new GlideRecord("sys_atf_step_config");
+            testStepConfig.addQuery("sys_id", "IN", stepConfigList.toString());
+            testStepConfig._query();
+            while (testStepConfig._next()) {
+                this._exportRecordRaw(testStepConfig);
+                var testStepConfigID = testStepConfig.getValue("sys_id");
+
+                var inputVariable = new GlideRecord("atf_input_variable");
+                inputVariable.addQuery("model", testStepConfigID);
+                inputVariable._query();
+                while (inputVariable._next()) {
+                    this._exportRecordRaw(inputVariable);
+                }
+
+                var outputVariable = new GlideRecord("atf_output_variable");
+                outputVariable.addQuery("model", testStepConfigID);
+                outputVariable._query();
+                while (outputVariable._next()) {
+                    this._exportRecordRaw(outputVariable);
+                }
+            }
+        }
+
+        var testRunDataSet = new GlideRecord("sys_atf_parameter_set");
+        testRunDataSet.addQuery("test", testID);
+        testRunDataSet._query();
+        while (testRunDataSet._next()) {
+            this._exportRecordRaw(testRunDataSet);
+        }
+
+        var dictionaryQuery = "name=sys_atf_parameter_set^element!=active^element!=description^element!=order^element!=parameters^element!=sys_id^element!=test^element!=copied_from";
+        var sysDictionary = new GlideRecord("sys_dictionary");
+        sysDictionary.addEncodedQuery(dictionaryQuery);
+        sysDictionary._query();
+        if (sysDictionary.hasNext()) {
+            while (sysDictionary._next()) {
+                this._addField(sysDictionary, "sys_dictionary");
+            }
+
+            // Add Test Run Data Set Form since it was modified when adding sys_dictionary records
+            var uiFormSection = new GlideRecord("sys_ui_section");
+            uiFormSection.addQuery("name", "sys_atf_parameter_set");
+            uiFormSection._query();
+            while (uiFormSection._next()) {
+                this._exportRecordRaw(uiFormSection);
+            }
+        }
+
+        var parameterVariable = new GlideRecord("sys_atf_parameter_variable");
+        parameterVariable.addQuery("model", testID);
+        parameterVariable._query();
+        while (parameterVariable._next()) {
+            this._addField(parameterVariable, "sys_atf_parameter_variable");
+        }
+
+    },
+
+    //Add guided tour and dependencies to the update set
+    _addGuidedTour: function(tableRec, tableName) {
+        this._exportRecordRaw(tableRec);
+        var recID = tableRec.getValue("sys_id");
+
+        var actionTargetRefList = [];
+        var guidedTourStep = new GlideRecord("sys_embedded_tour_step");
+        guidedTourStep.addQuery("guide", recID);
+        guidedTourStep._query();
+        while (guidedTourStep._next()) {
+            this._exportRecordRaw(guidedTourStep);
+
+            var actionTargetRefID = guidedTourStep.getValue("action_target_ref");
+            if (!gs.nil(actionTargetRefID)) {
+                actionTargetRefList.push(actionTargetRefID);
+            }
+        }
+
+        if (actionTargetRefList.length > 0) {
+            var guidedTourElement = new GlideRecord("sys_embedded_tour_element");
+            guidedTourElement.addQuery("sys_id", "IN", actionTargetRefList.toString());
+            guidedTourElement._query();
+            while (guidedTourElement._next()) {
+                this._exportRecordRaw(guidedTourElement);
+            }
+        }
+    },
+
+    /********************* Begin Service Portal Functions *********************/
+    _addSPPortal: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        var portalPage;
+        //Add homepage
+        if (!record.homepage.nil()) {
+            portalPage = new GlideRecord("sp_page");
+            if (portalPage.get(record.homepage.sys_id.toString())) {
+                this._exportRecordRaw(portalPage);
+                this._addPageDependencies(portalPage);
+            }
+        }
+        //Add KB homepage
+        if (!record.kb_knowledge_page.nil()) {
+            portalPage = new GlideRecord("sp_page");
+            if (portalPage.get(record.kb_knowledge_page.sys_id.toString())) {
+                this._exportRecordRaw(portalPage);
+                this._addPageDependencies(portalPage);
+            }
+        }
+        //Add Login page
+        if (!record.login_page.nil()) {
+            portalPage = new GlideRecord("sp_page");
+            if (portalPage.get(record.login_page.sys_id.toString())) {
+                this._exportRecordRaw(portalPage);
+                this._addPageDependencies(portalPage);
+            }
+        }
+        //Add 404 page
+        if (!record.notfound_page.nil()) {
+            portalPage = new GlideRecord("sp_page");
+            if (portalPage.get(record.notfound_page.sys_id.toString())) {
+                this._exportRecordRaw(portalPage);
+                this._addPageDependencies(portalPage);
+            }
+        }
+        //Add Catalog page
+        if (!record.sc_catalog_page.nil()) {
+            portalPage = new GlideRecord("sp_page");
+            if (portalPage.get(record.sc_catalog_page.sys_id.toString())) {
+                this._exportRecordRaw(portalPage);
+                this._addPageDependencies(portalPage);
+            }
+        }
+        //Add Main Menu
+        if (!record.sp_rectangle_menu.nil()) {
+            var mainMenu = new GlideRecord("sp_instance_menu");
+            if (mainMenu.get(record.sp_rectangle_menu.sys_id.toString())) {
+                //Add Menu rectangle items
+                var menuRectangleItem = new GlideRecord("sp_rectangle_menu_item");
+                menuRectangleItem.addQuery("sp_rectangle_menu", mainMenu.sys_id.toString());
+                menuRectangleItem._query();
+                while (menuRectangleItem._next()) {
+                    this._exportRecordRaw(menuRectangleItem);
+                    this._gatherChildMenuRectangleItems(menuRectangleItem);
+                }
+                this._exportRecordRaw(mainMenu);
+            }
+        }
+        //Add Theme
+        if (!record.theme.nil()) {
+            var theme = new GlideRecord("sp_theme");
+            if (theme.get(record.theme.sys_id.toString())) {
+                //Add header &amp; footer
+                var headerFooter = new GlideRecord("sp_header_footer");
+                headerFooter.addQuery("sys_id", theme.header.sys_id.toString()).addOrCondition("sys_id", theme.footer.sys_id.toString());
+                headerFooter._query();
+                while (headerFooter._next()) {
+                    //Add ng-templates
+                    var ngTemplate = new GlideRecord("sp_ng_template");
+                    ngTemplate.addQuery("sp_widget", headerFooter.sys_id.toString());
+                    ngTemplate._query();
+                    while (ngTemplate._next())
+                        this._exportRecordRaw(ngTemplate);
+                    this._exportRecordRaw(headerFooter);
+                }
+                //Add JS Includes
+                var jsIncludeM2M = new GlideRecord("m2m_sp_theme_js_include");
+                jsIncludeM2M.addQuery("sp_theme", theme.sys_id.toString());
+                jsIncludeM2M._query();
+                while (jsIncludeM2M._next()) {
+                    var jsInclude = new GlideRecord("sp_js_include");
+                    if (jsInclude.get(jsIncludeM2M.sp_js_include.sys_id.toString())) {
+                        //For local js includes, get ui script
+                        if (jsInclude.source.toString() == 'local') {
+                            var uiScript = new GlideRecord("sys_ui_script");
+                            if (uiScript.get(jsInclude.sys_ui_script.sys_id.toString()))
+                                this._exportRecordRaw(uiScript);
+                        }
+                        this._exportRecordRaw(jsInclude);
+                    }
+                    this._exportRecordRaw(jsIncludeM2M);
+                }
+                //Add CSS Includes
+                var cssIncludeM2M = new GlideRecord("m2m_sp_theme_css_include");
+                cssIncludeM2M.addQuery("sp_theme", theme.sys_id.toString());
+                cssIncludeM2M._query();
+                while (cssIncludeM2M._next()) {
+                    var cssInclude = new GlideRecord("sp_css_include");
+                    if (cssInclude.get(cssIncludeM2M.sp_css_include.sys_id.toString())) {
+                        //For local css includes, get style sheet
+                        if (cssInclude.source.toString() == 'local') {
+                            var styleSheet = new GlideRecord("sp_css");
+                            if (styleSheet.get(cssInclude.sp_css.sys_id.toString()))
+                                this._exportRecordRaw(styleSheet);
+                        }
+                        this._exportRecordRaw(cssInclude);
+                    }
+                    this._exportRecordRaw(cssIncludeM2M);
+                }
+                this._exportRecordRaw(theme);
+            }
+        }
+        //Add Search Sources
+        var searchSourceList = [];
+        var searchSourceM2M = new GlideRecord("m2m_sp_portal_search_source");
+        searchSourceM2M.addQuery("sp_portal", record.sys_id.toString());
+        searchSourceM2M._query();
+        while (searchSourceM2M._next()) {
+            this._exportRecordRaw(searchSourceM2M);
+            searchSourceList.push(searchSourceM2M.sp_search_source.toString());
+        }
+        if (searchSourceList.length > 0)
+            this._addSearchSources(searchSourceList);
+    },
+
+    _addSearchSources: function(recordIDs) {
+        var searchSource = new GlideRecord("sp_search_source");
+        searchSource.addQuery("sys_id", "IN", recordIDs.toString());
+        searchSource._query();
+        while (searchSource._next()) {
+            this._exportRecordRaw(searchSource);
+        }
+    },
+
+    _addSPWidget: function(record, tableName) {
+        this._exportRecordRaw(record);
+        this._addWidgetDependencies(record);
+    },
+
+    _addSPPage: function(record, tableName) {
+        this._exportRecordRaw(record);
+        this._addPageDependencies(record);
+    },
+
+    //Add page dependencies to the update set
+    _addPageDependencies: function(record) {
+        //Add containers
+        var container = new GlideRecord("sp_container");
+        container.addQuery("sp_page", record.sys_id.toString());
+        container._query();
+        while (container._next()) {
+            //Add rows
+            var row = new GlideRecord("sp_row");
+            row.addQuery("sp_container", container.sys_id.toString());
+            row._query();
+            while (row._next()) {
+                //add columns and column rows and widget instances
+                this._gatherColumnsAndColumnRowsAndInstances(row);
+                this._exportRecordRaw(row);
+            }
+            this._exportRecordRaw(container);
+        }
+        //Add menu rectangle items
+        var menuRectangleItem = new GlideRecord("sp_rectangle_menu_item");
+        menuRectangleItem.addQuery("sp_page", record.sys_id.toString());
+        menuRectangleItem._query();
+        while (menuRectangleItem._next()) {
+            this._exportRecordRaw(menuRectangleItem);
+            this._gatherChildMenuRectangleItems(menuRectangleItem);
+        }
+
+        this._gatherSPUserCriteria("sp_page", record.sys_id.toString());
+
+        try {
+            //Add content delivery items
+            new sn_cd.addToUpdateSetUtils().checkScheduledContent(record.sys_id.toString());
+        } catch (err) {
+
+        }
+    },
+
+    //Add widget dependencies to the update set
+    _addWidgetDependencies: function(record) {
+        //Add dependencies
+        var dependencyM2M = new GlideRecord("m2m_sp_widget_dependency");
+        dependencyM2M.addQuery("sp_widget", record.sys_id.toString());
+        dependencyM2M._query();
+        while (dependencyM2M._next()) {
+            var dependency = new GlideRecord("sp_dependency");
+            if (dependency.get(dependencyM2M.sp_dependency.sys_id.toString())) {
+                //Add JS Includes
+                var jsIncludeM2M = new GlideRecord("m2m_sp_dependency_js_include");
+                jsIncludeM2M.addQuery("sp_dependency", dependency.sys_id.toString());
+                jsIncludeM2M._query();
+                while (jsIncludeM2M._next()) {
+                    var jsInclude = new GlideRecord("sp_js_include");
+                    if (jsInclude.get(jsIncludeM2M.sp_js_include.sys_id.toString())) {
+                        //For local js includes, get ui script
+                        if (jsInclude.source.toString() == 'local') {
+                            var uiScript = new GlideRecord("sys_ui_script");
+                            if (uiScript.get(jsInclude.sys_ui_script.sys_id.toString()))
+                                this._exportRecordRaw(uiScript);
+                        }
+                        this._exportRecordRaw(jsInclude);
+                    }
+                    this._exportRecordRaw(jsIncludeM2M);
+                }
+                //Add CSS Includes
+                var cssIncludeM2M = new GlideRecord("m2m_sp_dependency_css_include");
+                cssIncludeM2M.addQuery("sp_dependency", dependency.sys_id.toString());
+                cssIncludeM2M._query();
+                while (cssIncludeM2M._next()) {
+                    var cssInclude = new GlideRecord("sp_css_include");
+                    if (cssInclude.get(cssIncludeM2M.sp_css_include.sys_id.toString())) {
+                        //For local css includes, get style sheet
+                        if (cssInclude.source.toString() == 'local') {
+                            var styleSheet = new GlideRecord("sp_css");
+                            if (styleSheet.get(cssInclude.sp_css.sys_id.toString()))
+                                this._exportRecordRaw(styleSheet);
+                        }
+                        this._exportRecordRaw(cssInclude);
+                    }
+                    this._exportRecordRaw(cssIncludeM2M);
+                }
+                this._exportRecordRaw(dependency);
+            }
+            this._exportRecordRaw(dependencyM2M);
+        }
+        //Add angular providers
+        var providerM2M = new GlideRecord("m2m_sp_ng_pro_sp_widget");
+        providerM2M.addQuery("sp_widget", record.sys_id.toString());
+        providerM2M._query();
+        while (providerM2M._next()) {
+            var provider = new GlideRecord("sp_angular_provider");
+            if (provider.get(providerM2M.sp_angular_provider.sys_id.toString())) {
+                //Get required providers
+                this._gatherRequiredProviders(provider);
+                this._addAngularProvider(provider, provider.getTableName());
+            }
+            this._exportRecordRaw(providerM2M);
+        }
+        //Add ng-templates
+        var ngTemplate = new GlideRecord("sp_ng_template");
+        ngTemplate.addQuery("sp_widget", record.sys_id.toString());
+        ngTemplate._query();
+        while (ngTemplate._next()) {
+            this._addNgTemplate(ngTemplate, ngTemplate.getTableName());
+        }
+        //Add embedded widgets
+        this._addEmbeddedWidgets(record.template.toString());
+
+        //Gather custom data table
+        var systemDataTables = [
+            'sp_instance',
+            'sp_instance_carousel',
+            'sp_instance_link',
+            'sp_instance_menu',
+            'sp_instance_table',
+            'sp_instance_vlist'
+        ];
+        var widgetDataTable = record.data_table.toString();
+        var isSystem = false;
+        for (var i = 0; i < systemDataTables.length; i++) {
+            if (systemDataTables[i] == widgetDataTable) {
+                isSystem = true;
+                break;
+            }
+        }
+        if (!isSystem) {
+            var dbObjRec = new GlideRecord('sys_db_object');
+            dbObjRec.addQuery('name', widgetDataTable);
+            dbObjRec._query();
+            if (dbObjRec._next())
+                this._addDbObject(dbObjRec, widgetDataTable);
+        }
+
+        this._gatherSPUserCriteria("sp_widget", record.sys_id.toString());
+    },
+
+    //Add Angular Provider
+    _addAngularProvider: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        this._addEmbeddedWidgets(record.script.toString());
+    },
+
+    //Add NG Template
+    _addNgTemplate: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        this._addEmbeddedWidgets(record.template.toString());
+    },
+
+    //Add Embedded Widgets from a script or template
+    _addEmbeddedWidgets: function(template) {
+        return;
+        /* Disabling until we can find a more effective method for this */
+        /*
+        var regExp = new RegExp('&lt;sp-widget.*id=["\'](.*)["\']', 'g');
+        var widgetId = regExp.exec(template);
+        while (widgetId) {
+            var embeddedWidget = new GlideRecord("sp_widget");
+            embeddedWidget.addQuery("id", widgetId[1]);
+            embeddedWidget._query();
+            if (embeddedWidget._next()) {
+                this._exportRecordRaw(embeddedWidget);
+                this._addWidgetDependencies(embeddedWidget);
+            }
+            widgetId = regExp.exec(template);
+        }
+        */
+    },
+
+    //Recursively gather all required angular providers
+    _gatherRequiredProviders: function(provider) {
+        var requiredProviderM2M = new GlideRecord("m2m_sp_ng_pro_sp_ng_pro");
+        requiredProviderM2M.addQuery("required_by", provider.sys_id.toString());
+        requiredProviderM2M._query();
+        while (requiredProviderM2M._next()) {
+            var requiredProvider = new GlideRecord("sp_angular_provider");
+            if (requiredProvider.get(requiredProviderM2M.requires.sys_id.toString())) {
+                this._exportRecordRaw(requiredProvider);
+                this._gatherRequiredProviders(requiredProvider);
+            }
+            this._exportRecordRaw(requiredProviderM2M);
+        }
+        return;
+    },
+
+    //Recursively gather all columns and column rows
+    _gatherColumnsAndColumnRowsAndInstances: function(row) {
+        //add columns
+        var column = new GlideRecord("sp_column");
+        column.addQuery("sp_row", row.sys_id.toString());
+        column._query();
+        while (column._next()) {
+            //Add widget instances
+            var widgetInstance = new GlideRecord("sp_instance");
+            widgetInstance.addQuery("sp_column", column.sys_id.toString());
+            widgetInstance._query();
+            while (widgetInstance._next()) {
+                //Add widget
+                var widget = new GlideRecord("sp_widget");
+                if (widget.get(widgetInstance.sp_widget.sys_id.toString())) {
+                    this._exportRecordRaw(widget);
+                    this._addWidgetDependencies(widget);
+                }
+                this._exportRecordRaw(widgetInstance);
+
+                this._gatherSPUserCriteria("sp_instance", widgetInstance.sys_id.toString());
+            }
+            //Add column rows
+            var columnRow = new GlideRecord("sp_row");
+            columnRow.addQuery("sp_column", column.sys_id.toString());
+            columnRow._query();
+            while (columnRow._next()) {
+                this._exportRecordRaw(columnRow);
+                this._gatherColumnsAndColumnRowsAndInstances(columnRow);
+            }
+            this._exportRecordRaw(column);
+        }
+        return;
+    },
+
+    //Recursively gather all child menu rectangle items
+    _gatherChildMenuRectangleItems: function(menuRectangleItem) {
+        var childMenuRectangleItem = new GlideRecord("sp_rectangle_menu_item");
+        childMenuRectangleItem.addQuery("sp_rectangle_menu_item", menuRectangleItem.sys_id.toString());
+        childMenuRectangleItem._query();
+        while (childMenuRectangleItem._next()) {
+            this._exportRecordRaw(childMenuRectangleItem);
+            this._gatherChildMenuRectangleItems(childMenuRectangleItem);
+        }
+    },
+
+    //Recursively gather all user criteria
+    _gatherSPUserCriteria: function(tableName, recID) {
+        if (new GlidePluginManager().isActive("com.glide.service-portal.user-criteria")) {
+            //Add user criteria
+            var availableForList = [];
+            var availableForTableName = "m2m_" + tableName + "_uc_can_view";
+            var availableForM2M = new GlideRecord(availableForTableName);
+            availableForM2M.addQuery(tableName, recID);
+            availableForM2M._query();
+            while (availableForM2M._next()) {
+                this._exportRecordRaw(availableForM2M);
+                availableForList.push(availableForM2M.getValue("user_criteria"));
+            }
+
+            var notAvailableForList = [];
+            var notAvailableForTableName = "m2m_" + tableName + "_uc_cannot_view";
+            var notAvailableForM2M = new GlideRecord(notAvailableForTableName);
+            notAvailableForM2M.addQuery(tableName, recID);
+            notAvailableForM2M._query();
+            while (notAvailableForM2M._next()) {
+                this._exportRecordRaw(notAvailableForM2M);
+                notAvailableForList.push(notAvailableForM2M.getValue("user_criteria"));
+            }
+
+            this._addUserCriteria(availableForList, notAvailableForList);
+        }
+    },
+
+    /********************* End Service Portal Functions *********************/
+
+    /********************* Begin Table & Dictionary Functions *********************/
+    //Add DB Object to the update set
+    _addDbObject: function(record, tableName) {
+        this._addTableDependencies(record);
+    },
+
+    //Add field to the update
+    _addField: function(record, tableName) {
+        //If current record is a 'collection' (table), add all table dependencies
+        if (record.internal_type.name.toString() == 'collection') {
+            this._addTableDependencies(record.name.toString());
+        } else {
+            this._exportRecordRaw(record);
+            this._addFieldDependencies(record, tableName);
+        }
+    },
+
+    //Add table dependencies to the update set
+    _addTableDependencies: function(tableName) {
+        //If tableName isn't provided bail since all logic below is dependant on this value
+        if (gs.nil(tableName)) {
+            return;
+        }
+
+        if (typeof tableName == "string") {
+            //Add table record
+            var dbObject = new GlideRecord("sys_db_object");
+            dbObject.addQuery("name", tableName);
+            dbObject._query();
+            if (dbObject._next()) {
+                this._exportRecordRaw(dbObject);
+            }
+        } else if (typeof tableName == "object" && tableName.getTableName() == "sys_db_object") {
+            this._exportRecordRaw(tableName);
+            tableName = tableName.name.toString();
+        } else {
+            return;
+        }
+
+        //Add number record
+        var sysNumber = new GlideRecord("sys_number");
+        sysNumber.addQuery("category", tableName);
+        sysNumber._query();
+        if (sysNumber._next()) {
+            this._exportRecordRaw(sysNumber);
+
+            /*var numberCounter = new GlideRecord("sys_number_counter");
+            numberCounter.addQuery("table", tableName);
+            numberCounter._query();
+            if (numberCounter._next()) {
+                this._exportRecordRaw(numberCounter);
+            }*/
+        }
+
+        //Add table fields
+        var tableField = new GlideRecord("sys_dictionary");
+        tableField.addQuery("name", tableName);
+        tableField.addQuery("element", "DOES NOT CONTAIN", "sys_").addOrCondition("element", null);
+        tableField._query();
+        while (tableField._next()) {
+            //Process table field
+            this._exportRecordRaw(tableField);
+            //Process table field dependencies
+            this._addFieldDependencies(tableField);
+        }
+        //Add form & list elements
+        this._addFormDependencies(null, tableName);
+        //Add choices (redundant for non-extended fields)
+        var choice = new GlideRecord("sys_choice");
+        choice.addQuery("name", tableName);
+        choice._query();
+        while (choice._next())
+            this._exportRecordRaw(choice);
+        //Add dictionary overrides (redundant for non-extended fields)
+        var override = new GlideRecord("sys_dictionary_override");
+        override.addQuery("name", tableName);
+        override._query();
+        while (override._next())
+            this._exportRecordRaw(override);
+        //Add labels (redundant for non-extended fields)
+        var label = new GlideRecord("sys_documentation");
+        label.addQuery("name", tableName);
+        label.addQuery("element", "DOES NOT CONTAIN", "sys_");
+        label._query();
+        while (label._next())
+            this._exportRecordRaw(label);
+        //Add field styles
+        var fieldStyle = new GlideRecord("sys_ui_style");
+        fieldStyle.addQuery("name", tableName);
+        fieldStyle._query();
+        while (fieldStyle._next())
+            this._exportRecordRaw(fieldStyle);
+        //Add access controls, access roles, & roles (redundant for non-extended fields)
+        this._addACLDependencies(tableName);
+
+        //Add client scripts
+        var clientScript = new GlideRecord("sys_script_client");
+        clientScript.addQuery("table", tableName);
+        clientScript._query();
+        while (clientScript._next())
+            this._exportRecordRaw(clientScript);
+        //Add business rules
+        var businessRule = new GlideRecord("sys_script");
+        businessRule.addQuery("collection", tableName);
+        businessRule._query();
+        while (businessRule._next())
+            this._exportRecordRaw(businessRule);
+        //Add ui actions
+        var uiAction = new GlideRecord("sys_ui_action");
+        uiAction.addQuery("table", tableName);
+        uiAction._query();
+        while (uiAction._next()) {
+            this._exportRecordRaw(uiAction);
+            var actionRole = new GlideRecord("sys_ui_action_role");
+            actionRole.addQuery("sys_ui_action", uiAction.sys_id.toString());
+            actionRole._query();
+            while (actionRole._next()) {
+                var role2 = new GlideRecord("sys_user_role");
+                if (role2.get(actionRole.sys_user_role.toString()))
+                    this._exportRecordRaw(role2);
+                this._exportRecordRaw(actionRole);
+            }
+        }
+        //Add ui policies
+        this._addUIPolicyDependencies(tableName);
+        //Add data policies
+        this._addDataPolicyDependencies(tableName);
+        //Add modules and applications (New Record & List of Records only)
+        var navModule = new GlideRecord("sys_app_module");
+        navModule.addQuery("name", tableName);
+        navModule.addQuery("link_type", "IN", "NEW,LIST");
+        navModule._query();
+        while (navModule._next()) {
+            var navApplication = new GlideRecord("sys_app_application");
+            if (navApplication.get(navModule.application.toString()))
+                this._exportRecordRaw(navApplication);
+            this._exportRecordRaw(navModule);
+        }
+
+        //Check to see if table is a M2M and if so add that record
+        var sysM2M = new GlideRecord("sys_m2m");
+        sysM2M.addQuery("m2m_table", tableName);
+        sysM2M._query();
+        if (sysM2M._next()) {
+            this._exportRecordRaw(sysM2M);
+        }
+
+        //Check to see if table is an import set and if so add transform maps and dependencies
+        if (this._getTableBase(tableName) == "sys_import_set_row") {
+            var transformMap = new GlideRecord("sys_transform_map");
+            transformMap.addQuery("source_table", tableName);
+            transformMap._query();
+            while (transformMap._next()) {
+                this._addTransformMap(transformMap, "sys_transform_map");
+            }
+        }
+    },
+
+    //Add form dependencies to the update set
+    _addFormDependencies: function(record, tableName) {
+        if (tableName == "sys_ui_form" && !gs.nil(record)) {
+            tableName = record.getValue("name");
+        }
+
+        //Add ui sections & elements
+        var uiSectionList = [];
+        var uiSection = new GlideRecord("sys_ui_section");
+        uiSection.addQuery("name", tableName);
+        //uiSection.addQuery("view","Default view");
+        uiSection._query();
+        while (uiSection._next()) {
+            this._exportRecordRaw(uiSection);
+            uiSectionList.push(uiSection.getValue("sys_id"));
+        }
+        //Add form & elements
+        var formViewList = [];
+        var formView = new GlideRecord("sys_ui_form");
+        formView.addQuery("name", tableName);
+        //formView.addQuery("view","Default view");
+        formView._query();
+        while (formView._next()) {
+            this._exportRecordRaw(formView);
+            formViewList.push(formView.getValue("sys_id"));
+        }
+        //Add form sections
+        var formSectionQuery = "sys_ui_formIN" + formViewList.toString();
+        formSectionQuery = formSectionQuery + "^ORsys_ui_sectionIN" + uiSectionList.toString();
+        var formSection = new GlideRecord("sys_ui_form_section");
+        formSection.addEncodedQuery(formSectionQuery);
+        formSection._query();
+        while (formSection._next()) {
+            this._exportRecordRaw(formSection);
+        }
+        //Add list views
+        var listView = new GlideRecord("sys_ui_list");
+        listView.addQuery("name", tableName);
+        //listView.addQuery("view", "Default view");
+        listView._query();
+        while (listView._next())
+            this._exportRecordRaw(listView);
+        //Add related lists
+        var relatedList = new GlideRecord("sys_ui_related_list");
+        relatedList.addQuery("name", tableName);
+        //relatedList.addQuery("view", "Default view");
+        relatedList._query();
+        while (relatedList._next()) {
+            this._exportRecordRaw(relatedList);
+            var relatedListEntry = new GlideRecord("sys_ui_related_list_entry");
+            relatedListEntry.addQuery("list_id", relatedList.sys_id.toString());
+            relatedListEntry._query();
+            while (relatedListEntry._next())
+                this._exportRecordRaw(relatedListEntry);
+        }
+
+    },
+
+    //Add access controls, access roles, & roles
+    _addACLDependencies: function(acl, tableName) {
+        var aclList = [];
+
+        if (!gs.nil(tableName) && tableName == "sys_security_acl") {
+            this._exportRecordRaw(acl);
+            aclList.push(acl.getValue("sys_id"));
+        } else {
+            var aclTableName = acl;
+            acl = new GlideRecord("sys_security_acl");
+            acl.addQuery("name", aclTableName).addOrCondition("name", "STARTSWITH", aclTableName + '.');
+            acl._query();
+            while (acl._next()) {
+                this._exportRecordRaw(acl);
+                aclList.push(acl.getValue("sys_id"));
+            }
+        }
+
+        var aclRole = new GlideRecord("sys_security_acl_role");
+        aclRole.addQuery("sys_security_acl", "IN", aclList.toString());
+        aclRole._query();
+        while (aclRole._next()) {
+            var role = new GlideRecord("sys_user_role");
+            if (role.get(aclRole.sys_user_role.toString()))
+                this._exportRecordRaw(role);
+            this._exportRecordRaw(aclRole);
+        }
+    },
+
+    //Add UI policies to the update set
+    _addUIPolicyDependencies: function(uiPolicy, tableName) {
+        var uiPolicyList = [];
+
+        if (!gs.nil(tableName) && tableName == "sys_ui_policy") {
+            this._exportRecordRaw(uiPolicy);
+            uiPolicyList.push(uiPolicy.getValue("sys_id"));
+        } else {
+            var uiPolicyTableName = uiPolicy;
+            uiPolicy = new GlideRecord("sys_ui_policy");
+            uiPolicy.addQuery("table", uiPolicyTableName);
+            uiPolicy._query();
+            while (uiPolicy._next()) {
+                this._exportRecordRaw(uiPolicy);
+                uiPolicyList.push(uiPolicy.getValue("sys_id"));
+            }
+        }
+
+        var uiPolicyAction = new GlideRecord("sys_ui_policy_action");
+        uiPolicyAction.addQuery("ui_policy", "IN", uiPolicyList.toString());
+        uiPolicyAction._query();
+        while (uiPolicyAction._next())
+            this._exportRecordRaw(uiPolicyAction);
+    },
+
+    //Add data policies
+    _addDataPolicyDependencies: function(dataPolicy, tableName) {
+        var dataPolicyList = [];
+
+        if (!gs.nil(tableName) && tableName == "sys_data_policy2") {
+            this._exportRecordRaw(dataPolicy);
+            dataPolicyList.push(dataPolicy.getValue("sys_id"));
+        } else {
+            var dataPolicyTableName = dataPolicy;
+            dataPolicy = new GlideRecord("sys_data_policy2");
+            dataPolicy.addQuery("model_table", dataPolicyTableName);
+            dataPolicy._query();
+            while (dataPolicy._next()) {
+                this._exportRecordRaw(dataPolicy);
+                dataPolicyList.push(dataPolicy.getValue("sys_id"));
+            }
+        }
+
+        var dataPolicyRule = new GlideRecord("sys_data_policy_rule");
+        dataPolicyRule.addQuery("sys_data_policy", "IN", dataPolicyList.toString());
+        dataPolicyRule._query();
+        while (dataPolicyRule._next())
+            this._exportRecordRaw(dataPolicyRule);
+    },
+
+    //Add modules and applications
+    _addAppModuleDependencies: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        var navModule = new GlideRecord("sys_app_module");
+        navModule.addQuery("application", record.sys_id.toString());
+        navModule._query();
+        while (navModule._next()) {
+            this._exportRecordRaw(navModule);
+        }
+    },
+
+    //Add field dependencies to the update set
+    _addFieldDependencies: function(record, tableName) {
+        //Add choices
+        var choice = new GlideRecord("sys_choice");
+        choice.addQuery("name", record.name.toString());
+        choice.addQuery("element", record.element.toString());
+        choice._query();
+        while (choice._next())
+            this._exportRecordRaw(choice);
+        //Add attributes
+        var attributeM2M = new GlideRecord("sys_schema_attribute_m2m");
+        attributeM2M.addQuery("schema", record.sys_id.toString());
+        attributeM2M._query();
+        while (attributeM2M._next()) {
+            //Add attribute
+            var attribute = new GlideRecord("sys_schema_attribute");
+            if (attribute.get(attributeM2M.attribute.sys_id.toString()))
+                this._exportRecordRaw(attribute);
+            //Add attribute m2m
+            this._exportRecordRaw(attributeM2M);
+        }
+        //Add labels
+        var label = new GlideRecord("sys_documentation");
+        label.addQuery("name", record.name.toString());
+        label.addQuery("element", record.element.toString());
+        label._query();
+        while (label._next())
+            this._exportRecordRaw(label);
+        //Add field styles
+        var fieldStyle = new GlideRecord("sys_ui_style");
+        fieldStyle.addQuery("name", record.name.toString());
+        fieldStyle.addQuery("element", record.element.toString());
+        fieldStyle._query();
+        while (fieldStyle._next())
+            this._exportRecordRaw(fieldStyle);
+        //Add dictionary overrides
+        var override = new GlideRecord("sys_dictionary_override");
+        override.addQuery("name", record.name.toString());
+        override.addQuery("element", record.element.toString());
+        override._query();
+        while (override._next())
+            this._exportRecordRaw(override);
+        //Add access controls, access roles, & roles (redundant for non-extended fields)
+        var acl = new GlideRecord("sys_security_acl");
+        acl.addQuery("name", record.name.toString() + '.' + record.element.toString());
+        acl._query();
+        while (acl._next()) {
+            this._exportRecordRaw(acl);
+            var aclRole = new GlideRecord("sys_security_acl_role");
+            aclRole.addQuery("sys_security_acl", acl.sys_id.toString());
+            aclRole._query();
+            while (aclRole._next()) {
+                var role = new GlideRecord("sys_user_role");
+                if (role.get(aclRole.sys_user_role.toString()))
+                    this._exportRecordRaw(role);
+                this._exportRecordRaw(aclRole);
+            }
+        }
+    },
+
+    //Add Database View
+    _addDbView: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        //Add Database View Table
+        var dbViewTable = new GlideRecord("sys_db_view_table");
+        dbViewTable.addQuery("view", record.sys_id.toString());
+        dbViewTable._query();
+        while (dbViewTable._next()) {
+            this._exportRecordRaw(dbViewTable);
+            //Add Database View Fields
+            var dbViewField = new GlideRecord("sys_db_view_table_field");
+            dbViewField.addQuery("view_table", dbViewTable.sys_id.toString());
+            dbViewField._query();
+            while (dbViewField._next()) {
+                this._exportRecordRaw(dbViewField);
+            }
+            //Add dependent tables
+            if (this.includeDbViewTables) {
+                var dbViewSysDbObject = new GlideRecord("sys_db_object");
+                dbViewSysDbObject.addQuery("name", dbViewTable.table.toString());
+                dbViewSysDbObject._query();
+                if (dbViewSysDbObject._next()) {
+                    this._addDbObject(dbViewSysDbObject);
+                }
+            }
+        }
+    },
+
+    /********************* End Table & Dictionary Functions *********************/
+
+    /********************* Begin Integrations Functions *********************/
+
+    _addRestMessage: function(restMessage, tableName) {
+        var recID;
+        if (typeof restMessage == "string") {
+            recID = restMessage;
+            restMessage = new GlideRecord("sys_rest_message");
+            restMessage.get(recID);
+        }
+        this._exportRecordRaw(restMessage);
+        recID = restMessage.getValue("sys_id");
+
+        var httpHeader = new GlideRecord("sys_rest_message_headers");
+        httpHeader.addQuery("rest_message", recID);
+        httpHeader._query();
+        while (httpHeader._next()) {
+            this._exportRecordRaw(httpHeader);
+        }
+
+        this._addBasicAuthProfile(restMessage.getValue("basic_auth_profile"));
+
+        var restFunction = new GlideRecord("sys_rest_message_fn");
+        restFunction.addQuery("rest_message", recID);
+        restFunction._query();
+        while (restFunction._next()) {
+            this._addRestFunction(restFunction);
+        }
+    },
+
+    _addRestFunction: function(restFunction, tableName) {
+        var recID;
+        if (typeof restFunction == "string") {
+            recID = restFunction;
+            restFunction = new GlideRecord("sys_rest_message_fn");
+            restFunction.get(recID);
+        }
+        this._exportRecordRaw(restFunction);
+        recID = restFunction.getValue("sys_id");
+
+        var httpHeader = new GlideRecord("sys_rest_message_fn_headers");
+        httpHeader.addQuery("rest_message_function", recID);
+        httpHeader._query();
+        while (httpHeader._next()) {
+            this._exportRecordRaw(httpHeader);
+        }
+
+        this._addBasicAuthProfile(restFunction.getValue("basic_auth_profile"));
+
+        var queryParameter = new GlideRecord("sys_rest_message_fn_param_defs");
+        queryParameter.addQuery("rest_message_function", recID);
+        queryParameter._query();
+        while (queryParameter._next()) {
+            this._exportRecordRaw(queryParameter);
+        }
+
+        var varSubstitution = new GlideRecord("sys_rest_message_fn_parameters");
+        varSubstitution.addQuery("rest_message_function", recID);
+        varSubstitution._query();
+        while (varSubstitution._next()) {
+            this._exportRecordRaw(varSubstitution);
+        }
+    },
+
+    //Add Scripted REST service
+    _addScriptedRestService: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        //Add REST resources
+        var restResource = new GlideRecord("sys_ws_operation");
+        restResource.addQuery("web_service_definition", record.sys_id.toString());
+        restResource._query();
+        while (restResource._next()) {
+            this._addScriptedRestResource(restResource, restResource.getTableName());
+        }
+
+        //Add ACLs
+        if (!record.enforce_acl.nil()) {
+            var aclArray = record.enforce_acl.toString().split(',');
+            for (var i = 0; i < aclArray.length; i++) {
+                var aclRec = new GlideRecord('sys_security_acl');
+                if (aclRec.get(aclArray[i])) {
+                    this._addACLDependencies(aclRec, aclRec.getTableName());
+                }
+            }
+        }
+    },
+
+    //Add Scripted REST resource
+    _addScriptedRestResource: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        //Add REST Service
+        var restService = new GlideRecord("sys_ws_definition");
+        if (restService.get(record.web_service_definition.toString())) {
+            this._exportRecordRaw(restService);
+        }
+
+        //Add Query Parameter M2M
+        var queryParamM2M = new GlideRecord("sys_ws_query_parameter_map");
+        queryParamM2M.addQuery("web_service_operation", record.sys_id.toString());
+        queryParamM2M._query();
+        while (queryParamM2M._next()) {
+            //Add Query Parameter
+            var queryParam = new GlideRecord("sys_ws_query_parameter");
+            if (queryParam.get(queryParamM2M.web_service_query_parameter.toString())) {
+                this._exportRecordRaw(queryParam);
+            }
+
+            this._exportRecordRaw(queryParamM2M);
+        }
+
+        //Add REST Header M2M
+        var restHeaderM2M = new GlideRecord("sys_ws_header_map");
+        restHeaderM2M.addQuery("web_service_operation", record.sys_id.toString());
+        restHeaderM2M._query();
+        while (restHeaderM2M._next()) {
+            //Add Header
+            var restHeader = new GlideRecord("sys_ws_header");
+            if (restHeader.get(restHeaderM2M.web_service_header.toString())) {
+                this._exportRecordRaw(restHeader);
+            }
+
+            this._exportRecordRaw(restHeaderM2M);
+        }
+
+        //Add ACLs
+        if (!record.enforce_acl.nil()) {
+            var aclArray = record.enforce_acl.toString().split(',');
+            for (var i = 0; i < aclArray.length; i++) {
+                var aclRec = new GlideRecord('sys_security_acl');
+                if (aclRec.get(aclArray[i])) {
+                    this._addACLDependencies(aclRec, aclRec.getTableName());
+                }
+            }
+        }
+    },
+
+    //Add Scripted SOAP service
+    _addScriptedSoapService: function(record, tableName) {
+        this._exportRecordRaw(record);
+
+        //Add Input Parameters
+        var soapInputParameter = new GlideRecord("sys_web_service_input");
+        soapInputParameter.addQuery("web_service", record.sys_id.toString());
+        soapInputParameter._query();
+        while (soapInputParameter._next()) {
+            this._exportRecordRaw(soapInputParameter);
+        }
+
+        //Add OutputParameters
+        var soapOutputParameter = new GlideRecord("sys_web_service_output");
+        soapOutputParameter.addQuery("web_service", record.sys_id.toString());
+        soapOutputParameter._query();
+        while (soapOutputParameter._next()) {
+            this._exportRecordRaw(soapOutputParameter);
+        }
+    },
+
+    _addSoapMessage: function(soapMessage, tableName) {
+        var recID;
+        if (typeof soapMessage == "string") {
+            recID = soapMessage;
+            soapMessage = new GlideRecord("sys_soap_message");
+            soapMessage.get(recID);
+        }
+        this._exportRecordRaw(soapMessage);
+        recID = soapMessage.getValue("sys_id");
+
+        this._addBasicAuthProfile(soapMessage.getValue("basic_auth_profile"));
+
+        var soapFunction = new GlideRecord("sys_soap_message_function");
+        soapFunction.addQuery("soap_message", recID);
+        soapFunction._query();
+        while (soapFunction._next()) {
+            this._addSoapFunction(soapFunction);
+        }
+    },
+
+    _addSoapFunction: function(soapFunction, tableName) {
+        var recID;
+        if (typeof soapFunction == "string") {
+            recID = soapFunction;
+            soapFunction = new GlideRecord("sys_rest_message_fn");
+            soapFunction.get(recID);
+        }
+        this._exportRecordRaw(soapFunction);
+        recID = soapFunction.getValue("sys_id");
+
+        this._addBasicAuthProfile(soapFunction.getValue("basic_auth_profile"));
+
+        var varSubstitution = new GlideRecord("sys_soap_message_parameters");
+        varSubstitution.addQuery("soap_function", recID);
+        varSubstitution._query();
+        while (varSubstitution._next()) {
+            this._exportRecordRaw(varSubstitution);
+        }
+    },
+
+    _addTransformMap: function(transformMap, tableName) {
+        this._exportRecordRaw(transformMap);
+        var recID = transformMap.getValue("sys_id");
+
+        var fieldMap = new GlideRecord("sys_transform_entry");
+        fieldMap.addQuery("map", recID);
+        fieldMap._query();
+        while (fieldMap._next()) {
+            this._exportRecordRaw(fieldMap);
+        }
+
+        var transformScript = new GlideRecord("sys_transform_script");
+        transformScript.addQuery("map", recID);
+        transformScript._query();
+        while (transformScript._next()) {
+            this._exportRecordRaw(transformScript);
+        }
+    },
+
+    _addBasicAuthProfile: function(basicAuthProfileID) {
+        if (gs.nil(basicAuthProfileID)) {
+            return;
+        }
+
+        var basicAuthProfile = new GlideRecord("sys_auth_profile_basic");
+        if (basicAuthProfile.get(basicAuthProfileID)) {
+            this._exportRecordRaw(basicAuthProfile);
+        }
+    },
+
+    /********************* End Integrations Functions *********************/
+
+    addScheduledJob: function(scheduleJobFields) {
+        var scheduledJob = new GlideRecord("sys_trigger");
+        scheduledJob.newRecord();
+
+        var keys = Object.keys(scheduleJobFields).toString();
+        var keysList = keys.split(",");
+        for (var i = 0; i < keysList.length; i++) {
+            var fieldName = keysList[i].trim();
+            var fieldValue = scheduleJobFields[fieldName].trim();
+            if (!gs.nil(fieldValue) && scheduledJob.isValidField(fieldName)) {
+                scheduledJob[fieldName] = fieldValue;
+            }
+        }
+        this._exportRecordRaw(scheduledJob, false);
+    },
+
+    parseTemplateString: function(templateString) {
+        var templateObject = {};
+
+        var templateArray = templateString.toString().split("^");
+        for (var i = 0; i < templateArray.length; i++) {
+            var fieldPair = templateArray[i].toString().split("=");
+            templateObject[fieldPair[0]] = fieldPair[1];
+        }
+
+        return templateObject;
+    },
+
+    /********************* Begin Event Management Functions *********************/
+    _addEMRule: function(emRule, tableName) {
+        this._exportRecordRaw(emRule);
+        var emRuleID = emRule.getValue("sys_id");
+
+        var composeField = new GlideRecord("em_compose_field");
+        composeField.addQuery("match_rule", emRuleID);
+        composeField._query();
+        while (composeField._next()) {
+            this._exportRecordRaw(composeField);
+        }
+
+        var matchField = new GlideRecord("em_match_field");
+        matchField.addQuery("match_rule", emRuleID);
+        matchField._query();
+        while (matchField._next()) {
+            this._exportRecordRaw(matchField);
+        }
+    },
+
+    /********************* End Event Management Functions *********************/
+
+    /********************* Begin Discovery Functions *********************/
+    _addDiscoverySchedule: function(discoverySchedule, tableName) {
+        this._exportRecordRaw(discoverySchedule);
+        var discoveryScheduleID = discoverySchedule.getValue("sys_id");
+
+        var ipRangeItem = new GlideRecord("discovery_range_item");
+        ipRangeItem.addQuery("schedule", discoveryScheduleID);
+        ipRangeItem._query();
+        while (ipRangeItem._next()) {
+            this._addDiscoveryRangeItem(ipRangeItem);
+        }
+
+        var scheduleRange = new GlideRecord("discovery_schedule_range");
+        scheduleRange.addQuery("dscheduler", discoveryScheduleID);
+        scheduleRange._query();
+        while (scheduleRange._next()) {
+            this._exportRecordRaw(scheduleRange);
+            this._addDiscoveryRangeSet(scheduleRange.getValue("range"));
+        }
+
+        if (!gs.nil(discoverySchedule.getValue("behavior"))) {
+            this._addDiscoveryBehavior(discoverySchedule.getValue("behavior"));
+        }
+    },
+
+    _addDiscoveryRangeSet: function(discoveryRangeSet, tableName) {
+        var recID;
+        if (typeof discoveryRangeSet == "string") {
+            recID = discoveryRangeSet;
+            discoveryRangeSet = new GlideRecord("discovery_range");
+            discoveryRangeSet.get(recID);
+        }
+        this._exportRecordRaw(discoveryRangeSet);
+        recID = discoveryRangeSet.getValue("sys_id");
+
+        if (!gs.nil(discoveryRangeSet.getValue("behavior"))) {
+            this._addDiscoveryBehavior(discoveryRangeSet.getValue("behavior"));
+        }
+
+        var ipRangeItem = new GlideRecord("discovery_range_item");
+        ipRangeItem.addQuery("parent", recID);
+        ipRangeItem._query();
+        while (ipRangeItem._next()) {
+            this._addDiscoveryRangeItem(ipRangeItem);
+        }
+    },
+
+    _addDiscoveryRangeItem: function(rangeItem) {
+        this._exportRecordRaw(rangeItem);
+
+        var ipRangeItemExcludeList = [];
+        var ipRangeItemExclude = new GlideRecord("discovery_range_item_exclude");
+        ipRangeItemExclude.addQuery("parent", rangeItem.getValue("sys_id"));
+        ipRangeItemExclude._query();
+        while (ipRangeItemExclude._next()) {
+            this._exportRecordRaw(ipRangeItemExclude);
+            ipRangeItemExcludeList.push(ipRangeItemExclude.getValue("sys_id"));
+        }
+
+        var rangeItemIP = new GlideRecord("discovery_range_item_ip");
+        rangeItemIP.addQuery("exclude_parent", "IN", ipRangeItemExcludeList.toString());
+        rangeItemIP._query();
+        while (rangeItemIP._next()) {
+            this._exportRecordRaw(rangeItemIP);
+            ipRangeItemExcludeList.push(rangeItemIP.getValue("sys_id"));
+        }
+    },
+
+    _addDiscoveryBehavior: function(discoveryBehavior, tableName) {
+        var recID;
+        if (typeof discoveryBehavior == "string") {
+            recID = discoveryBehavior;
+            discoveryBehavior = new GlideRecord("discovery_behavior");
+            discoveryBehavior.get(recID);
+        }
+        if (!discoveryBehavior.isValidRecord()) {
+            return;
+        }
+
+        this._exportRecordRaw(discoveryBehavior);
+        recID = discoveryBehavior.getValue("sys_id");
+
+        var functionalityDefinition = new GlideRecord("discovery_functionality");
+        if (functionalityDefinition.get(discoveryBehavior.getValue("functionality"))) {
+            this._exportRecordRaw(functionalityDefinition);
+        }
+
+        var functionCriterion = new GlideRecord("discovery_func_criterion");
+        functionCriterion.addQuery("functionality", recID);
+        functionCriterion._query();
+        while (functionCriterion._next()) {
+            this._exportRecordRaw(functionCriterion);
+        }
+    },
+
+    /********************* End Discovery Functions *********************/
+
+    /********************* Begin ETL Functions *********************/
+    //==================================================================================
+    // Thanks to Alexis Osborne for these contributions to ATUS!
+    // Must start on cmdb_inst_application_feed.  Select Add To UpdateSet in Related Links
+    // All associated data for the ETL will be pulled into the current update set
+    //==================================================================================
+
+    _addETL: function(tableRec, tableName) {
+
+        var etlID;
+        if (typeof tableRec == "string") {
+            etlID = tableRec;
+            tableRec = new GlideRecord("cmdb_inst_application_feed"); //verified
+            tableRec.get(etlID);
+
+        }
+        // CMDB Integration Studio Application Data Source (cmdb_inst_application_feed)  - extends Robust Transform Engine Entity Based Definition (sys_rte_definition)
+        this._exportRecordRaw(tableRec);
+        etlID = tableRec.getValue("sys_id");
+
+        //         var rteDef = new GlideRecord("sys_rte_definition");
+        //         rteDef.addQuery("sys_rte_eb_definition", etlID);
+        //         rteDef._query();
+        //         while (rteDef._next()) {
+        //             this._exportRecordRaw(rteDef);
+        //         }
+
+        // Get upstream references *******************************************
+        //   ETL CMDB Integration Studio Application
+        var instApp = new GlideRecord("cmdb_inst_application"); //verified
+        instApp.addQuery("sys_id", tableRec.cmdb_inst_application);
+        instApp._query();
+        while (instApp._next()) {
+            this._exportRecordRaw(instApp);
+        }
+
+        // Data Source
+        var dataSource = new GlideRecord("sys_data_source");
+        dataSource.addQuery("sys_id", tableRec.sys_data_source);
+        dataSource._query();
+        while (dataSource._next()) {
+            this._exportRecordRaw(dataSource);
+
+            // Scheduled Data Import
+            var schDataImport = new GlideRecord("scheduled_import_set");
+            schDataImport.addQuery("data_source", dataSource.sys_id);
+            schDataImport._query();
+            while (schDataImport._next()) {
+                this._exportRecordRaw(schDataImport);
+
+            }
+        }
+        // End  upstream references *******************************************
+
+
+        // Begin Downstream tables  *******************************************
+
+        // Get downstream references- CMDB Integration Studio Entity(cmdb_inst_entity) extends(sys_rte_eb_entity) - only query against parent table
+        //         var instEntity = new GlideRecord("cmdb_inst_entity");
+        //         instEntity.addQuery("sys_rte_eb_definition", etlID);
+        //         instEntity._query();
+        //         while (instEntity._next()) {
+        //             this._exportRecordRaw(instEntity);
+        //         }
+
+        // Get downstream references- Robust Transform Engine Entity
+        var retEBEntity = new GlideRecord("sys_rte_eb_entity"); // confirm - extended by cmdb_inst_entity
+        retEBEntity.addQuery("sys_rte_eb_definition", etlID);
+        retEBEntity._query();
+        while (retEBEntity._next()) {
+            this._exportRecordRaw(retEBEntity);
+        }
+
+
+        //  dependent tables(tabs):  sys_rte_eb_field(done)   sys_rte_eb_operation(done)
+        // Get downstream references- CMDB Intgration Studio Entry  dependent table: Robust Transform Engine Entity Field (sys_rte_eb_field)
+        var rteEBField = new GlideRecord("sys_rte_eb_field"); // verified
+        rteEBField.addQuery("sys_rte_eb_definition", etlID);
+        rteEBField._query();
+        while (rteEBField._next()) {
+            this._exportRecordRaw(rteEBField);
+        }
+
+
+        // Get downstream references- CMDB Intgration Studio Entry  dependent tables: Robust Transform Engine Entity Template Operation (22) sys_rte_eb_*
+        // This is a base table for a large number of sys_rte_eb_* tables.  Robust Transform Engine Entity ...Cleanse, Derive, Create...
+
+        //         var rteEBOp = new GlideRecord("sys_rte_eb_operation"); // verified
+        //         rteEBOp.addQuery("sys_rte_eb_definition", etlID);
+        //         rteEBOp._query();
+        //         while (rteEBOp._next()) {
+        //             this._exportRecordRaw(rteEBOp);
+        //         }
+
+
+        var rteConcat = new GlideRecord("sys_rte_eb_concat_operation"); // verified
+        rteConcat.addQuery("sys_rte_eb_definition", etlID);
+        rteConcat._query();
+        while (rteConcat._next()) {
+            this._exportRecordRaw(rteConcat);
+        }
+
+        var rteCopy = new GlideRecord("sys_rte_eb_copy_operation"); // verified
+        rteCopy.addQuery("sys_rte_eb_definition", etlID);
+        rteCopy._query();
+        while (rteCopy._next()) {
+            this._exportRecordRaw(rteCopy);
+        }
+
+        var rteExNum = new GlideRecord("sys_rte_eb_extract_numeric_operation"); // verified
+        rteExNum.addQuery("sys_rte_eb_definition", etlID);
+        rteExNum._query();
+        while (rteExNum._next()) {
+            this._exportRecordRaw(rteExNum);
+        }
+
+        var rteGlide = new GlideRecord("sys_rte_eb_glide_lookup_operation"); // verified
+        rteGlide.addQuery("sys_rte_eb_definition", etlID);
+        rteGlide._query();
+        while (rteGlide._next()) {
+            this._exportRecordRaw(rteGlide);
+        }
+
+        var rteMinMax = new GlideRecord("sys_rte_eb_min_max_operation"); // verified
+        rteMinMax.addQuery("sys_rte_eb_definition", etlID);
+        rteMinMax._query();
+        while (rteMinMax._next()) {
+            this._exportRecordRaw(rteMinMax);
+        }
+
+        var rteMulti = new GlideRecord("sys_rte_eb_multi_in_script_operation"); // verified
+        rteMulti.addQuery("sys_rte_eb_definition", etlID);
+        rteMulti._query();
+        while (rteMulti._next()) {
+            this._exportRecordRaw(rteMulti);
+        }
+
+        var rteRegex = new GlideRecord("sys_rte_eb_regex_replace_operation"); // verified
+        rteRegex.addQuery("sys_rte_eb_definition", etlID);
+        rteRegex._query();
+        while (rteRegex._next()) {
+            this._exportRecordRaw(rteRegex);
+        }
+
+        var rteRepl = new GlideRecord("sys_rte_eb_replace_operation"); // verified
+        rteRepl.addQuery("sys_rte_eb_definition", etlID);
+        rteRepl._query();
+        while (rteRepl._next()) {
+            this._exportRecordRaw(rteRepl);
+        }
+
+        var rteRound = new GlideRecord("sys_rte_eb_round_numeric_operation"); // verified
+        rteRound.addQuery("sys_rte_eb_definition", etlID);
+        rteRound._query();
+        while (rteRound._next()) {
+            this._exportRecordRaw(rteRound);
+        }
+
+        var rteScript = new GlideRecord("sys_rte_eb_script_operation"); // verified
+        rteScript.addQuery("sys_rte_eb_definition", etlID);
+        rteScript._query();
+        while (rteScript._next()) {
+            this._exportRecordRaw(rteScript);
+        }
+
+        var rteSet = new GlideRecord("sys_rte_eb_set_operation"); // verified
+        rteSet.addQuery("sys_rte_eb_definition", etlID);
+        rteSet._query();
+        while (rteSet._next()) {
+            this._exportRecordRaw(rteSet);
+        }
+
+        var rteSplit = new GlideRecord("sys_rte_eb_split_operation"); // verified
+        rteSplit.addQuery("sys_rte_eb_definition", etlID);
+        rteSplit._query();
+        while (rteSplit._next()) {
+            this._exportRecordRaw(rteSplit);
+        }
+
+        var rteTempl = new GlideRecord("sys_rte_eb_template_operation"); // verified
+        rteTempl.addQuery("sys_rte_eb_definition", etlID);
+        rteTempl._query();
+        while (rteTempl._next()) {
+            this._exportRecordRaw(rteTempl);
+        }
+
+        var rteBoo = new GlideRecord("sys_rte_eb_to_boolean_operation"); // verified
+        rteBoo.addQuery("sys_rte_eb_definition", etlID);
+        rteBoo._query();
+        while (rteBoo._next()) {
+            this._exportRecordRaw(rteBoo);
+        }
+
+        var rteDate = new GlideRecord("sys_rte_eb_to_date_operation"); // verified
+        rteDate.addQuery("sys_rte_eb_definition", etlID);
+        rteDate._query();
+        while (rteDate._next()) {
+            this._exportRecordRaw(rteDate);
+        }
+
+        var rteToNum = new GlideRecord("sys_rte_eb_to_numeric_operation"); // verified
+        rteToNum.addQuery("sys_rte_eb_definition", etlID);
+        rteToNum._query();
+        while (rteToNum._next()) {
+            this._exportRecordRaw(rteToNum);
+        }
+
+        var rteTrim = new GlideRecord("sys_rte_eb_trim_operation"); // verified
+        rteTrim.addQuery("sys_rte_eb_definition", etlID);
+        rteTrim._query();
+        while (rteTrim._next()) {
+            this._exportRecordRaw(rteTrim);
+        }
+
+        var rteUp = new GlideRecord("sys_rte_eb_upper_case_operation"); // verified
+        rteUp.addQuery("sys_rte_eb_definition", etlID);
+        rteUp._query();
+        while (rteUp._next()) {
+            this._exportRecordRaw(rteUp);
+        }
+
+        var rteUpTrim = new GlideRecord("sys_rte_eb_upper_case_trim_operation");
+        rteUpTrim.addQuery("sys_rte_eb_definition", etlID);
+        rteUpTrim._query();
+        while (rteUpTrim._next()) {
+            this._exportRecordRaw(rteUpTrim);
+        }
+
+
+        // Get downstream references- Robust Transform Engine Entity Mapping
+        var rteEBEntMap = new GlideRecord("sys_rte_eb_entity_mapping"); //verified
+        rteEBEntMap.addQuery("sys_rte_eb_definition", etlID);
+        rteEBEntMap._query();
+        while (rteEBEntMap._next()) {
+            this._exportRecordRaw(rteEBEntMap);
+        }
+
+        // Get downstream references- Robust TRansform Engine Entity Field Mappings
+        var rteEBFieldMap = new GlideRecord("sys_rte_eb_field_mapping"); //verified
+        rteEBFieldMap.addQuery("sys_rte_eb_definition", etlID);
+        rteEBFieldMap._query();
+        while (rteEBFieldMap._next()) {
+            this._exportRecordRaw(rteEBFieldMap);
+        }
+
+        // Get downstream references- Robust Transform Engine Entity Template Operations -- base table for all of the sn_cmdb_int_cleanse_* functions.
+
+        //Robust Transform Engine Entity Cleanse IP Version Operation
+        var cIPVersion = new GlideRecord("sn_cmdb_int_util_cleanse_ip_version_operation");
+        cIPVersion.addQuery("sys_rte_eb_definition", etlID);
+        cIPVersion._query();
+        while (cIPVersion._next()) {
+            this._exportRecordRaw(cIPVersion);
+        }
+
+        //Robust Transform Engine Entity Cleanse MAC Operation
+        var cMacOper = new GlideRecord("sn_cmdb_int_util_cleanse_mac_operation");
+        cMacOper.addQuery("sys_rte_eb_definition", etlID);
+        cMacOper._query();
+        while (cMacOper._next()) {
+            this._exportRecordRaw(cMacOper);
+        }
+
+        //Robust Transform Engine Entity Cleanse OS Operation
+        var cOSOper = new GlideRecord("sn_cmdb_int_util_cleanse_os_operation");
+        cOSOper.addQuery("sys_rte_eb_definition", etlID);
+        cOSOper._query();
+        while (cOSOper._next()) {
+            this._exportRecordRaw(cOSOper);
+        }
+
+        //Robust Transform Engine Entity Cleanse Serial Number Operation
+        var cSerialNum = new GlideRecord("sn_cmdb_int_util_cleanse_serial_number_operation");
+        cSerialNum.addQuery("sys_rte_eb_definition", etlID);
+        cSerialNum._query();
+        while (cSerialNum._next()) {
+            this._exportRecordRaw(cSerialNum);
+        }
+
+        //Robust Transform Engine Entity Cleanse Software Model Operation
+        var cSoftWModel = new GlideRecord("sn_cmdb_int_util_cleanse_software_model_operation");
+        cSoftWModel.addQuery("sys_rte_eb_definition", etlID);
+        cSoftWModel._query();
+        while (cSoftWModel._next()) {
+            this._exportRecordRaw(cSoftWModel);
+        }
+        // //Robust Transform Engine Entity Create Software Instance Name Operation
+
+        var cSoftwInstName = new GlideRecord("sn_cmdb_int_util_create_software_instance_name_operation");
+        cSoftwInstName.addQuery("sys_rte_eb_definition", etlID);
+        cSoftwInstName._query();
+        while (cSoftwInstName._next()) {
+            this._exportRecordRaw(cSoftwInstName);
+        }
+
+        // //Robust Transform Engine Entity Derive Class From Model Operation
+        var dClassFrmModel = new GlideRecord("sn_cmdb_int_util_derive_class_from_model_operation");
+        dClassFrmModel.addQuery("sys_rte_eb_definition", etlID);
+        dClassFrmModel._query();
+        while (dClassFrmModel._next()) {
+            this._exportRecordRaw(dClassFrmModel);
+        }
+
+        //Robust Transform Engine Entity Derive Class From Native Value Operation
+        var dClassFromNativeV = new GlideRecord("sn_cmdb_int_util_derive_class_from_native_value_operation");
+        dClassFromNativeV.addQuery("sys_rte_eb_definition", etlID);
+        dClassFromNativeV._query();
+        while (dClassFromNativeV._next()) {
+            this._exportRecordRaw(dClassFromNativeV);
+        }
+
+        //Robust Transform Engine Entity Derive Class From OS Operation
+        var dClassFromOS = new GlideRecord("sn_cmdb_int_util_derive_class_from_os_operation");
+        dClassFromOS.addQuery("sys_rte_eb_definition", etlID);
+        dClassFromOS._query();
+        while (dClassFromOS._next()) {
+            this._exportRecordRaw(dClassFromOS);
+        }
+
+        //Robust Transform Engine Entity Derive Virtual From Model Operation
+        var dVirtualFromModel = new GlideRecord("sn_cmdb_int_util_derive_virtual_from_model_operation");
+        dVirtualFromModel.addQuery("sys_rte_eb_definition", etlID);
+        dVirtualFromModel._query();
+        while (dVirtualFromModel._next()) {
+            this._exportRecordRaw(dVirtualFromModel);
+
+        }
+
+        //Robust Transform Engine Entity Derive Virtual From Native Value Operation
+        var dVirtualFromNativeV = new GlideRecord("sn_cmdb_int_util_derive_virtual_from_native_value_operation");
+        dVirtualFromNativeV.addQuery("sys_rte_eb_definition", etlID);
+        dVirtualFromNativeV._query();
+        while (dVirtualFromNativeV._next()) {
+            this._exportRecordRaw(dVirtualFromNativeV);
+        }
+
+        //Robust Transform Engine Entity Derive Virtual From Serial Number Operation
+        var dVirtualFromSerialNum = new GlideRecord("sn_cmdb_int_util_derive_virtual_from_serial_number_operation");
+        dVirtualFromSerialNum.addQuery("sys_rte_eb_definition", etlID);
+        dVirtualFromSerialNum._query();
+        while (dVirtualFromSerialNum._next()) {
+            this._exportRecordRaw(dVirtualFromSerialNum);
+        }
+
+        //Robust Transform Engine Entity Extract and Scale by Units Operation
+        var extractScale = new GlideRecord("sn_cmdb_int_util_extract_and_scale_by_units_operation");
+        extractScale.addQuery("sys_rte_eb_definition", etlID);
+        extractScale._query();
+        while (extractScale._next()) {
+            this._exportRecordRaw(extractScale);
+        }
+
+        //Robust Transform Engine Entity First Non Null Value Operation
+        var firstNonNull = new GlideRecord("sn_cmdb_int_util_first_non_null_operation");
+        firstNonNull.addQuery("sys_rte_eb_definition", etlID);
+        firstNonNull._query();
+        while (firstNonNull._next()) {
+            this._exportRecordRaw(firstNonNull);
+        }
+
+        //Robust Transform Engine Entity Process FQDN Operation
+        var processFQDN = new GlideRecord("sn_cmdb_int_util_process_fqdn_operation");
+        processFQDN.addQuery("sys_rte_eb_definition", etlID);
+        processFQDN._query();
+        while (processFQDN._next()) {
+            this._exportRecordRaw(processFQDN);
+        }
+
+        //Robust Transform Engine Entity Process Name Set Operation
+        var nameSet = new GlideRecord("sn_cmdb_int_util_process_name_set_operation");
+        nameSet.addQuery("sys_rte_eb_definition", etlID);
+        nameSet._query();
+        while (nameSet._next()) {
+            this._exportRecordRaw(nameSet);
+        }
+
+        //Robust Transform Engine Entity Scale Unit Operation
+        var scaleUnit = new GlideRecord("sn_cmdb_int_util_scale_unit_operation");
+        scaleUnit.addQuery("sys_rte_eb_definition", etlID);
+        scaleUnit._query();
+        while (scaleUnit._next()) {
+            this._exportRecordRaw(scaleUnit);
+        }
+
+        //Robust Transform Engine Entity Software Bundle Id Lookup Operation
+        var softwareBundle = new GlideRecord("sn_cmdb_int_util_software_bundle_id_lookup_operation");
+        softwareBundle.addQuery("sys_rte_eb_definition", etlID);
+        softwareBundle._query();
+        while (softwareBundle._next()) {
+            this._exportRecordRaw(softwareBundle);
+        }
+
+        //Robust Transform Engine Entity User Lookup Operation
+        var userLookup = new GlideRecord("sn_cmdb_int_util_user_lookup_operation");
+        userLookup.addQuery("sys_rte_eb_definition", etlID);
+        userLookup._query();
+        while (userLookup._next()) {
+            this._exportRecordRaw(userLookup);
+        }
+
+
+
+        // Get downstream references - Robust Import Set Transformer
+        var robustTrans = new GlideRecord("sys_robust_import_set_transformer"); // verified
+        robustTrans.addQuery("robust_transform_engine", etlID);
+        robustTrans._query();
+        while (robustTrans._next()) {
+            this._exportRecordRaw(robustTrans);
+        }
+
+
+        //==================================================================================
+        // No rows, not included:
+        // sys_rte_pattern
+        // sys_rte_transformer_definition
+        //sn_cmdb_int_util_class_recommendation_state  -- no rows at this time
+        //sn_int_studio_template_state - do not capture - reference to import set (transient data)
+        //==================================================================================
+
+
+    },
+
+    /********************* End ETL Functions *********************/
+
+
+
+    type: 'PDIExporterRecordBase'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-19 15:12:34</sys_created_on>
+        <sys_id>8b43bb32474835103f0f5882e36d431f</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>PDIExporterRecordBase</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_script_include_8b43bb32474835103f0f5882e36d431f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-27 14:30:20</sys_updated_on>
+    </sys_script_include>
+</record_update>
