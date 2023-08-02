@@ -85,13 +85,28 @@ PDIExporterUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
 		var dups = new global.PDIExporterUtils(currentId).getDuplicateRepoBranches(owner, repo, branch);
 		var msg = null;
 		if(dups.length) {
-			msg = '<b>WARNING: There are multiple Export Configurations using the same repository branch. This will cause unexpected errors when pulling latest commits. Please create separate branches for each Export Configuration to avoid clashes.</b><ul>';
+			msg = '<p>WARNING: There are multiple Export Configurations using the same repository branch. The following configurations will share the latest commit information. Performing a Pull job may download files from these configurations. Parallel commits may cause failures.</p><ul>';
 			msg = dups.reduce(function(m, el) {
-				return m += '<li><a href=/"' + el._link + '" target="_blank">' + el.u_number + "</a></li>";
+				return m += '<li><a href="' + el._link + '" target="_blank">' + el.u_number + "</a></li>";
 			}, msg);
 			msg += "</ul>";
 		}
 		return JSON.stringify({error: msg, duplicateRecords: dups});
+	},
+	
+	previewFilter: function() {
+		var filterId = this.getParameter("filter_id");
+		
+		var helper = new global.PDIExporterUtils();
+		helper.setPreview(true);
+		var filterGr = helper.getConfigFromId(filterId, "filter", true);
+		if(filterGr) {
+			helper.addQuerySet(filterGr.getValue("u_table"), filterGr.getValue("u_condition"), filterGr);
+			helper._exportQuerySets();
+		}
+		var tableRecords = helper.getSummary();
+		
+		return JSON.stringify(tableRecords);
 	},
 
     type: 'PDIExporterUtilsAjax'
@@ -100,13 +115,13 @@ PDIExporterUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 22:44:24</sys_created_on>
         <sys_id>b1955881471871103f0f5882e36d4351</sys_id>
-        <sys_mod_count>15</sys_mod_count>
+        <sys_mod_count>22</sys_mod_count>
         <sys_name>PDIExporterUtilsAjax</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_include_b1955881471871103f0f5882e36d4351</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-02 17:27:45</sys_updated_on>
+        <sys_updated_on>2023-08-02 22:00:32</sys_updated_on>
     </sys_script_include>
 </record_update>

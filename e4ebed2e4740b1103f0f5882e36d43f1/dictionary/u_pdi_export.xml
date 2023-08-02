@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
-    <element db_object_id="1dacad664780b1103f0f5882e36d4341" label="PDI Export" max_length="40" name="u_pdi_export" type="collection">
+    <element attributes="hasLabels=true" db_object_id="1dacad664780b1103f0f5882e36d4341" label="PDI Export" max_length="40" name="u_pdi_export" type="collection">
         <element attributes="edge_encryption_enabled=true" label="Branch Name" max_length="100" name="u_branch_name" read_only="true" type="string"/>
         <element attributes="edge_encryption_enabled=true" choice="1" label="Branch Selector" mandatory="true" max_length="40" name="u_branch_selector" type="string">
             <choice/>

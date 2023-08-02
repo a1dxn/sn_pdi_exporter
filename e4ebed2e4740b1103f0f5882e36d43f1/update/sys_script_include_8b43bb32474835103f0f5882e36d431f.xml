@@ -8,15 +8,28 @@
         <description/>
         <name>PDIExporterRecordBase</name>
         <script><![CDATA[var PDIExporterRecordBase = Class.create();
+
+PDIExporterRecordBase.EXCLUDED_TABLES = [
+	"sys_scope",
+	"sys_store_app",
+	"sys_app",
+	"sys_cluster_state",
+	"sys_node_type"
+];
 PDIExporterRecordBase.prototype = {
 
     _arrayUtil: new global.ArrayUtil(),
     recordXMLs: [],
 
     initialize: function() {},
+	
+	setPreview: function(bool) {
+		this.previewOnly = !!bool;
+	},
 
     setConfigOptions: function(configRecord) {
-        this.includeUsersWithGroups = configRecord.u_include_group_members == true ? true : false;
+		this.includeUsers = configRecord.u_include_users == true ? true : false;
+        this.includeUsersWithGroups = this.includeUsers; //deprecated option
         this.includeAttachments = configRecord.u_include_attachments == true ? true : false;
         this.suppressPhotoAttachments = configRecord.u_exclude_photo_attachments == true ? true : false;
         this.includeReferenceFieldRecords = configRecord.u_include_ref_fields == true ? true : false;
@@ -24,8 +37,12 @@ PDIExporterRecordBase.prototype = {
 
     addRecord: function(tableRec) {
         var tableName = this._getTableName(tableRec);
-        var continueProcessing = true;
+		var continueProcessing = true;
         var processParentTable = false;
+		
+		if(PDIExporterRecordBase.EXCLUDED_TABLES.indexOf(tableName) > -1) {
+			return;
+		}
 
         switch (tableName) {
             /********************* Common Tables *************************************/
@@ -270,17 +287,49 @@ PDIExporterRecordBase.prototype = {
     },
 
     getOutput: function() {
+		if(this.previewOnly) return "";
         var res = "<unload unload_date=\"" + new GlideDateTime().getValue() + "\">\n";
         res += this.recordXMLs.join("\n");
         res += "\n</unload>";
         return res;
     },
+	
+	getSummary: function() {
+		var _cache = this._cache || {};
+		var cacheStore = _cache["captured_record_index_store"] || {};
+		var organised = {};
+		var tableNames = {};
+		for(var key in cacheStore) {
+			if(!cacheStore.hasOwnProperty(key)) {
+				continue;
+			}
+			var recordInfo = key.split("/");
+			var table = recordInfo[0],
+				sysId = recordInfo[1];
+			
+			if(recordInfo.length === 2) {
+				if(!organised[table]) {
+					organised[table] = [];
+					var gr = new GlideRecord(table);
+					tableNames[table] = gr.getClassDisplayValue();
+				}
+				organised[table].push(sysId);
+			}
+		}
+		
+		return {
+			count: Object.keys(cacheStore).length,
+			tableData: organised,
+			tableNames: tableNames
+		};
+	},
 
     _exportRecordRaw: function(record, validRecordCheck) {
         try {
             var tableName = this._getTableName(record);
-            var capturedIndex = this._getCache("captured_record_index_store", tableName + "/" + record.getUniqueValue());
-            if (capturedIndex > -1) {
+			var refId = tableName + "/" + record.getUniqueValue();
+            var capturedIndex = this._getCache("captured_record_index_store", refId);
+            if ((!this.previewOnly && capturedIndex > -1) || (this.previewOnly && capturedIndex != null)) {
                 return this.recordXMLs[capturedIndex];
             }
             if (gs.nil(validRecordCheck) || validRecordCheck === true) {
@@ -288,22 +337,25 @@ PDIExporterRecordBase.prototype = {
                     return;
                 }
             }
+			
+			record = new GlideScriptRecordUtil.get(record).getRealRecord();
+			if(!this.previewOnly) {
+				var recordSerializer = new GlideRecordXMLSerializer();
+				var recordDoc = new XMLDocument2();
+				recordDoc.parseXML(recordSerializer.serialize(record));
 
-            record = new GlideScriptRecordUtil.get(record).getRealRecord();
-            var recordSerializer = new GlideRecordXMLSerializer();
-            var recordDoc = new XMLDocument2();
-            recordDoc.parseXML(recordSerializer.serialize(record));
+				//Add action to all base nodes
+				var iterator = recordDoc.getNode("/").getChildNodeIterator();
+				while (iterator.hasNext()) {
+					var c = iterator.next();
+					c.setAttribute("action", "INSERT_OR_UPDATE");
+					c.setAttribute("record_date", record.getValue("sys_updated_on"));
+				}
 
-            //Add action to all base nodes
-            var iterator = recordDoc.getNode("/").getChildNodeIterator();
-            while (iterator.hasNext()) {
-                var c = iterator.next();
-                c.setAttribute("action", "INSERT_OR_UPDATE");
-                c.setAttribute("record_date", record.getValue("sys_updated_on"));
-            }
+				var xmlString = recordDoc.getDocumentElement().toString();
+				this.recordXMLs.push(xmlString);
+			}
 
-            var xmlString = recordDoc.getDocumentElement().toString();
-            this.recordXMLs.push(xmlString);
             this._setCache("captured_record_index_store", tableName + "/" + record.getUniqueValue(), this.recordXMLs.length - 1);
 
             if (!tableName.startsWith("sys_attachment")) {
@@ -410,13 +462,15 @@ PDIExporterRecordBase.prototype = {
 
     _getConfigOptions: function() {
         var config = {
-            u_include_group_members: this.includeUsersWithGroups,
             u_include_attachments: this.includeAttachments,
             u_exclude_photo_attachments: this.suppressPhotoAttachments,
-            u_include_ref_fields: this.includeReferenceFieldRecords
+            u_include_ref_fields: this.includeReferenceFieldRecords,
+			u_include_users: this.includeUsers,
         };
 
-        duplicate("u_include_group_members", "includeUsersWithGroups");
+        duplicate("u_include_users", "includeUsers");
+		duplicate("u_include_users", "u_include_group_members");
+		duplicate("u_include_users", "includeUsersWithGroups");
         duplicate("u_include_attachments", "includeAttachments");
         duplicate("u_exclude_photo_attachments", "suppressPhotoAttachments");
         duplicate("u_include_ref_fields", "includeReferenceFieldRecords");
@@ -636,6 +690,10 @@ PDIExporterRecordBase.prototype = {
 
     //Add user record and dependencies to the update set
     _addUser: function(tableRec, tableName) {
+		if(!this.includeUsers) {
+			return;
+		}
+		
         var userID;
         if (typeof tableRec == "string") {
             userID = tableRec;
@@ -3974,13 +4032,13 @@ PDIExporterRecordBase.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-19 15:12:34</sys_created_on>
         <sys_id>8b43bb32474835103f0f5882e36d431f</sys_id>
-        <sys_mod_count>21</sys_mod_count>
+        <sys_mod_count>33</sys_mod_count>
         <sys_name>PDIExporterRecordBase</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_include_8b43bb32474835103f0f5882e36d431f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-02 16:10:00</sys_updated_on>
+        <sys_updated_on>2023-08-02 22:42:24</sys_updated_on>
     </sys_script_include>
 </record_update>

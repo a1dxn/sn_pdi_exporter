@@ -13,7 +13,7 @@
         <description/>
         <ih_action>true</ih_action>
         <internal_name>fetch_last_commit_oid</internal_name>
-        <label_cache>[{"name":"{{action.repository}}","label":"action➛repositoryPath","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branchname}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.connection_alias}}","label":"action➛Connection Alias","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch_name}}","label":"action➛Branch Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_path}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","sourceUiUniqueId":"","sourceType":"","uiType":"string","uiUniqueId":"92cec0c6-28d5-4dec-b27d-690743b52fb1"}},{"name":"{{action.connection}}","label":"action➛Connection","type":"action","ref":"","reference_display":"HTTP(s) Connection","base_type":"reference","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_owner}}","label":"action➛Repository Owner","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_name}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_base64_}}","label":"action➛Content (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_string_base64_}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.string_content}}","label":"action➛String Content","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_message}}","label":"action➛Commit message","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_object_id}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_oid}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.file_path}}","label":"action➛File path","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record}}","label":"action➛Attach to record","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_table}}","label":"action➛Attach to record table","type":"action","ref":"","reference_display":"","base_type":"table_name","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_sys_id}}","label":"action➛Attach to record sys_id","type":"action","ref":"","reference_display":"","base_type":"GUID","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_oid}}","label":"action➛Commit OID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0faab3d1-414c-4e67-8bf5-a155e26effd4].credential_value}}","label":"step➛Get Connection Info step➛Credential Value","type":"step","ref":"","reference_display":"","base_type":"password2","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[d488e6d6-3a1b-4b0f-adc0-f54c9caa53a1].response_body}}","label":"step➛Perform GraphQL mutation➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].variable}}","label":"step➛JSON Parser step➛variable","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].repoName}}","label":"step➛JSON Parser step➛repoName","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_oid}}","label":"step➛Format output➛Latest Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"31bb18f2-cc0e-4a16-87cc-64258292effb"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].reponame}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].branch_name}}","label":"step➛Format output➛Branch Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_name}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_object_id}}","label":"step➛Format output➛Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"URL","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"url","uiUniqueId":"29198ffd-9a95-4c7d-bf6b-a55c9822e6b7"}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].variable}}","label":"step➛Encode content to base64➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].encoded_content}}","label":"step➛Encode content to base64➛Encoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"4e2320f5-291e-4eaf-a3d4-e1badb6c722b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].number_of_additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].date_of_commit}}","label":"step➛Format output➛Date of commit","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_date}}","label":"step➛Format output➛Commit date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"a156d09c-22f0-47ba-b30c-dc642382c915"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].path}}","label":"step➛Format output➛Path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_path}}","label":"step➛Format output➛File path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"9e3c936a-8fa4-4070-806e-51ac9a47ad94"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].sha}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].hash}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"dbc47587-491f-41e2-bd4f-5eda57a9c203"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].url}}","label":"step➛Format output➛URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"fb11bb51-69e1-4ed2-a45f-fe94aa767f2b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].decoded_content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"290ade07-a065-44a2-aaa9-4c339ff3eb10"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_name}}","label":"step➛Format output➛File name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repository_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}","label":"step➛Format output➛File names","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD5cf423f0bb907110712b9c7ef23ebee2","child_label":"File names_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"file_names_child0","child_uiUniqueId":"636832da-d158-432a-acbc-b5e4a6cf3de9","uiUniqueId":"aa5f1e58-14a9-4dd3-b960-c02ffa5a5471"}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].variable}}","label":"step➛Get Correct Commit OID➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].correct_commit_oid}}","label":"step➛Get Correct Commit OID➛Correct Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[56c53cfb-f75c-4b13-8d3c-d39f4c3a072d].response_body}}","label":"step➛Perform GET request for specifics➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files}}","label":"step➛Format output➛File Changes","type":"step","ref":"","reference_display":"","base_type":"array.object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child}}","label":"step➛Format output➛File Changes➛File Changes_child","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_oid}}","label":"step➛Format output➛Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_date}}","label":"step➛Format output➛Commit Date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child1}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child1","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child2}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child2","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child3}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child3","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child4}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child4","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child5}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child5","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Object_ID}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.sha}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child6}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child6","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child7}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child7","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Contents_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.contents_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child8}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child8","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Blob_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.blob_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_message}}","label":"step➛Format output➛Commit Message","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child9}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child9","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Raw_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.raw_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}}]</label_cache>
+        <label_cache>[{"name":"{{action.repository}}","label":"action➛repositoryPath","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branchname}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.connection_alias}}","label":"action➛Connection Alias","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch_name}}","label":"action➛Branch Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_path}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","sourceUiUniqueId":"","sourceType":"","uiType":"string","uiUniqueId":"92cec0c6-28d5-4dec-b27d-690743b52fb1"}},{"name":"{{action.connection}}","label":"action➛Connection","type":"action","ref":"","reference_display":"HTTP(s) Connection","base_type":"reference","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_owner}}","label":"action➛Repository Owner","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_name}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_base64_}}","label":"action➛Content (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_string_base64_}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.string_content}}","label":"action➛String Content","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_message}}","label":"action➛Commit message","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_object_id}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_oid}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.file_path}}","label":"action➛File path","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record}}","label":"action➛Attach to record","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_table}}","label":"action➛Attach to record table","type":"action","ref":"","reference_display":"","base_type":"table_name","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_sys_id}}","label":"action➛Attach to record sys_id","type":"action","ref":"","reference_display":"","base_type":"GUID","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_oid}}","label":"action➛Commit OID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0faab3d1-414c-4e67-8bf5-a155e26effd4].credential_value}}","label":"step➛Get Connection Info step➛Credential Value","type":"step","ref":"","reference_display":"","base_type":"password2","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[d488e6d6-3a1b-4b0f-adc0-f54c9caa53a1].response_body}}","label":"step➛Perform GraphQL mutation➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].variable}}","label":"step➛JSON Parser step➛variable","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].repoName}}","label":"step➛JSON Parser step➛repoName","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_oid}}","label":"step➛Format output➛Latest Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"31bb18f2-cc0e-4a16-87cc-64258292effb"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].reponame}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].branch_name}}","label":"step➛Format output➛Branch Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_name}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_object_id}}","label":"step➛Format output➛Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"URL","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"url","uiUniqueId":"29198ffd-9a95-4c7d-bf6b-a55c9822e6b7"}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].variable}}","label":"step➛Encode content to base64➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].encoded_content}}","label":"step➛Encode content to base64➛Encoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"4e2320f5-291e-4eaf-a3d4-e1badb6c722b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].number_of_additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].date_of_commit}}","label":"step➛Format output➛Date of commit","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_date}}","label":"step➛Format output➛Commit date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"a156d09c-22f0-47ba-b30c-dc642382c915"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].path}}","label":"step➛Format output➛Path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_path}}","label":"step➛Format output➛File path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"9e3c936a-8fa4-4070-806e-51ac9a47ad94"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].sha}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].hash}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"dbc47587-491f-41e2-bd4f-5eda57a9c203"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].url}}","label":"step➛Format output➛URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"fb11bb51-69e1-4ed2-a45f-fe94aa767f2b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].decoded_content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"290ade07-a065-44a2-aaa9-4c339ff3eb10"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_name}}","label":"step➛Format output➛File name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repository_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}","label":"step➛Format output➛File names","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD5cf423f0bb907110712b9c7ef23ebee2","child_label":"File names_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"file_names_child0","child_uiUniqueId":"636832da-d158-432a-acbc-b5e4a6cf3de9","uiUniqueId":"aa5f1e58-14a9-4dd3-b960-c02ffa5a5471"}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].variable}}","label":"step➛Get Correct Commit OID➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].correct_commit_oid}}","label":"step➛Get Correct Commit OID➛Correct Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[56c53cfb-f75c-4b13-8d3c-d39f4c3a072d].response_body}}","label":"step➛Perform GET request for specifics➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files}}","label":"step➛Format output➛File Changes","type":"step","ref":"","reference_display":"","base_type":"array.object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child}}","label":"step➛Format output➛File Changes➛File Changes_child","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_oid}}","label":"step➛Format output➛Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_date}}","label":"step➛Format output➛Commit Date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child1}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child1","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child2}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child2","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child3}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child3","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child4}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child4","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child5}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child5","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Object_ID}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.sha}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child6}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child6","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child7}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child7","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Contents_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.contents_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents API URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child8}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child8","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Blob_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.blob_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_message}}","label":"step➛Format output➛Commit Message","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child9}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child9","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Raw_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.raw_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].all_file_paths}}","label":"step➛Format output➛All Root Files","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD92387ca72edc3510e965c9458aaebc46","child_label":"All File Paths_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"all_file_paths_child0","child_uiUniqueId":"8311321c-965a-4dc4-bc87-f29bd1d81c85","uiUniqueId":"b90974e8-7d2c-46aa-b45b-ac559bd579f8"}}]</label_cache>
         <master_snapshot>4330b1b847d031103f0f5882e36d43ca</master_snapshot>
         <name>GitHub - Fetch Commit Info</name>
         <natlang/>
@@ -27,7 +27,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>33a75df0471031103f0f5882e36d43fd</sys_id>
-        <sys_mod_count>59</sys_mod_count>
+        <sys_mod_count>73</sys_mod_count>
         <sys_name>GitHub - Fetch Commit Info</sys_name>
         <sys_overrides/>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
@@ -35,7 +35,7 @@
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_hub_action_type_definition_33a75df0471031103f0f5882e36d43fd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 14:06:56</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:45</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_definition>
@@ -148,11 +148,11 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 19:08:54</sys_created_on>
         <sys_id>1e256bf0479071103f0f5882e36d433c</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-25 19:08:54</sys_updated_on>
+        <sys_updated_on>2023-08-02 19:36:38</sys_updated_on>
         <table>var__m_sys_hub_action_output_33a75df0471031103f0f5882e36d43fd</table>
-        <value>{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}</value>
+        <value>{{step[ac527467-0570-49c3-bbc2-abcd039940ea].all_file_paths}}</value>
     </sys_element_mapping>
     <sys_element_mapping action="INSERT_OR_UPDATE">
         <field>repo_name</field>
@@ -220,10 +220,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:36:17</sys_created_on>
         <sys_id>11dfa17847d031103f0f5882e36d4395</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>11</sys_mod_count>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:13:26</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:40</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=11dfa17847d031103f0f5882e36d4395"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -234,28 +234,40 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:36:17</sys_created_on>
         <sys_id>a1dfa17847d031103f0f5882e36d43dc</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:13:26</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:40</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   var response = JSON.parse(inputs.responseJSON);
-  
-  if(response.errors) {
+
+  if (response.errors) {
     throw "Failed query: " + response.errors[0].message;
   }
-  
-  else if(response.data) {
-    if(!response.data.repository.ref) {
-     throw "Failed to find branch with the name '" + inputs.originalBranchName + "' within the repository.";
+
+  else if (response.data) {
+    var repository = response.data.repository;
+    var ref = repository.ref;
+    if (!ref) {
+      throw "Failed to find branch with the name '" + inputs.originalBranchName + "' within the repository.";
     }
-    outputs.repo_name = response.data.repository.name;
-    outputs.repo_url = response.data.repository.url;
-    outputs.branch_name = response.data.repository.ref.name;
-    outputs.commit_oid = response.data.repository.ref.target.oid + "";
-    
+    outputs.repo_name = repository.name;
+    outputs.repo_url = repository.url;
+    outputs.branch_name = ref.name;
+    outputs.commit_oid = ref.target.oid + "";
+
+    //Get file paths
+    var filePaths = [];
+    var treeEntries = ref.target.history.nodes[0].tree.entries;
+    for (var i = 0; i &lt; treeEntries.length; i++) {
+      var entry = treeEntries[i];
+      if (entry.path &amp;&amp; entry.extension) {
+        filePaths.push(entry.path);
+      }
+    }
+    outputs.all_file_paths = filePaths;
   }
-  
+
 })(inputs, outputs);
 </value>
         <variable display_value="Script">71aa7f6647032200b4fad7527c9a719b</variable>
@@ -492,7 +504,7 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_hub_step_ext_input>
-    <sys_hub_step_ext_output action="delete_multiple" query="model=11dfa17847d031103f0f5882e36d4395^sys_idNOT IN57a2f1fc47d031103f0f5882e36d4352,a1dfa17847d031103f0f5882e36d43cd,a5dfa17847d031103f0f5882e36d43a3,a9dfa17847d031103f0f5882e36d43d0"/>
+    <sys_hub_step_ext_output action="delete_multiple" query="model=11dfa17847d031103f0f5882e36d4395^sys_idNOT IN57a2f1fc47d031103f0f5882e36d4352,a1dfa17847d031103f0f5882e36d43cd,a5dfa17847d031103f0f5882e36d43a3,a9dfa17847d031103f0f5882e36d43d0,de387ca747dc35103f0f5882e36d434d"/>
     <sys_hub_step_ext_output action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -825,8 +837,114 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_hub_step_ext_output>
+    <sys_hub_step_ext_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>child_label=All File Paths_child0,child_name=all_file_paths_child0,child_type=string,child_type_label=String,child_uiUniqueId=8311321c-965a-4dc4-bc87-f29bd1d81c85,co_type_name=FD92387ca72edc3510e965c9458aaebc46,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=array.string,uiTypeLabel=Array.String,uiUniqueId=b90974e8-7d2c-46aa-b45b-ac559bd579f8</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>all_file_paths</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>All Root Files</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Format output">11dfa17847d031103f0f5882e36d4395</model>
+        <model_id>11dfa17847d031103f0f5882e36d4395</model_id>
+        <model_table>sys_hub_step_instance</model_table>
+        <name>var__m_sys_hub_step_ext_output_11dfa17847d031103f0f5882e36d4395</name>
+        <next_element/>
+        <order>5</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_step_ext_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:36:37</sys_created_on>
+        <sys_id>de387ca747dc35103f0f5882e36d434d</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 20:02:05</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_step_ext_output>
     <sys_hub_input_scripts action="delete_multiple" query="instance=11dfa17847d031103f0f5882e36d4395"/>
-    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_11dfa17847d031103f0f5882e36d4395^sys_idNOT INdfa2f1fc47d031103f0f5882e36d4354,e1dfa17847d031103f0f5882e36d43cc,e1dfa17847d031103f0f5882e36d43d3,e9dfa17847d031103f0f5882e36d43cf"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_11dfa17847d031103f0f5882e36d4395^sys_idNOT IN2a387ca747dc35103f0f5882e36d4351,dfa2f1fc47d031103f0f5882e36d4354,e1dfa17847d031103f0f5882e36d43cc,e1dfa17847d031103f0f5882e36d43d3,e9dfa17847d031103f0f5882e36d43cf"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>all_file_paths</element>
+        <help/>
+        <hint/>
+        <label>All Root Files</label>
+        <language>en</language>
+        <name>var__m_sys_hub_step_ext_output_11dfa17847d031103f0f5882e36d4395</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:36:37</sys_created_on>
+        <sys_id>2a387ca747dc35103f0f5882e36d4351</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 20:02:05</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>repo_url</element>
         <help/>
@@ -2218,13 +2336,13 @@
         <input_name>body</input_name>
         <instance>8884e9b0479031103f0f5882e36d4390</instance>
         <referenced_table>sys_hub_step_instance</referenced_table>
-        <script>{"body":{"scriptActive":true,"script":"var query \u003d \u0027query getCommitOID($repoOwner: String!, $repoName: String!, $refPath: String!) { \\\n  repository(owner: $repoOwner, name: $repoName) { \\\n    name \\\n    id \\\n    url \\\n    ref(qualifiedName: $refPath) { \\\n      name \\\n      target { \\\n        oid \\\n      } \\\n    } \\\n  } \\\n}\u0027;\n\nreturn JSON.stringify({\n  \"query\": query,\n  \"variables\": {\n    \"repoName\": fd_data.action_inputs.repository_name,\n    \"repoOwner\": fd_data.action_inputs.repository_owner,\n    \"refPath\": \"refs/heads/\" + fd_data.action_inputs.branch_name\n  }\n});\n"}}</script>
+        <script>{"body":{"scriptActive":true,"script":"var query \u003d \u0027query getCommitOID($repoOwner: String!, $repoName: String!, $refPath: String!) { \\\n  repository(owner: $repoOwner, name: $repoName) { \\\n    name \\\n    id \\\n    url \\\n    ref(qualifiedName: $refPath) { \\\n        name \\\n        target { \\\n            oid \\\n        ... on Commit { \\\n          history(first: 1) { \\\n            nodes { \\\n              tree { \\\n                entries { \\\n                  path \\\n                  extension \\\n                } \\\n              } \\\n            } \\\n          } \\\n        } \\\n      } \\\n    } \\\n  } \\\n}\u0027;\n\nreturn JSON.stringify({\n  \"query\": query,\n  \"variables\": {\n    \"repoName\": fd_data.action_inputs.repository_name,\n    \"repoOwner\": fd_data.action_inputs.repository_owner,\n    \"refPath\": \"refs/heads/\" + fd_data.action_inputs.branch_name\n  }\n});\n"}}</script>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 09:55:20</sys_created_on>
         <sys_id>697669b4479031103f0f5882e36d433e</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>13</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:17:49</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:02:04</sys_updated_on>
     </sys_hub_input_scripts>
     <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_8884e9b0479031103f0f5882e36d4390^sys_idNOT IN8484e9b0479031103f0f5882e36d43b6"/>
     <sys_documentation action="INSERT_OR_UPDATE">
@@ -3333,7 +3451,7 @@
         <xml_view>false</xml_view>
     </sys_hub_action_input>
     <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=fc6d9b094710f1103f0f5882e36d4381"/>
-    <sys_hub_action_output action="delete_multiple" query="model=33a75df0471031103f0f5882e36d43fd^sys_idNOT IN21dfe17847d031103f0f5882e36d4308,25dfa17847d031103f0f5882e36d43e0,556ddb094710f1103f0f5882e36d4383,5fa2f1fc47d031103f0f5882e36d4365,757669b4479031103f0f5882e36d434b,a5dfa17847d031103f0f5882e36d43e8,b57669b4479031103f0f5882e36d4346,b6a6a3f4479071103f0f5882e36d430b,eb99ebc14790f1103f0f5882e36d43a3,eddfe17847d031103f0f5882e36d430b"/>
+    <sys_hub_action_output action="delete_multiple" query="model=33a75df0471031103f0f5882e36d43fd^sys_idNOT IN21dfe17847d031103f0f5882e36d4308,25dfa17847d031103f0f5882e36d43e0,556ddb094710f1103f0f5882e36d4383,5fa2f1fc47d031103f0f5882e36d4365,757669b4479031103f0f5882e36d434b,a5dfa17847d031103f0f5882e36d43e8,b57669b4479031103f0f5882e36d4346,b6a6a3f4479071103f0f5882e36d430b,e2387ca747dc35103f0f5882e36d439a,eb99ebc14790f1103f0f5882e36d43a3,eddfe17847d031103f0f5882e36d430b"/>
     <sys_hub_action_output action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -4047,6 +4165,93 @@
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
+        <attributes>child_label=All File Paths_child0,child_name=all_file_paths_child0,child_type=string,child_type_label=String,child_uiUniqueId=0566feb3-e3ca-4353-a5f0-52368cabc611,co_type_name=FDe2387ca7f1dc35101b3b5f7a9976848d,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=array.string,uiTypeLabel=Array.String,uiUniqueId=5106973a-0fdc-420d-b4a5-7d85fe57ed96</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>file_paths</element>
+        <element_prototype/>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_link/>
+        <internal_type display_value="String">string</internal_type>
+        <label>All File Paths</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="GitHub - Fetch Commit Info">33a75df0471031103f0f5882e36d43fd</model>
+        <model_id>33a75df0471031103f0f5882e36d43fd</model_id>
+        <model_table>sys_hub_action_type_definition</model_table>
+        <name>var__m_sys_hub_action_output_33a75df0471031103f0f5882e36d43fd</name>
+        <next_element/>
+        <order>11</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_action_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:36:38</sys_created_on>
+        <sys_id>e2387ca747dc35103f0f5882e36d439a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 19:36:38</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_action_output>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=e2387ca747dc35103f0f5882e36d439a"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=e2387ca747dc35103f0f5882e36d439a"/>
+    <sys_hub_action_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
         <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,pwd2droppable=true,uiType=string,uiTypeLabel=String,uiUniqueId=9cd76fee-6789-4ee3-8a08-7ad27329f902</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
@@ -4323,7 +4528,7 @@
         <url_target/>
     </sys_documentation>
     <sys_choice action="delete_multiple" query="name=var__m_sys_hub_action_input_33a75df0471031103f0f5882e36d43fd"/>
-    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_output_33a75df0471031103f0f5882e36d43fd^sys_idNOT IN156ddb094710f1103f0f5882e36d4387,1fa2f1fc47d031103f0f5882e36d4368,21dfe17847d031103f0f5882e36d430b,25dfa17847d031103f0f5882e36d43e4,6799ebc14790f1103f0f5882e36d43a7,797669b4479031103f0f5882e36d4350,a5dfa17847d031103f0f5882e36d43eb,addfe17847d031103f0f5882e36d430e,b57669b4479031103f0f5882e36d434a,bea6a3f4479071103f0f5882e36d430e"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_output_33a75df0471031103f0f5882e36d43fd^sys_idNOT IN156ddb094710f1103f0f5882e36d4387,1fa2f1fc47d031103f0f5882e36d4368,21dfe17847d031103f0f5882e36d430b,25dfa17847d031103f0f5882e36d43e4,6799ebc14790f1103f0f5882e36d43a7,6e387ca747dc35103f0f5882e36d43b6,797669b4479031103f0f5882e36d4350,a5dfa17847d031103f0f5882e36d43eb,addfe17847d031103f0f5882e36d430e,b57669b4479031103f0f5882e36d434a,bea6a3f4479071103f0f5882e36d430e"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>files</element>
         <help/>
@@ -4436,6 +4641,29 @@
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-07-26 14:06:51</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>file_paths</element>
+        <help/>
+        <hint/>
+        <label>All File Paths</label>
+        <language>en</language>
+        <name>var__m_sys_hub_action_output_33a75df0471031103f0f5882e36d43fd</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:36:38</sys_created_on>
+        <sys_id>6e387ca747dc35103f0f5882e36d43b6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 19:36:38</sys_updated_on>
         <url/>
         <url_target/>
     </sys_documentation>
@@ -4559,17 +4787,17 @@
     <sys_hub_action_plan action="INSERT_OR_UPDATE">
         <action_id display_value="GitHub - Fetch Commit Info">33a75df0471031103f0f5882e36d43fd</action_id>
         <plan>{"persistor":{"@class":".ChunkingPlanPersistor","table":"sys_hub_action_plan","id":"cc4035b847d031103f0f5882e36d4384","name":"plan","plan_signature":null}}</plan>
-        <snapshot>30a96fc14790f1103f0f5882e36d43b5</snapshot>
+        <snapshot>776e782b471075103f0f5882e36d43cf</snapshot>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:38:06</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>cc4035b847d031103f0f5882e36d4384</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_overrides/>
         <sys_scope/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 14:07:01</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:49</sys_updated_on>
     </sys_hub_action_plan>
     <sys_hub_action_type_snapshot action="INSERT_OR_UPDATE">
         <access>package_private</access>
@@ -4583,7 +4811,7 @@
         <copied_from_name/>
         <description/>
         <internal_name>github__fetch_last_commit</internal_name>
-        <label_cache>[{"name":"{{action.repository}}","label":"action➛repositoryPath","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branchname}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.connection_alias}}","label":"action➛Connection Alias","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch_name}}","label":"action➛Branch Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_path}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","sourceUiUniqueId":"","sourceType":"","uiType":"string","uiUniqueId":"92cec0c6-28d5-4dec-b27d-690743b52fb1"}},{"name":"{{action.connection}}","label":"action➛Connection","type":"action","ref":"","reference_display":"HTTP(s) Connection","base_type":"reference","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_owner}}","label":"action➛Repository Owner","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_name}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_base64_}}","label":"action➛Content (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_string_base64_}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.string_content}}","label":"action➛String Content","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_message}}","label":"action➛Commit message","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_object_id}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_oid}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.file_path}}","label":"action➛File path","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record}}","label":"action➛Attach to record","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_table}}","label":"action➛Attach to record table","type":"action","ref":"","reference_display":"","base_type":"table_name","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_sys_id}}","label":"action➛Attach to record sys_id","type":"action","ref":"","reference_display":"","base_type":"GUID","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_oid}}","label":"action➛Commit OID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0faab3d1-414c-4e67-8bf5-a155e26effd4].credential_value}}","label":"step➛Get Connection Info step➛Credential Value","type":"step","ref":"","reference_display":"","base_type":"password2","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[d488e6d6-3a1b-4b0f-adc0-f54c9caa53a1].response_body}}","label":"step➛Perform GraphQL mutation➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].variable}}","label":"step➛JSON Parser step➛variable","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].repoName}}","label":"step➛JSON Parser step➛repoName","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_oid}}","label":"step➛Format output➛Latest Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"31bb18f2-cc0e-4a16-87cc-64258292effb"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].reponame}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].branch_name}}","label":"step➛Format output➛Branch Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_name}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_object_id}}","label":"step➛Format output➛Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"URL","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"url","uiUniqueId":"29198ffd-9a95-4c7d-bf6b-a55c9822e6b7"}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].variable}}","label":"step➛Encode content to base64➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].encoded_content}}","label":"step➛Encode content to base64➛Encoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"4e2320f5-291e-4eaf-a3d4-e1badb6c722b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].number_of_additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].date_of_commit}}","label":"step➛Format output➛Date of commit","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_date}}","label":"step➛Format output➛Commit date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"a156d09c-22f0-47ba-b30c-dc642382c915"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].path}}","label":"step➛Format output➛Path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_path}}","label":"step➛Format output➛File path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"9e3c936a-8fa4-4070-806e-51ac9a47ad94"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].sha}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].hash}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"dbc47587-491f-41e2-bd4f-5eda57a9c203"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].url}}","label":"step➛Format output➛URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"fb11bb51-69e1-4ed2-a45f-fe94aa767f2b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].decoded_content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"290ade07-a065-44a2-aaa9-4c339ff3eb10"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_name}}","label":"step➛Format output➛File name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repository_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}","label":"step➛Format output➛File names","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD5cf423f0bb907110712b9c7ef23ebee2","child_label":"File names_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"file_names_child0","child_uiUniqueId":"636832da-d158-432a-acbc-b5e4a6cf3de9","uiUniqueId":"aa5f1e58-14a9-4dd3-b960-c02ffa5a5471"}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].variable}}","label":"step➛Get Correct Commit OID➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].correct_commit_oid}}","label":"step➛Get Correct Commit OID➛Correct Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[56c53cfb-f75c-4b13-8d3c-d39f4c3a072d].response_body}}","label":"step➛Perform GET request for specifics➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files}}","label":"step➛Format output➛File Changes","type":"step","ref":"","reference_display":"","base_type":"array.object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child}}","label":"step➛Format output➛File Changes➛File Changes_child","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_oid}}","label":"step➛Format output➛Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_date}}","label":"step➛Format output➛Commit Date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child1}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child1","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child2}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child2","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child3}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child3","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child4}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child4","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child5}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child5","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Object_ID}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.sha}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child6}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child6","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child7}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child7","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Contents_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.contents_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child8}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child8","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Blob_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.blob_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_message}}","label":"step➛Format output➛Commit Message","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child9}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child9","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Raw_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.raw_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}}]</label_cache>
+        <label_cache>[{"name":"{{action.repository}}","label":"action➛repositoryPath","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branchname}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch}}","label":"action➛branchName","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.connection_alias}}","label":"action➛Connection Alias","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.branch_name}}","label":"action➛Branch Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_path}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","sourceUiUniqueId":"","sourceType":"","uiType":"string","uiUniqueId":"92cec0c6-28d5-4dec-b27d-690743b52fb1"}},{"name":"{{action.connection}}","label":"action➛Connection","type":"action","ref":"","reference_display":"HTTP(s) Connection","base_type":"reference","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_owner}}","label":"action➛Repository Owner","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.repository_name}}","label":"action➛Repository Name","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_base64_}}","label":"action➛Content (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content_string_base64_}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.content}}","label":"action➛Content string (base64)","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.string_content}}","label":"action➛String Content","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_message}}","label":"action➛Commit message","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_object_id}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_head_oid}}","label":"action➛Commit Head Object ID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.file_path}}","label":"action➛File path","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record}}","label":"action➛Attach to record","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_table}}","label":"action➛Attach to record table","type":"action","ref":"","reference_display":"","base_type":"table_name","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.attach_to_record_sys_id}}","label":"action➛Attach to record sys_id","type":"action","ref":"","reference_display":"","base_type":"GUID","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{action.commit_oid}}","label":"action➛Commit OID","type":"action","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0faab3d1-414c-4e67-8bf5-a155e26effd4].credential_value}}","label":"step➛Get Connection Info step➛Credential Value","type":"step","ref":"","reference_display":"","base_type":"password2","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[d488e6d6-3a1b-4b0f-adc0-f54c9caa53a1].response_body}}","label":"step➛Perform GraphQL mutation➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].variable}}","label":"step➛JSON Parser step➛variable","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[5683fb70-23c0-4ab5-8e40-7a1c98c2daef].repoName}}","label":"step➛JSON Parser step➛repoName","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_oid}}","label":"step➛Format output➛Latest Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"31bb18f2-cc0e-4a16-87cc-64258292effb"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].reponame}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].branch_name}}","label":"step➛Format output➛Branch Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_name}}","label":"step➛Format output➛Repository Name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_object_id}}","label":"step➛Format output➛Commit Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"URL","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"url","uiUniqueId":"29198ffd-9a95-4c7d-bf6b-a55c9822e6b7"}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].variable}}","label":"step➛Encode content to base64➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[a100ab6f-eba5-467e-bd18-1e40a183aa04].encoded_content}}","label":"step➛Encode content to base64➛Encoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"4e2320f5-291e-4eaf-a3d4-e1badb6c722b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].number_of_additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].additions}}","label":"step➛Format output➛Number of additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].date_of_commit}}","label":"step➛Format output➛Date of commit","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].commit_date}}","label":"step➛Format output➛Commit date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"a156d09c-22f0-47ba-b30c-dc642382c915"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].path}}","label":"step➛Format output➛Path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_path}}","label":"step➛Format output➛File path","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"9e3c936a-8fa4-4070-806e-51ac9a47ad94"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].sha}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].hash}}","label":"step➛Format output➛SHA","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"dbc47587-491f-41e2-bd4f-5eda57a9c203"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].url}}","label":"step➛Format output➛URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"fb11bb51-69e1-4ed2-a45f-fe94aa767f2b"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].decoded_content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].content}}","label":"step➛Format output➛Decoded Content","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"string","uiUniqueId":"290ade07-a065-44a2-aaa9-4c339ff3eb10"}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_name}}","label":"step➛Format output➛File name","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repository_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].repo_url}}","label":"step➛Format output➛Repository URL","type":"step","ref":"","reference_display":"","base_type":"url","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}","label":"step➛Format output➛File names","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD5cf423f0bb907110712b9c7ef23ebee2","child_label":"File names_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"file_names_child0","child_uiUniqueId":"636832da-d158-432a-acbc-b5e4a6cf3de9","uiUniqueId":"aa5f1e58-14a9-4dd3-b960-c02ffa5a5471"}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].variable}}","label":"step➛Get Correct Commit OID➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[0f71260d-a939-4a89-98e4-2b375cdd58d2].correct_commit_oid}}","label":"step➛Get Correct Commit OID➛Correct Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[56c53cfb-f75c-4b13-8d3c-d39f4c3a072d].response_body}}","label":"step➛Perform GET request for specifics➛Response Body","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"hidden_for":"DATASTREAM"}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].variable}}","label":"step➛Format output➛variable","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files}}","label":"step➛Format output➛File Changes","type":"step","ref":"","reference_display":"","base_type":"array.object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child}}","label":"step➛Format output➛File Changes➛File Changes_child","type":"step","ref":"","reference_display":"","base_type":"object","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_oid}}","label":"step➛Format output➛Commit OID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_url}}","label":"step➛Format output➛Commit URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_date}}","label":"step➛Format output➛Commit Date","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child1}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child1","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child2}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child2","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child3}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child3","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child4}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child4","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child5}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child5","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Object_ID}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.sha}}","label":"step➛Format output➛File Changes➛File Changes_child➛Object ID","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.filename}}","label":"step➛Format output➛File Changes➛File Changes_child➛Filename","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.status}}","label":"step➛Format output➛File Changes➛File Changes_child➛Status","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.additions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Additions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.deletions}}","label":"step➛Format output➛File Changes➛File Changes_child➛Deletions","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child6}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child6","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child7}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child7","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.changes}}","label":"step➛Format output➛File Changes➛File Changes_child➛Changes","type":"step","ref":"","reference_display":"","base_type":"integer","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Contents_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.contents_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Contents API URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child8}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child8","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Blob_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.blob_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Blob URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].commit_message}}","label":"step➛Format output➛Commit Message","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.file_changes_child_child9}}","label":"step➛Format output➛File Changes➛File Changes_child➛File Changes_child_child9","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.Raw_URL}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[aba832da-7901-4e90-9ba1-def8a212a674].files.File_Changes_child.raw_url}}","label":"step➛Format output➛File Changes➛File Changes_child➛Raw URL","type":"step","ref":"","reference_display":"","base_type":"string","parent_table_name":"","column_name":"","choices":null,"attributes":{"sourceId":"","sourceUiUniqueId":"","sourceType":""}},{"name":"{{step[ac527467-0570-49c3-bbc2-abcd039940ea].all_file_paths}}","label":"step➛Format output➛All Root Files","type":"step","ref":"","reference_display":"","base_type":"array.string","parent_table_name":"","column_name":"","choices":null,"attributes":{"uiTypeLabel":"Array.String","co_type_name":"FD92387ca72edc3510e965c9458aaebc46","child_label":"All File Paths_child0","child_type_label":"String","element_mapping_provider":"com.glide.flow_design.action.data.FlowDesignVariableMapper","uiType":"array.string","child_type":"string","child_name":"all_file_paths_child0","child_uiUniqueId":"8311321c-965a-4dc4-bc87-f29bd1d81c85","uiUniqueId":"b90974e8-7d2c-46aa-b45b-ac559bd579f8"}}]</label_cache>
         <master>true</master>
         <name>GitHub - Fetch Commit Info</name>
         <natlang/>
@@ -4596,7 +4824,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>4330b1b847d031103f0f5882e36d43ca</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name/>
         <sys_overrides/>
         <sys_package/>
@@ -4604,7 +4832,7 @@
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:36:24</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:02:09</sys_updated_on>
         <system_level>false</system_level>
         <type/>
     </sys_hub_action_type_snapshot>
@@ -4717,11 +4945,11 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 19:09:20</sys_created_on>
         <sys_id>2c45aff0479071103f0f5882e36d4325</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>1</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-25 19:09:20</sys_updated_on>
+        <sys_updated_on>2023-08-02 19:40:28</sys_updated_on>
         <table>var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca</table>
-        <value>{{step[ac527467-0570-49c3-bbc2-abcd039940ea].file_names}}</value>
+        <value>{{step[ac527467-0570-49c3-bbc2-abcd039940ea].all_file_paths}}</value>
     </sys_element_mapping>
     <sys_element_mapping action="INSERT_OR_UPDATE">
         <field>repo_name</field>
@@ -5535,10 +5763,10 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:38:03</sys_created_on>
         <sys_id>5b30b1b847d031103f0f5882e36d43fc</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>9</sys_mod_count>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:36:25</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:44</sys_updated_on>
     </sys_hub_step_instance>
     <sys_variable_value action="delete_multiple" query="document_key=5b30b1b847d031103f0f5882e36d43fc"/>
     <sys_variable_value action="INSERT_OR_UPDATE">
@@ -5549,28 +5777,40 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:38:03</sys_created_on>
         <sys_id>9b30f1b847d031103f0f5882e36d4326</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:36:25</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:03:44</sys_updated_on>
         <value>(function execute(inputs, outputs) {
 
   var response = JSON.parse(inputs.responseJSON);
-  
-  if(response.errors) {
+
+  if (response.errors) {
     throw "Failed query: " + response.errors[0].message;
   }
-  
-  else if(response.data) {
-    if(!response.data.repository.ref) {
-     throw "Failed to find branch with the name '" + inputs.originalBranchName + "' within the repository.";
+
+  else if (response.data) {
+    var repository = response.data.repository;
+    var ref = repository.ref;
+    if (!ref) {
+      throw "Failed to find branch with the name '" + inputs.originalBranchName + "' within the repository.";
     }
-    outputs.repo_name = response.data.repository.name;
-    outputs.repo_url = response.data.repository.url;
-    outputs.branch_name = response.data.repository.ref.name;
-    outputs.commit_oid = response.data.repository.ref.target.oid + "";
-    
+    outputs.repo_name = repository.name;
+    outputs.repo_url = repository.url;
+    outputs.branch_name = ref.name;
+    outputs.commit_oid = ref.target.oid + "";
+
+    //Get file paths
+    var filePaths = [];
+    var treeEntries = ref.target.history.nodes[0].tree.entries;
+    for (var i = 0; i &lt; treeEntries.length; i++) {
+      var entry = treeEntries[i];
+      if (entry.path &amp;&amp; entry.extension) {
+        filePaths.push(entry.path);
+      }
+    }
+    outputs.all_file_paths = filePaths;
   }
-  
+
 })(inputs, outputs);
 </value>
         <variable display_value="Script">71aa7f6647032200b4fad7527c9a719b</variable>
@@ -5807,7 +6047,7 @@
         <write_roles/>
         <xml_view>false</xml_view>
     </sys_hub_step_ext_input>
-    <sys_hub_step_ext_output action="delete_multiple" query="model=5b30b1b847d031103f0f5882e36d43fc^sys_idNOT IN1730f1b847d031103f0f5882e36d4308,1730f1b847d031103f0f5882e36d430c,1f30f1b847d031103f0f5882e36d430f,48b235fc47d031103f0f5882e36d4376"/>
+    <sys_hub_step_ext_output action="delete_multiple" query="model=5b30b1b847d031103f0f5882e36d43fc^sys_idNOT IN1730f1b847d031103f0f5882e36d4308,1730f1b847d031103f0f5882e36d430c,1f30f1b847d031103f0f5882e36d430f,3e19b86b47dc35103f0f5882e36d4383,48b235fc47d031103f0f5882e36d4376"/>
     <sys_hub_step_ext_output action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -6061,6 +6301,89 @@
         <active>true</active>
         <array>false</array>
         <array_denormalized>false</array_denormalized>
+        <attributes>child_label=All File Paths_child0,child_name=all_file_paths_child0,child_type=string,child_type_label=String,child_uiUniqueId=8311321c-965a-4dc4-bc87-f29bd1d81c85,co_type_name=FDea19b86b68dc3510458dbed4e0dcbc70,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=array.string,uiTypeLabel=Array.String,uiUniqueId=b90974e8-7d2c-46aa-b45b-ac559bd579f8</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>all_file_paths</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="String">string</internal_type>
+        <label>All Root Files</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="Format output">5b30b1b847d031103f0f5882e36d43fc</model>
+        <model_id>5b30b1b847d031103f0f5882e36d43fc</model_id>
+        <model_table>sys_hub_step_instance</model_table>
+        <name>var__m_sys_hub_step_ext_output_5b30b1b847d031103f0f5882e36d43fc</name>
+        <next_element/>
+        <order>5</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_step_ext_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:40:27</sys_created_on>
+        <sys_id>3e19b86b47dc35103f0f5882e36d4383</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 20:02:10</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_step_ext_output>
+    <sys_hub_step_ext_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
         <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=url,uiTypeLabel=URL,uiUniqueId=777fc585-bb9e-4547-87e6-0e08d2eb5fc2</attributes>
         <audit>false</audit>
         <calculation><![CDATA[(function calculatedFieldValue(current) {
@@ -6141,7 +6464,7 @@
         <xml_view>false</xml_view>
     </sys_hub_step_ext_output>
     <sys_hub_input_scripts action="delete_multiple" query="instance=5b30b1b847d031103f0f5882e36d43fc"/>
-    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_5b30b1b847d031103f0f5882e36d43fc^sys_idNOT IN1f30f1b847d031103f0f5882e36d431e,5730f1b847d031103f0f5882e36d430b,5f30f1b847d031103f0f5882e36d430e,c0b235fc47d031103f0f5882e36d4379"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_5b30b1b847d031103f0f5882e36d43fc^sys_idNOT IN1f30f1b847d031103f0f5882e36d431e,5730f1b847d031103f0f5882e36d430b,5f30f1b847d031103f0f5882e36d430e,c0b235fc47d031103f0f5882e36d4379,fa19b86b47dc35103f0f5882e36d4386"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>commit_oid</element>
         <help/>
@@ -6231,6 +6554,29 @@
         <sys_update_name/>
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2023-07-25 10:48:45</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>all_file_paths</element>
+        <help/>
+        <hint/>
+        <label>All Root Files</label>
+        <language>en</language>
+        <name>var__m_sys_hub_step_ext_output_5b30b1b847d031103f0f5882e36d43fc</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:40:28</sys_created_on>
+        <sys_id>fa19b86b47dc35103f0f5882e36d4386</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 20:02:10</sys_updated_on>
         <url/>
         <url_target/>
     </sys_documentation>
@@ -7150,13 +7496,13 @@
         <input_name>body</input_name>
         <instance>cf30b1b847d031103f0f5882e36d43e1</instance>
         <referenced_table>sys_hub_step_instance</referenced_table>
-        <script>{"body":{"scriptActive":true,"script":"var query \u003d \u0027query getCommitOID($repoOwner: String!, $repoName: String!, $refPath: String!) { \\\n  repository(owner: $repoOwner, name: $repoName) { \\\n    name \\\n    id \\\n    url \\\n    ref(qualifiedName: $refPath) { \\\n      name \\\n      target { \\\n        oid \\\n      } \\\n    } \\\n  } \\\n}\u0027;\n\nreturn JSON.stringify({\n  \"query\": query,\n  \"variables\": {\n    \"repoName\": fd_data.action_inputs.repository_name,\n    \"repoOwner\": fd_data.action_inputs.repository_owner,\n    \"refPath\": \"refs/heads/\" + fd_data.action_inputs.branch_name\n  }\n});\n"}}</script>
+        <script>{"body":{"scriptActive":true,"script":"var query \u003d \u0027query getCommitOID($repoOwner: String!, $repoName: String!, $refPath: String!) { \\\n  repository(owner: $repoOwner, name: $repoName) { \\\n    name \\\n    id \\\n    url \\\n    ref(qualifiedName: $refPath) { \\\n        name \\\n        target { \\\n            oid \\\n        ... on Commit { \\\n          history(first: 1) { \\\n            nodes { \\\n              tree { \\\n                entries { \\\n                  path \\\n                  extension \\\n                } \\\n              } \\\n            } \\\n          } \\\n        } \\\n      } \\\n    } \\\n  } \\\n}\u0027;\n\nreturn JSON.stringify({\n  \"query\": query,\n  \"variables\": {\n    \"repoName\": fd_data.action_inputs.repository_name,\n    \"repoOwner\": fd_data.action_inputs.repository_owner,\n    \"refPath\": \"refs/heads/\" + fd_data.action_inputs.branch_name\n  }\n});\n"}}</script>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 10:38:03</sys_created_on>
         <sys_id>cf30b1b847d031103f0f5882e36d43f1</sys_id>
-        <sys_mod_count>4</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 13:36:25</sys_updated_on>
+        <sys_updated_on>2023-08-02 20:02:09</sys_updated_on>
     </sys_hub_input_scripts>
     <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_step_ext_output_cf30b1b847d031103f0f5882e36d43e1^sys_idNOT IN0f30b1b847d031103f0f5882e36d43ec"/>
     <sys_documentation action="INSERT_OR_UPDATE">
@@ -7902,7 +8248,7 @@
         <xml_view>false</xml_view>
     </sys_hub_action_input>
     <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=c730b1b847d031103f0f5882e36d43cd"/>
-    <sys_hub_action_output action="delete_multiple" query="model=4330b1b847d031103f0f5882e36d43ca^sys_idNOT IN08b235fc47d031103f0f5882e36d4389,0ea2af054750f1103f0f5882e36d438b,1330f1b847d031103f0f5882e36d433c,1330f1b847d031103f0f5882e36d4340,38a96fc14790f1103f0f5882e36d43a5,5330f1b847d031103f0f5882e36d434e,9330f1b847d031103f0f5882e36d4337,9330f1b847d031103f0f5882e36d434a,c82433b0471471103f0f5882e36d438f,df30f1b847d031103f0f5882e36d4343"/>
+    <sys_hub_action_output action="delete_multiple" query="model=4330b1b847d031103f0f5882e36d43ca^sys_idNOT IN08b235fc47d031103f0f5882e36d4389,0ea2af054750f1103f0f5882e36d438b,1330f1b847d031103f0f5882e36d433c,1330f1b847d031103f0f5882e36d4340,38a96fc14790f1103f0f5882e36d43a5,5330f1b847d031103f0f5882e36d434e,9330f1b847d031103f0f5882e36d4337,9330f1b847d031103f0f5882e36d434a,c82433b0471471103f0f5882e36d438f,df30f1b847d031103f0f5882e36d4343,fa19b86b47dc35103f0f5882e36d43dc"/>
     <sys_hub_action_output action="INSERT_OR_UPDATE">
         <active>true</active>
         <array>false</array>
@@ -8786,6 +9132,93 @@
     </sys_hub_action_output>
     <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=df30f1b847d031103f0f5882e36d4343"/>
     <sys_hub_input_scripts action="delete_multiple" query="instance=df30f1b847d031103f0f5882e36d4343"/>
+    <sys_hub_action_output action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>child_label=All File Paths_child0,child_name=all_file_paths_child0,child_type=string,child_type_label=String,child_uiUniqueId=0566feb3-e3ca-4353-a5f0-52368cabc611,co_type_name=FD3e19b86bf5dc351002797082dd6c37cf,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=array.string,uiTypeLabel=Array.String,uiUniqueId=5106973a-0fdc-420d-b4a5-7d85fe57ed96</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>file_paths</element>
+        <element_prototype/>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_link/>
+        <internal_type display_value="String">string</internal_type>
+        <label>All File Paths</label>
+        <mandatory>false</mandatory>
+        <max_length>65000</max_length>
+        <model display_value="GitHub - Fetch Commit Info">4330b1b847d031103f0f5882e36d43ca</model>
+        <model_id>4330b1b847d031103f0f5882e36d43ca</model_id>
+        <model_table>sys_hub_action_type_snapshot</model_table>
+        <name>var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca</name>
+        <next_element/>
+        <order>11</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_action_output</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:40:28</sys_created_on>
+        <sys_id>fa19b86b47dc35103f0f5882e36d43dc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 19:40:28</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_action_output>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=fa19b86b47dc35103f0f5882e36d43dc"/>
+    <sys_hub_input_scripts action="delete_multiple" query="instance=fa19b86b47dc35103f0f5882e36d43dc"/>
     <sys_hub_pill_compound action="delete_multiple" query="attached_to=4330b1b847d031103f0f5882e36d43ca"/>
     <sys_hub_action_status_metadata action="delete_multiple" query="action_type_id=4330b1b847d031103f0f5882e36d43ca^sys_idNOT IN9b30f1b847d031103f0f5882e36d4371"/>
     <sys_hub_action_status_metadata action="INSERT_OR_UPDATE">
@@ -8892,7 +9325,7 @@
         <url_target/>
     </sys_documentation>
     <sys_choice action="delete_multiple" query="name=var__m_sys_hub_action_input_4330b1b847d031103f0f5882e36d43ca"/>
-    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca^sys_idNOT IN1330f1b847d031103f0f5882e36d4343,38a96fc14790f1103f0f5882e36d43a8,5330f1b847d031103f0f5882e36d433b,5330f1b847d031103f0f5882e36d433f,54b235fc47d031103f0f5882e36d43a5,802433b0471471103f0f5882e36d43ac,82a2af054750f1103f0f5882e36d439c,9330f1b847d031103f0f5882e36d434d,9f30f1b847d031103f0f5882e36d4369,d330f1b847d031103f0f5882e36d4349"/>
+    <sys_documentation action="delete_multiple" query="name=var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca^sys_idNOT IN1330f1b847d031103f0f5882e36d4343,38a96fc14790f1103f0f5882e36d43a8,5330f1b847d031103f0f5882e36d433b,5330f1b847d031103f0f5882e36d433f,54b235fc47d031103f0f5882e36d43a5,802433b0471471103f0f5882e36d43ac,82a2af054750f1103f0f5882e36d439c,9330f1b847d031103f0f5882e36d434d,9f30f1b847d031103f0f5882e36d4369,d330f1b847d031103f0f5882e36d4349,fe19b86b47dc35103f0f5882e36d43df"/>
     <sys_documentation action="INSERT_OR_UPDATE">
         <element>branch_name</element>
         <help/>
@@ -9123,10 +9556,33 @@
         <url/>
         <url_target/>
     </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>file_paths</element>
+        <help/>
+        <hint/>
+        <label>All File Paths</label>
+        <language>en</language>
+        <name>var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:40:28</sys_created_on>
+        <sys_id>fe19b86b47dc35103f0f5882e36d43df</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 19:40:28</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
     <sys_choice action="delete_multiple" query="name=var__m_sys_hub_action_output_4330b1b847d031103f0f5882e36d43ca"/>
     <sys_hub_action_type_definition action="UPDATE">
         <sys_id>33a75df0471031103f0f5882e36d43fd</sys_id>
         <latest_snapshot>4330b1b847d031103f0f5882e36d43ca</latest_snapshot>
-        <compiler_build>glide-tokyo-07-08-2022__patch4b-01-31-2023_02-07-2023_1702.zip</compiler_build>
+        <compiler_build>glide-tokyo-07-08-2022__patch9-hotfix2-06-07-2023_06-23-2023_1740.zip</compiler_build>
     </sys_hub_action_type_definition>
 </record_update>

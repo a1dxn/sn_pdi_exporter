@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_complex_object">
+    <sys_complex_object action="INSERT_OR_UPDATE">
+        <label/>
+        <name>FD10f8306be8dc35103afc58efdf9682a1</name>
+        <namespace>FlowDesigner</namespace>
+        <scope_name>e4ebed2e4740b1103f0f5882e36d43f1</scope_name>
+        <serialized_content>{"FlowDesigner:FD10f8306be8dc35103afc58efdf9682a1":{"$COCollectionField":["String"],"$COCollectionField.$field_facets":{"SimpleMapFacet":"{\"up-shift-collection-level\":\"true\"}"}},"FlowDesigner:FD10f8306be8dc35103afc58efdf9682a1.$type_facets":{"SimpleMapFacet":"{\"sourceId\":\"\",\"default_value\":\"\",\"child_hint\":\"\",\"child_maxsize\":\"\",\"label\":\"All File Paths\",\"mandatory\":\"false\",\"child_name\":\"all_file_paths_child0\",\"uiUniqueId\":\"b90974e8-7d2c-46aa-b45b-ac559bd579f8\",\"uiTypeLabel\":\"Array.String\",\"co_type_name\":\"FD10f8306be8dc35103afc58efdf9682a1\",\"child_label\":\"All File Paths_child0\",\"child_type_label\":\"String\",\"element_mapping_provider\":\"com.glide.flow_design.action.data.FlowDesignVariableMapper\",\"read_only\":\"false\",\"sourceUiUniqueId\":\"\",\"sourceType\":\"\",\"hint\":null,\"uiType\":\"array.string\",\"child_defaultValue\":\"\",\"child_type\":\"string\",\"order\":\"5\",\"max_length\":\"65000\",\"child_uiUniqueId\":\"8311321c-965a-4dc4-bc87-f29bd1d81c85\"}"}}</serialized_content>
+        <sys_class_name>sys_complex_object</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 19:39:45</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d0f8306b47dc35103f0f5882e36d43a1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>FD10f8306be8dc35103afc58efdf9682a1</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_complex_object_d0f8306b47dc35103f0f5882e36d43a1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 19:39:45</sys_updated_on>
+        <type>complex_object_collection</type>
+    </sys_complex_object>
+</record_update>
