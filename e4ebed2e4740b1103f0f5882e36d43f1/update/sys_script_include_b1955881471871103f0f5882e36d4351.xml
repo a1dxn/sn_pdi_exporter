@@ -75,6 +75,24 @@ PDIExporterUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
             job_id: jobId
         });
     },
+	
+	checkDuplicateBranches: function() {
+		var currentId = this.getParameter("current_id"),
+			owner = this.getParameter("repo_owner"),
+			repo = this.getParameter("repo_name"),
+			branch = this.getParameter("repo_branch");
+		
+		var dups = new global.PDIExporterUtils(currentId).getDuplicateRepoBranches(owner, repo, branch);
+		var msg = null;
+		if(dups.length) {
+			msg = '<b>WARNING: There are multiple Export Configurations using the same repository branch. This will cause unexpected errors when pulling latest commits. Please create separate branches for each Export Configuration to avoid clashes.</b><ul>';
+			msg = dups.reduce(function(m, el) {
+				return m += '<li><a href=/"' + el._link + '" target="_blank">' + el.u_number + "</a></li>";
+			}, msg);
+			msg += "</ul>";
+		}
+		return JSON.stringify({error: msg, duplicateRecords: dups});
+	},
 
     type: 'PDIExporterUtilsAjax'
 });]]></script>
@@ -82,13 +100,13 @@ PDIExporterUtilsAjax.prototype = Object.extendsObject(global.AbstractAjaxProcess
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-25 22:44:24</sys_created_on>
         <sys_id>b1955881471871103f0f5882e36d4351</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>15</sys_mod_count>
         <sys_name>PDIExporterUtilsAjax</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_include_b1955881471871103f0f5882e36d4351</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-26 21:27:07</sys_updated_on>
+        <sys_updated_on>2023-08-02 17:27:45</sys_updated_on>
     </sys_script_include>
 </record_update>

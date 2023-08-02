@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>u_branch_name</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>Check for duplicate branch use</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (!g_form.getValue("u_branch_name")) {
+        return;
+    }
+
+	var id = g_form.getUniqueValue();
+    var owner = g_form.getValue("u_repo_owner");
+    var name = g_form.getValue("u_repo_name");
+	var branch = g_form.getValue("u_branch_name");
+
+    var ga = new GlideAjax("global.PDIExporterUtilsAjax");
+    ga.addParam("sysparm_name", "checkDuplicateBranches");
+	if(!g_form.isNewRecord()) ga.addParam("current_id", id);
+    ga.addParam("repo_owner", owner);
+    ga.addParam("repo_name", name);
+	ga.addParam("repo_branch", branch);
+    ga.getXMLAnswer(function(response) {
+        response = JSON.parse(response);
+        console.log(response);
+		
+		if(response.error) {
+			g_form.addErrorMessage(response.error);
+		} else {
+			g_form.clearMessages();
+		}
+    });
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 17:20:23</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>6e7898ef479835103f0f5882e36d43e4</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Check for duplicate branch use</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_script_client_6e7898ef479835103f0f5882e36d43e4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 17:28:42</sys_updated_on>
+        <table>u_pdi_export</table>
+        <type>onChange</type>
+        <ui_type>10</ui_type>
+        <view/>
+    </sys_script_client>
+</record_update>

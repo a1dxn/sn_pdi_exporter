@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="DELETE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>false</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>u_pdi_export</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Validate uniqueness</name>
+        <order>50</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var duplicates = [];
+    var gr = new GlideRecord(current.getTableName());
+    gr.addQuery("u_repo_owner", current.u_repo_owner);
+    gr.addQuery("u_repo_name", current.u_repo_name);
+    gr.addQuery("u_branch_name", current.u_branch_name);
+    gr.addQuery("sys_id", "!=", current.getUniqueValue());
+    gr.query();
+    while (gr.next()) {
+        duplicates.push('<li><a href=/"' + gr.getLink(true) + '" target="_blank">' + gr.getValue("u_number") + "</a></li>");
+    }
+
+    if (duplicates.length) {
+        var msg = "<h3>WARNING: There are multiple Export Configurations using the same repository branch. This will cause unexpected errors when pulling latest commits. Please create separate branches for each Export Configuration to avoid clashes.</h3><ul>" + duplicates.join() + "<ul>";
+        gs.addErrorMessage(msg);
+    }
+
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 16:58:46</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>a06258e7479835103f0f5882e36d4396</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Validate uniqueness</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_script_a06258e7479835103f0f5882e36d4396</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 17:20:31</sys_updated_on>
+        <template/>
+        <when>before_display</when>
+    </sys_script>
+    <sys_translated_text action="DELETE" query="documentkey=a06258e7479835103f0f5882e36d4396"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</application>
+        <file_path/>
+        <instance_id>36471b3edbef9f808264f70fbf961974</instance_id>
+        <instance_name>dev68161</instance_name>
+        <name>sys_script_a06258e7479835103f0f5882e36d4396</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;&lt;sys_script action="INSERT_OR_UPDATE"&gt;&lt;abort_action&gt;false&lt;/abort_action&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;action_delete&gt;false&lt;/action_delete&gt;&lt;action_insert&gt;true&lt;/action_insert&gt;&lt;action_query&gt;false&lt;/action_query&gt;&lt;action_update&gt;true&lt;/action_update&gt;&lt;active&gt;false&lt;/active&gt;&lt;add_message&gt;false&lt;/add_message&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;change_fields&gt;false&lt;/change_fields&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;collection&gt;u_pdi_export&lt;/collection&gt;&lt;condition/&gt;&lt;description/&gt;&lt;execute_function&gt;false&lt;/execute_function&gt;&lt;filter_condition/&gt;&lt;is_rest&gt;false&lt;/is_rest&gt;&lt;message/&gt;&lt;name&gt;Validate uniqueness&lt;/name&gt;&lt;order&gt;50&lt;/order&gt;&lt;priority&gt;100&lt;/priority&gt;&lt;rest_method/&gt;&lt;rest_method_text/&gt;&lt;rest_service/&gt;&lt;rest_service_text/&gt;&lt;rest_variables/&gt;&lt;role_conditions/&gt;&lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+
+    var duplicates = [];
+    var gr = new GlideRecord(current.getTableName());
+    gr.addQuery("u_repo_owner", current.u_repo_owner);
+    gr.addQuery("u_repo_name", current.u_repo_name);
+    gr.addQuery("u_branch_name", current.u_branch_name);
+    gr.addQuery("sys_id", "!=", current.getUniqueValue());
+    gr.query();
+    while (gr.next()) {
+        duplicates.push('&lt;li&gt;&lt;a href=/"' + gr.getLink(true) + '" target="_blank"&gt;' + gr.getValue("u_number") + "&lt;/a&gt;&lt;/li&gt;");
+    }
+
+    if (duplicates.length) {
+        var msg = "&lt;h3&gt;WARNING: There are multiple Export Configurations using the same repository branch. This will cause unexpected errors when pulling latest commits. Please create separate branches for each Export Configuration to avoid clashes.&lt;/h3&gt;&lt;ul&gt;" + duplicates.join() + "&lt;ul&gt;";
+        gs.addErrorMessage(msg);
+    }
+
+})(current, previous);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2023-08-02 16:58:46&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;a06258e7479835103f0f5882e36d4396&lt;/sys_id&gt;&lt;sys_mod_count&gt;3&lt;/sys_mod_count&gt;&lt;sys_name&gt;Validate uniqueness&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1"&gt;e4ebed2e4740b1103f0f5882e36d43f1&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="PDI Exporter"&gt;e4ebed2e4740b1103f0f5882e36d43f1&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_a06258e7479835103f0f5882e36d4396&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2023-08-02 17:20:31&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;when&gt;before_display&lt;/when&gt;&lt;/sys_script&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=a06258e7479835103f0f5882e36d4396"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>233062333</payload_hash>
+        <record_name>Validate uniqueness</record_name>
+        <reverted_from/>
+        <source>b1d0e83a471031103f0f5882e36d43dd</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 17:20:31</sys_created_on>
+        <sys_id>7819d4a747d835103f0f5882e36d4377</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>189b743f4580000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 17:20:31</sys_updated_on>
+        <type>Business Rule</type>
+        <update_guid>bc19d4a73bd83510e537582d58efe976</update_guid>
+        <update_guid_history>bc19d4a73bd83510e537582d58efe976:233062333,f3c5502315d835109c40ca6967950fd9:-1904212784,8a7558eb7f983510e805902486166781:-283415286,c2145cabd5983510f5504554785b6a69:1952202328</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-08-02 17:36:05</sys_created_on>
+        <sys_db_object display_value="" name="sys_script">sys_script</sys_db_object>
+        <sys_id>6fd8bf238c0548eaa41349814132d359</sys_id>
+        <sys_metadata>a06258e7479835103f0f5882e36d4396</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Validate uniqueness</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_parent display_value="PDI Export">1dacad664780b1103f0f5882e36d4341</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_scope_delete display_value="">a5349a8dde3c4db09d2de557a7f21990</sys_scope_delete>
+        <sys_update_name>sys_script_a06258e7479835103f0f5882e36d4396</sys_update_name>
+        <sys_update_version display_value="sys_script_a06258e7479835103f0f5882e36d4396">7819d4a747d835103f0f5882e36d4377</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-08-02 17:36:05</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -12,32 +12,35 @@
 PDIExporterUtils.SCHEDULED_JOB_TEMPLATE_ID = "88f67e0d47d8b1103f0f5882e36d43e4";
 
 PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, {
-	
-    initialize: function (exportConfig) {
-		if(exportConfig) {
-			if(exportConfig instanceof GlideRecord && exportConfig.getTableName() == "u_pdi_export") {
-				this.exportGr = exportConfig;
-			} else {
-				this.exportGr = this.getConfigFromId(exportConfig, "export", true);
-			}
-			if (!this.exportGr) throw "Invalid exportConfig parameter provided";
-			this.parent_table = this.exportGr.getTableName();
-			this.sys_id = this.exportGr.getUniqueValue();
-			this.querySets = [];
-		}
+
+    initialize: function(exportConfig) {
+        if (exportConfig) {
+            if (exportConfig instanceof GlideRecord && exportConfig.getTableName() == "u_pdi_export") {
+                this.exportGr = exportConfig;
+            } else {
+                this.exportGr = this.getConfigFromId(exportConfig, "export", true);
+            }
+            if (!this.exportGr) throw "Invalid exportConfig parameter provided";
+            this.parent_table = this.exportGr.getTableName();
+            this.sys_id = this.exportGr.getUniqueValue();
+            this.querySets = [];
+        }
     },
 
-    getConfigFromId: function (id, recordType, forceNew) {
+    getConfigFromId: function(id, recordType, forceNew) {
         var tableName;
         switch (recordType) {
             case "u_pdi_export_m2m_filters":
-            case "export_filter": tableName = "u_pdi_export_m2m_filters";
+            case "export_filter":
+                tableName = "u_pdi_export_m2m_filters";
                 break;
             case "u_pdi_export_filter":
-            case "filter": tableName = "u_pdi_export_filter";
+            case "filter":
+                tableName = "u_pdi_export_filter";
                 break;
             case "u_pdi_export":
-            case "export": tableName = "u_pdi_export";
+            case "export":
+                tableName = "u_pdi_export";
                 break;
         }
         if (tableName) {
@@ -46,35 +49,35 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
                 conf = new GlideRecord(tableName);
                 if (conf.get(id)) {
                     this._setCache("config_gr_store", tableName + "/" + id, conf);
-					return conf;
+                    return conf;
                 }
             }
         }
         return undefined;
     },
-	
-	createPushJob: function() {
-		var job = new GlideRecord("u_pdi_export_run");
-		job.newRecord();
-		job.u_direction = "push";
-		job.u_export = this.sys_id;
-		return job.insert();
-	},
-	
-	createPullJob: function() {
-		var job = new GlideRecord("u_pdi_export_run");
-		job.newRecord();
-		job.u_direction = "pull";
-		job.u_export = this.sys_id;
-		return job.insert();
-	},
+
+    createPushJob: function() {
+        var job = new GlideRecord("u_pdi_export_run");
+        job.newRecord();
+        job.u_direction = "push";
+        job.u_export = this.sys_id;
+        return job.insert();
+    },
+
+    createPullJob: function() {
+        var job = new GlideRecord("u_pdi_export_run");
+        job.newRecord();
+        job.u_direction = "pull";
+        job.u_export = this.sys_id;
+        return job.insert();
+    },
 
     /**
      * Add a query definition to define a collection of records to export
      * @param String table
      * @param String query - encoded query string
      */
-    addQuerySet: function (table, query, configRecord) {
+    addQuerySet: function(table, query, configRecord) {
         var conf = configRecord || this.exportGr;
         this.querySets.push({
             table: table,
@@ -86,7 +89,7 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
         });
     },
 
-    runXMLExport: function () {
+    runXMLExport: function() {
         var relatedIds = this.getFilterIds();
         if (relatedIds) {
             this.addQuerySet("u_pdi_export_m2m_filters", "sys_idIN" + relatedIds.m2mIds.join());
@@ -103,7 +106,7 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
     /**
      * Process query sets and export results
      */
-    _exportQuerySets: function () {
+    _exportQuerySets: function() {
         for (var i = 0; i < this.querySets.length; i++) {
             var set = this.querySets[i];
             this.setConfigOptions(this.getConfigFromId(set.conf.id, set.conf.type));
@@ -115,7 +118,7 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
         }
     },
 
-    _addFilterQueries: function (filterId, parent) {
+    _addFilterQueries: function(filterId, parent) {
         var filter = new GlideRecord("u_pdi_export_filter");
         if (filter.get(filterId)) {
             this.addQuerySet(filter.getTableName(), filter.getEncodedQuery(), this.exportGr);
@@ -123,7 +126,7 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
         }
     },
 
-    getFilterIds: function () {
+    getFilterIds: function() {
         var filter = new GlideAggregate("u_pdi_export_m2m_filters");
         filter.addQuery("u_pdi_export", this.exportGr.getUniqueValue());
         filter.orderBy("u_order");
@@ -139,51 +142,76 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
         }
         return null;
     },
-	
-	getFileName: function() {
-		return "" + this.parent_table + "_" + this.exportGr.getValue("u_number").trim() + ".xml";
-	},
-	
-	encode: function(data) {
-		return GlideStringUtil.base64Encode(data.toString());
-	},
-	
-	decode: function(encodedData) {
-		return GlideStringUtil.base64Decode(encodedData.toString());
-	},
-	
-	validateEncoding: function(encodedContent) { //hashing wasnt working so we'll compare encodings instead!
-		var decoded = this.decode(encodedContent);
-		var recoded = this.encode(decoded);
-		return encodedContent == recoded;
-	},
-	
-	findOrCreateScheduledJob: function() {
-		var job = new GlideRecord("sysauto_script");
-		job.addQuery("script", "CONTAINS", this.sys_id);
-		job.query();
-		if(job.next()) {
-			return job.getRowCount() === 1 ? job.getLink(true) : ("/" + job.getTableName() + "_list.do?sysparm_query=" + job.getEncodedQuery());
-		} else {
-			job.newRecord();
-			GlideTemplate.get(PDIExporterUtils.SCHEDULED_JOB_TEMPLATE_ID).apply(job);
-			job.setValue("name", job.getValue("name").replaceAll("<number>", this.exportGr.getValue("u_number")));
-			job.setValue("script", job.getValue("script").replaceAll("<sys_id>", this.sys_id));
-			job.insert();
-			return job;
+
+    getFileName: function() {
+        return "" + this.parent_table + "_" + this.exportGr.getValue("u_number").trim() + ".xml";
+    },
+
+    encode: function(data) {
+        return GlideStringUtil.base64Encode(data.toString());
+    },
+
+    decode: function(encodedData) {
+        return GlideStringUtil.base64Decode(encodedData.toString());
+    },
+
+    validateEncoding: function(encodedContent) { //hashing wasnt working so we'll compare encodings instead!
+        var decoded = this.decode(encodedContent);
+        var recoded = this.encode(decoded);
+        return encodedContent == recoded;
+    },
+
+    findOrCreateScheduledJob: function() {
+        var job = new GlideRecord("sysauto_script");
+        job.addQuery("script", "CONTAINS", this.sys_id);
+        job.query();
+        if (job.next()) {
+            return job.getRowCount() === 1 ? job.getLink(true) : ("/" + job.getTableName() + "_list.do?sysparm_query=" + job.getEncodedQuery());
+        } else {
+            job.newRecord();
+            GlideTemplate.get(PDIExporterUtils.SCHEDULED_JOB_TEMPLATE_ID).apply(job);
+            job.setValue("name", job.getValue("name").replaceAll("<number>", this.exportGr.getValue("u_number")));
+            job.setValue("script", job.getValue("script").replaceAll("<sys_id>", this.sys_id));
+            job.insert();
+            return job;
+        }
+    },
+
+    getLastRun: function(direction) {
+        var gr = new GlideRecord("u_pdi_export_run");
+        gr.addQuery("u_export", this.sys_id);
+        if (direction) gr.addQuery("u_direction", direction);
+        gr.orderByDesc("sys_created_on");
+        gr.setLimit(1);
+        gs.info(gr.getEncodedQuery());
+        gr.query();
+        return gr.next() ? gr.getUniqueValue() : "";
+    },
+
+    getDuplicateRepoBranches: function(owner, repo, branch) {
+		var duplicates = [];
+        if (this.exportGr) {
+            owner = owner || this.exportGr.getValue("u_repo_owner");
+            repo = repo || this.exportGr.getValue("u_repo_name");
+            branch = branch || this.exportGr.getValue("u_branch_name");
+        }
+
+        var gr = new GlideRecord("u_pdi_export");
+        gr.addQuery("u_repo_owner", owner);
+        gr.addQuery("u_repo_name", repo);
+        gr.addQuery("u_branch_name", branch);
+        if (this.exportGr) gr.addQuery("sys_id", "!=", this.sys_id);
+        gr.query();
+		while(gr.next()) {
+			duplicates.push({
+				sys_id: gr.getUniqueValue(),
+				u_number: gr.getValue("u_number"),
+				u_description: gr.getValue("u_description"),
+				_link: "/" + gr.getLink(true),
+			});
 		}
-	},
-	
-	getLastRun: function(direction) {
-		var gr = new GlideRecord("u_pdi_export_run");
-		gr.addQuery("u_export", this.sys_id);
-		if(direction) gr.addQuery("u_direction", direction);
-		gr.orderByDesc("sys_created_on");
-		gr.setLimit(1);
-		gs.info(gr.getEncodedQuery());
-		gr.query();
-		return gr.next() ? gr.getUniqueValue() : "";
-	},
+		return duplicates;
+    },
 
     type: 'PDIExporterUtils'
 });]]></script>
@@ -191,13 +219,13 @@ PDIExporterUtils.prototype = Object.extendsObject(global.PDIExporterRecordBase, 
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-18 11:33:39</sys_created_on>
         <sys_id>767f65aa4780b1103f0f5882e36d43cf</sys_id>
-        <sys_mod_count>38</sys_mod_count>
+        <sys_mod_count>41</sys_mod_count>
         <sys_name>PDIExporterUtils</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_include_767f65aa4780b1103f0f5882e36d43cf</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-01 09:01:34</sys_updated_on>
+        <sys_updated_on>2023-08-02 17:25:55</sys_updated_on>
     </sys_script_include>
 </record_update>

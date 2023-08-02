@@ -10,7 +10,7 @@
         <create_access_controls>true</create_access_controls>
         <delete_access>false</delete_access>
         <is_extendable>false</is_extendable>
-        <label>Pdi Export Filter</label>
+        <label>PDI Export Filter</label>
         <live_feed_enabled>false</live_feed_enabled>
         <name>u_pdi_export_filter</name>
         <number_ref display_value="EXPFIL">2431f1ee4780b1103f0f5882e36d4372</number_ref>
@@ -22,14 +22,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-18 10:55:53</sys_created_on>
         <sys_id>9f70316e4780b1103f0f5882e36d43d6</sys_id>
-        <sys_mod_count>1</sys_mod_count>
-        <sys_name>Pdi Export Filter</sys_name>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>PDI Export Filter</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_db_object_9f70316e4780b1103f0f5882e36d43d6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-18 10:55:54</sys_updated_on>
+        <sys_updated_on>2023-08-02 15:39:08</sys_updated_on>
         <update_access>false</update_access>
         <user_role display_value="pdi_export_admin" name="pdi_export_admin">3ffbedee4740b1103f0f5882e36d4308</user_role>
         <ws_access>false</ws_access>
