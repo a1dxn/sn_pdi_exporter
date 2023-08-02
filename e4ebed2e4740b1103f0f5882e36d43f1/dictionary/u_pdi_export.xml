@@ -5,16 +5,15 @@
             <choice/>
         </element>
         <element label="Github Endpoint" max_length="1024" name="u_endpoint" read_only="true" type="url"/>
-        <element attributes="edge_encryption_enabled=true" label="Latest Commit Date" max_length="40" name="u_latest_commit_date" read_only="true" type="glide_date_time"/>
-        <element attributes="edge_encryption_enabled=true" label="Latest Commit URL" max_length="1024" name="u_latest_commit_url" read_only="true" type="url"/>
-        <element attributes="encode_utf8=false" label="Latest Run" max_length="32" name="u_latest_run" read_only="true" reference="u_pdi_export_run" type="reference"/>
-        <element attributes="encode_utf8=false" label="Latest Pull Run" max_length="32" name="u_latest_run_pull" read_only="true" reference="u_pdi_export_run" type="reference"/>
-        <element attributes="encode_utf8=false" label="Latest Push Run" max_length="32" name="u_latest_run_push" read_only="true" reference="u_pdi_export_run" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Latest Commit Date" max_length="40" name="u_latest_commit_date" read_only="true" type="glide_date_time" virtual="true"/>
+        <element attributes="edge_encryption_enabled=true" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;// Add your code here&#13;&#10;&#9;return '';  // return the calculated value&#13;&#10;&#13;&#10;})(current);" label="Latest Commit URL" max_length="1024" name="u_latest_commit_url" read_only="true" type="url" virtual="true"/>
+        <element attributes="encode_utf8=false" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;return new PDIExporterUtils(current).getLastRun();&#13;&#10;&#13;&#10;})(current);" label="Latest Run" max_length="32" name="u_latest_run" read_only="true" reference="u_pdi_export_run" type="reference" virtual="true"/>
+        <element attributes="encode_utf8=false" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;return new PDIExporterUtils(current).getLastRun(&quot;pull&quot;);&#13;&#10;&#13;&#10;})(current);" label="Latest Pull Run" max_length="32" name="u_latest_run_pull" read_only="true" reference="u_pdi_export_run" type="reference" virtual="true"/>
+        <element attributes="encode_utf8=false" calculation="(function calculatedFieldValue(current) {&#13;&#10;&#13;&#10;&#9;return new PDIExporterUtils(current).getLastRun(&quot;push&quot;);&#13;&#10;&#13;&#10;})(current);" label="Latest Push Run" max_length="32" name="u_latest_run_push" read_only="true" reference="u_pdi_export_run" type="reference" virtual="true"/>
         <element attributes="edge_encryption_enabled=true" label="Name" max_length="100" name="u_name" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Unique Identifier" max_length="40" name="u_number" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Repository Name" mandatory="true" max_length="200" name="u_repo_name" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Repository Owner" mandatory="true" max_length="100" name="u_repo_owner" type="string"/>
-        <element label="Scheduled Push" max_length="32" name="u_scheduled_push" read_only="true" reference="sysauto_script" type="reference"/>
         <index name="index">
             <element name="u_latest_run"/>
         </index>
@@ -23,9 +22,6 @@
         </index>
         <index name="index3">
             <element name="u_latest_run_push"/>
-        </index>
-        <index name="index4">
-            <element name="u_scheduled_push"/>
         </index>
     </element>
 </database>

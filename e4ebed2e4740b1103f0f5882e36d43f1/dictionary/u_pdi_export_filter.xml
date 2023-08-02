@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="9f70316e4780b1103f0f5882e36d43d6" label="PDI Export Filter" max_length="40" name="u_pdi_export_filter" type="collection">
-        <element dependent="u_table" dependent_on_field="u_table" label="Condition" max_length="4000" name="u_condition" type="conditions" use_dependent_field="true"/>
-        <element label="Description" max_length="200" name="u_description" type="string"/>
+        <element attributes="condition_builder=v2,readable=true,show_condition_count=true,allow_order=true,allow_related_list_query=true" dependent="u_table" dependent_on_field="u_table" label="Condition" max_length="4000" name="u_condition" type="conditions" use_dependent_field="true"/>
+        <element attributes="no_truncate" label="Description" mandatory="true" max_length="200" name="u_description" type="string"/>
         <element default="true" label="Exclude Photo Attachments" max_length="40" name="u_exclude_photo_attachments" type="boolean"/>
         <element label="Include Attachments" max_length="40" name="u_include_attachments" type="boolean"/>
         <element label="Include Group Members" max_length="40" name="u_include_group_members" type="boolean"/>
         <element label="Include Reference Field Records" max_length="40" name="u_include_ref_fields" type="boolean"/>
-        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" type="string"/>
-        <element label="Table" max_length="80" name="u_table" type="table_name"/>
+        <element attributes="ignore_filter_on_new=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="u_number" read_only="true" type="string"/>
+        <element label="Table" mandatory="true" max_length="80" name="u_table" type="table_name"/>
     </element>
 </database>

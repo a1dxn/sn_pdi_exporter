@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition">
+    <sys_ws_definition action="DELETE">
+        <active>true</active>
+        <base_uri>/api/670424/pdi_exporter</base_uri>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_version>v1</default_version>
+        <doc_link/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <is_versioned>true</is_versioned>
+        <name>PDI Exporter</name>
+        <namespace>670424</namespace>
+        <produces>text/xml</produces>
+        <produces_customized>true</produces_customized>
+        <service_id>pdi_exporter</service_id>
+        <short_description/>
+        <sys_class_name>sys_ws_definition</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-18 10:38:27</sys_created_on>
+        <sys_id>a12d61e64780b1103f0f5882e36d435d</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>PDI Exporter</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>sys_ws_definition_a12d61e64780b1103f0f5882e36d435d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-18 10:41:16</sys_updated_on>
+    </sys_ws_definition>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</application>
+        <file_path/>
+        <instance_id>36471b3edbef9f808264f70fbf961974</instance_id>
+        <instance_name>dev68161</instance_name>
+        <name>sys_ws_definition_a12d61e64780b1103f0f5882e36d435d</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_definition"><sys_ws_definition action="INSERT_OR_UPDATE"><active>true</active><base_uri>/api/670424/pdi_exporter</base_uri><consumes>application/json,application/xml,text/xml</consumes><consumes_customized>false</consumes_customized><default_version>v1</default_version><doc_link/><enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl><is_versioned>true</is_versioned><name>PDI Exporter</name><namespace>670424</namespace><produces>text/xml</produces><produces_customized>true</produces_customized><service_id>pdi_exporter</service_id><short_description/><sys_class_name>sys_ws_definition</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2023-07-18 10:38:27</sys_created_on><sys_id>a12d61e64780b1103f0f5882e36d435d</sys_id><sys_mod_count>2</sys_mod_count><sys_name>PDI Exporter</sys_name><sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package><sys_policy/><sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope><sys_update_name>sys_ws_definition_a12d61e64780b1103f0f5882e36d435d</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2023-07-18 10:41:16</sys_updated_on></sys_ws_definition></record_update>]]></payload>
+        <payload_hash>-748406525</payload_hash>
+        <record_name>PDI Exporter</record_name>
+        <reverted_from/>
+        <source>efbcc88724b021108c8bc6863d3fada3</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-18 10:41:16</sys_created_on>
+        <sys_id>1edd292a4780b1103f0f5882e36d43a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>18968970c300000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-18 10:41:16</sys_updated_on>
+        <type>Scripted REST API</type>
+        <update_guid>56dd292ade80b11046febdd422d509a6</update_guid>
+        <update_guid_history>56dd292ade80b11046febdd422d509a6:-748406525,32cde1e64980b11074c8c20c9e2ab627:1032320621,853d2da6da80b110ad1fb3427a5a2f25:-1283520411</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2023-07-31 10:01:07</sys_created_on>
+        <sys_db_object display_value="" name="sys_ws_definition">sys_ws_definition</sys_db_object>
+        <sys_id>40884ebc4ea449e89d7b88ca00ce6a40</sys_id>
+        <sys_metadata>a12d61e64780b1103f0f5882e36d435d</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>PDI Exporter</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_scope_delete display_value="">a5349a8dde3c4db09d2de557a7f21990</sys_scope_delete>
+        <sys_update_name>sys_ws_definition_a12d61e64780b1103f0f5882e36d435d</sys_update_name>
+        <sys_update_version display_value="sys_ws_definition_a12d61e64780b1103f0f5882e36d435d">1edd292a4780b1103f0f5882e36d43a6</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2023-07-31 10:01:07</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -241,12 +241,12 @@ PDIExporterRecordBase.prototype = {
                 processParentTable = true;
                 break;
         }
-		
-		if (tableName.startsWith("u_pdi_export")) {
-			this._PDIExportRecord(tableRec, tableName);
-			continueProcessing = false;
-			processParentTable = false;
-		}
+
+        if (tableName.startsWith("u_pdi_export")) {
+            this._PDIExportRecord(tableRec, tableName);
+            continueProcessing = false;
+            processParentTable = false;
+        }
 
         if (processParentTable) {
             // Check for table needs at parent table level
@@ -379,7 +379,7 @@ PDIExporterRecordBase.prototype = {
         for (var t in fields) {
             for (var f in fields[t]) {
                 var el = tableRec.getElement(fields[t][f]);
-                if (el.hasValue()) {
+                if (el != null && el.hasValue()) {
                     var records = new GlideRecord(t);
                     records.addQuery("sys_id", "IN", el.toString());
                     records._query();
@@ -409,61 +409,70 @@ PDIExporterRecordBase.prototype = {
     },
 
     _getConfigOptions: function() {
-        return {
+        var config = {
             u_include_group_members: this.includeUsersWithGroups,
             u_include_attachments: this.includeAttachments,
             u_exclude_photo_attachments: this.suppressPhotoAttachments,
-            u_include_ref_fields: this.includeReferenceFieldRecords,
-			
-			includeUsersWithGroups: this.includeUsersWithGroups,
-            includeAttachments: this.includeAttachments,
-            suppressPhotoAttachments: this.suppressPhotoAttachments,
-            includeReferenceFieldRecords: this.includeReferenceFieldRecords
+            u_include_ref_fields: this.includeReferenceFieldRecords
         };
+
+        duplicate("u_include_group_members", "includeUsersWithGroups");
+        duplicate("u_include_attachments", "includeAttachments");
+        duplicate("u_exclude_photo_attachments", "suppressPhotoAttachments");
+        duplicate("u_include_ref_fields", "includeReferenceFieldRecords");
+
+        function duplicate(originalKey, copyKey) {
+            Object.defineProperty(config, copyKey, {
+                //writable: true,
+                get: function() {
+                    return !!this[originalKey];
+                },
+                set: function(value) {
+                    this[originalKey] = !!value;
+                }
+            });
+        }
+
+        return config;
     },
-	
-	_deleteDocElements: function(xmlDoc, elementsToDelete) {
-  for (var i = 0; i < elementsToDelete.length; i++) {
-    var elementToDelete = elementsToDelete[i];
-    var elements = xmlDoc.getElementsByTagName(elementToDelete);
-    for (var j = 0; j < elements.length; j++) {
-      var element = elements[j];
-      element.parentNode.removeChild(element);
-    }
-  }
-  return xmlDoc;
-},
+
+    _deleteDocElements: function(xmlString, elementsToDelete) {
+        var removalPattern = elementsToDelete.join("|");
+        var pattern = new RegExp('<(' + removalPattern + ')[^>]*>.*?<\\/' + removalPattern + '>', "g");
+        xmlString = xmlString.replace(pattern, "");
+        return xmlString;
+    },
 
     /********************* Table Specific Functions *********************/
 
     /********************* Begin Attachment Functions *********************/
 
     _PDIExportRecord: function(record, tableName) {
-		tableName = tableName || this._getTableName(record);
-		var oldOpts = this._getConfigOptions();
-		var newOpts = this._getConfigOptions();
-		
-		newOpts.u_include_ref_fields = true;
-		newOpts.u_include_attachments = false;
-		newOpts.u_include_group_members = false;
-		this.setConfigOptions(newOpts);
-		
+        tableName = tableName || this._getTableName(record);
+        var oldOpts = this._getConfigOptions();
+        var newOpts = this._getConfigOptions();
+
+        newOpts.u_include_ref_fields = true;
+        newOpts.u_include_attachments = false;
+        newOpts.u_include_group_members = false;
+        this.setConfigOptions(newOpts);
+
         if (tableName.endsWith("run")) {
             return; //Do not want to capture these!!
         } else if (tableName.endsWith("export")) {
-			//Remove specific elements from the Export record that would cause unnecessary commit changes.
-			var xmlString = this._exportRecordRaw(record);
-			var capturedIndex = this._getCache("captured_record_index_store", tableName + "/" + record.getUniqueValue());
-			if(capturedIndex) {
-				var recordDoc = new XMLDocument2();
-				recordDoc.parseXML(xmlString);
-				this._deleteDocElements(recordDoc, ['u_latest_commit_date', 'u_latest_commit_url', 'u_latest_run_pull', 'u_latest_run_push']);
-				this.recordXMLs[capturedIndex] = recordDoc.getDocumentElement().toString();
-			}
+            //Remove specific elements from the Export record that would cause unnecessary commit changes.
+            var xmlString = this._exportRecordRaw(record);
+            var capturedIndex = this._getCache("captured_record_index_store", tableName + "/" + record.getUniqueValue());
+            if (capturedIndex > -1) {
+                var recordDoc = new XMLDocument2();
+                recordDoc.parseXML(xmlString);
+                this._deleteDocElements(recordDoc, ['u_latest_commit_date', 'u_latest_commit_url', 'u_latest_run_pull', 'u_latest_run_push']);
+                this.recordXMLs[capturedIndex] = recordDoc.getDocumentElement().toString();
+            }
         } else {
-			this._exportRecordRaw(record);
-		}
-		this.setConfigOptions(oldOpts);
+            this._exportRecordRaw(record);
+        }
+        this.setConfigOptions(oldOpts);
     },
 
     /********************* Begin Attachment Functions *********************/
@@ -3965,13 +3974,13 @@ PDIExporterRecordBase.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2023-07-19 15:12:34</sys_created_on>
         <sys_id>8b43bb32474835103f0f5882e36d431f</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>19</sys_mod_count>
         <sys_name>PDIExporterRecordBase</sys_name>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_include_8b43bb32474835103f0f5882e36d431f</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-27 14:30:20</sys_updated_on>
+        <sys_updated_on>2023-07-31 16:43:27</sys_updated_on>
     </sys_script_include>
 </record_update>
