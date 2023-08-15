@@ -21,7 +21,8 @@
 	
 	g_form.setValue("u_branch_name", branch.name);
 	g_form.setValue("u_latest_commit_url", branch.commit_url || "");
-	g_form.setValue("u_latest_commit_date", branch.commit_message || "");
+	g_form.setValue("u_latest_commit_date", branch.commit_date || "");
+	g_form.setValue("u_latest_commit_message", branch.commit_message || "");
    
 }]]></script>
         <sys_class_name>sys_script_client</sys_class_name>
@@ -30,15 +31,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>567e1485475871103f0f5882e36d439b</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>Set latest commit data</sys_name>
         <sys_overrides/>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_script_client_567e1485475871103f0f5882e36d439b</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-07-25 23:27:27</sys_updated_on>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 17:00:33</sys_updated_on>
         <table>u_pdi_export</table>
         <type>onChange</type>
         <ui_type>10</ui_type>
