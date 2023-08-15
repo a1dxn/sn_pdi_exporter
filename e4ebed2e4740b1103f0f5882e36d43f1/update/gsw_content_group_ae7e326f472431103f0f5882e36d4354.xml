@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="gsw_content_group">
+    <gsw_content_group action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <checksum>cWKxkL6boiWJdpyRS+LUvBRUyLw=</checksum>
+        <child_can_have_roles>false</child_can_have_roles>
+        <children_layout>1</children_layout>
+        <dependent_on_contents>3b49fea3472431103f0f5882e36d43bd</dependent_on_contents>
+        <dependent_on_plugins/>
+        <dependent_on_plugins_ids/>
+        <description/>
+        <display_child_max_num/>
+        <done_status_text/>
+        <hide_getting_started>false</hide_getting_started>
+        <icon/>
+        <implicit_dependent_on/>
+        <implicit_plugin_dependencies/>
+        <is_root_content>false</is_root_content>
+        <order>200</order>
+        <parent display_value="PDI Exporter Initial Setup">6047be63472431103f0f5882e36d43db</parent>
+        <parents>6047be63472431103f0f5882e36d43db</parents>
+        <progress_text/>
+        <roles/>
+        <root_intro_frame_link/>
+        <root_parent display_value="PDI Exporter Initial Setup">6047be63472431103f0f5882e36d43db</root_parent>
+        <skippable>true</skippable>
+        <supports_child_content>true</supports_child_content>
+        <sys_class_name>gsw_content_group</sys_class_name>
+        <sys_created_by>Aidan.Lovegrove</sys_created_by>
+        <sys_created_on>2023-08-15 15:44:26</sys_created_on>
+        <sys_id>ae7e326f472431103f0f5882e36d4354</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Setup Exporter Configurations</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>gsw_content_group_ae7e326f472431103f0f5882e36d4354</sys_update_name>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 15:56:48</sys_updated_on>
+        <title>Setup Exporter Configurations</title>
+        <weight>1</weight>
+    </gsw_content_group>
+    <sys_translated_text action="delete_multiple" query="documentkey=ae7e326f472431103f0f5882e36d4354"/>
+</record_update>

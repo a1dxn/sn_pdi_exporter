@@ -31,6 +31,11 @@
         <onclick>previewRecords();</onclick>
         <order>-1000</order>
         <script><![CDATA[function previewRecords() {
+	
+	if(g_form.modified) {
+		alert("Save the record before proceeding.");
+		return false;
+	}
 
     var filterId = g_form.getUniqueValue();
 
@@ -87,15 +92,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d87e81eb479075103f0f5882e36d431f</sys_id>
-        <sys_mod_count>12</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>Preview</sys_name>
         <sys_overrides/>
         <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
         <sys_policy/>
         <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
         <sys_update_name>sys_ui_action_d87e81eb479075103f0f5882e36d431f</sys_update_name>
-        <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2023-08-02 22:33:43</sys_updated_on>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 14:55:57</sys_updated_on>
         <table>u_pdi_export_filter</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="gsw_content_information">
+    <gsw_content_information action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <article><![CDATA[<p><strong>Run this background script</strong>.</p>
+<p>If any error messages appear, check that your connection details are correct and your GitHub API key has the correct permissions. It should have read and write access to public and private repositories.</p>]]></article>
+        <best_practice_acceptable>false</best_practice_acceptable>
+        <dependent_on_contents>c0d83e63472431103f0f5882e36d4310</dependent_on_contents>
+        <dependent_on_plugins/>
+        <dependent_on_plugins_ids/>
+        <description/>
+        <embedded_help_qualifier/>
+        <end_point>/sys.scripts.do?content=try%7Bvar%20outputs%3Dsn_fd.FlowAPI.getRunner().action(%22global.github__get_repo_branches%22).inForeground().withInputs(%7Brepository_owner:%22github%22%2Crepository_name:%22markup%22%7D).run().getOutputs()%3Bif(gs.print(%22Status:%20%22%2Boutputs.__action_status__.message)%2C0!%3D%3Doutputs.__action_status__.code)throw%22Error%20with%20Flow%20Action:%20%22%2Boutputs.__action_status__.message%3Bif(!outputs.repo_id)throw%22Did%20not%20receive%20a%20repo%20ID%20from%20test.%20Make%20sure%20your%20credentials%20and%20permissions%20(within%20GitHub%20API%20key)%20are%20correct.%22%3Bgs.print(%22Found%20public%20repository%20%22%2Boutputs.repo_url%2B%22%20with%20%22%2Boutputs.branches.length%2B%22%20branches.%22)%7Dcatch(e)%7Bgs.error(%22Failed%20to%20connect%20to%20GitHub:%5Cn%22%2Be.getMessage())%7D</end_point>
+        <end_point_open_mode>2</end_point_open_mode>
+        <end_point_type>1</end_point_type>
+        <field/>
+        <filter/>
+        <filter_result/>
+        <implicit_dependent_on/>
+        <implicit_plugin_dependencies/>
+        <is_dynamic>false</is_dynamic>
+        <more_info_available>false</more_info_available>
+        <more_info_html/>
+        <order>200</order>
+        <parent display_value="Connections">3b49fea3472431103f0f5882e36d43bd</parent>
+        <parents>3b49fea3472431103f0f5882e36d43bd,6047be63472431103f0f5882e36d43db</parents>
+        <plugin_id/>
+        <property_name/>
+        <property_value/>
+        <quick_startable>false</quick_startable>
+        <root_parent display_value="PDI Exporter Initial Setup">6047be63472431103f0f5882e36d43db</root_parent>
+        <skippable>false</skippable>
+        <supports_child_content>false</supports_child_content>
+        <sys_class_name>gsw_content_information</sys_class_name>
+        <sys_created_by>Aidan.Lovegrove</sys_created_by>
+        <sys_created_on>2023-08-15 15:33:53</sys_created_on>
+        <sys_id>70ecf2a7472431103f0f5882e36d43d8</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Test your connection</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>gsw_content_information_70ecf2a7472431103f0f5882e36d43d8</sys_update_name>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 15:57:14</sys_updated_on>
+        <table/>
+        <title>Test your connection</title>
+        <weight>1</weight>
+    </gsw_content_information>
+    <sys_translated_text action="delete_multiple" query="documentkey=70ecf2a7472431103f0f5882e36d43d8"/>
+</record_update>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="gsw_content_information">
+    <gsw_content_information action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <article><![CDATA[<p>Create a new connection and credential using the related link.</p>
+<p>If you do not have a GitHub API key, create one under your GitHub account settings. Make sure you can read and write public and private repositories.</p>]]></article>
+        <best_practice_acceptable>false</best_practice_acceptable>
+        <dependent_on_contents/>
+        <dependent_on_plugins/>
+        <dependent_on_plugins_ids/>
+        <description/>
+        <embedded_help_qualifier/>
+        <end_point>/nav_to.do?uri=sys_alias.do?sys_id=2d09d5f8471031103f0f5882e36d433b</end_point>
+        <end_point_open_mode>2</end_point_open_mode>
+        <end_point_type>1</end_point_type>
+        <field/>
+        <filter/>
+        <filter_result/>
+        <implicit_dependent_on/>
+        <implicit_plugin_dependencies/>
+        <is_dynamic>false</is_dynamic>
+        <more_info_available>false</more_info_available>
+        <more_info_html/>
+        <order>100</order>
+        <parent display_value="Connections">3b49fea3472431103f0f5882e36d43bd</parent>
+        <parents>3b49fea3472431103f0f5882e36d43bd,6047be63472431103f0f5882e36d43db</parents>
+        <plugin_id/>
+        <property_name/>
+        <property_value/>
+        <quick_startable>false</quick_startable>
+        <root_parent display_value="PDI Exporter Initial Setup">6047be63472431103f0f5882e36d43db</root_parent>
+        <skippable>true</skippable>
+        <supports_child_content>false</supports_child_content>
+        <sys_class_name>gsw_content_information</sys_class_name>
+        <sys_created_by>Aidan.Lovegrove</sys_created_by>
+        <sys_created_on>2023-08-15 15:16:53</sys_created_on>
+        <sys_id>c0d83e63472431103f0f5882e36d4310</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Link to your GitHub account</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>gsw_content_information_c0d83e63472431103f0f5882e36d4310</sys_update_name>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 16:14:57</sys_updated_on>
+        <table/>
+        <title>Link to your GitHub account</title>
+        <weight>1</weight>
+    </gsw_content_information>
+    <sys_translated_text action="delete_multiple" query="documentkey=c0d83e63472431103f0f5882e36d4310"/>
+</record_update>

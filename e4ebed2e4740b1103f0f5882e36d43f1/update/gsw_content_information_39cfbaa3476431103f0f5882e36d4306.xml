@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="gsw_content_information">
+    <gsw_content_information action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <article><![CDATA[<p>If you have a repository containing other PDI Export Configurations, setup this one first.</p>
+<p>Otherwise, setup a configuration record for the repository you created in the previous step.</p>]]></article>
+        <best_practice_acceptable>false</best_practice_acceptable>
+        <dependent_on_contents>6fa007ef472431103f0f5882e36d43c3</dependent_on_contents>
+        <dependent_on_plugins/>
+        <dependent_on_plugins_ids/>
+        <description/>
+        <embedded_help_qualifier/>
+        <end_point>/u_pdi_export.do?sys_id=-1</end_point>
+        <end_point_open_mode>2</end_point_open_mode>
+        <end_point_type>1</end_point_type>
+        <field/>
+        <filter/>
+        <filter_result/>
+        <implicit_dependent_on>3b49fea3472431103f0f5882e36d43bd</implicit_dependent_on>
+        <implicit_plugin_dependencies/>
+        <is_dynamic>false</is_dynamic>
+        <more_info_available>false</more_info_available>
+        <more_info_html/>
+        <order>200</order>
+        <parent display_value="Setup Exporter Configurations">ae7e326f472431103f0f5882e36d4354</parent>
+        <parents>ae7e326f472431103f0f5882e36d4354,6047be63472431103f0f5882e36d43db</parents>
+        <plugin_id/>
+        <property_name/>
+        <property_value/>
+        <quick_startable>false</quick_startable>
+        <root_parent display_value="PDI Exporter Initial Setup">6047be63472431103f0f5882e36d43db</root_parent>
+        <skippable>true</skippable>
+        <supports_child_content>false</supports_child_content>
+        <sys_class_name>gsw_content_information</sys_class_name>
+        <sys_created_by>Aidan.Lovegrove</sys_created_by>
+        <sys_created_on>2023-08-15 15:48:16</sys_created_on>
+        <sys_id>39cfbaa3476431103f0f5882e36d4306</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Setup initial PDI Exporter configuration record</sys_name>
+        <sys_package display_value="PDI Exporter" source="e4ebed2e4740b1103f0f5882e36d43f1">e4ebed2e4740b1103f0f5882e36d43f1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="PDI Exporter">e4ebed2e4740b1103f0f5882e36d43f1</sys_scope>
+        <sys_update_name>gsw_content_information_39cfbaa3476431103f0f5882e36d4306</sys_update_name>
+        <sys_updated_by>Aidan.Lovegrove</sys_updated_by>
+        <sys_updated_on>2023-08-15 16:22:33</sys_updated_on>
+        <table/>
+        <title>Setup initial PDI Exporter configuration record</title>
+        <weight>1</weight>
+    </gsw_content_information>
+    <sys_translated_text action="delete_multiple" query="documentkey=39cfbaa3476431103f0f5882e36d4306"/>
+</record_update>
